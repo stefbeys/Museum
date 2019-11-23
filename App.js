@@ -1,11 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import TabComponent from './Components/TabComponent';
+import HomeScreen from './Pages';
+import ProfileScreen from './Pages/profile';
+import SettingScreen from './Pages/settings';
 
 export default function App() {
+  const tabs={
+   Home:HomeScreen,
+   Profile:ProfileScreen,
+   Settings:SettingScreen
+  }
+  const barOptions={
+    tabBarOptions: {  
+      activeTintColor: 'white',  
+      showIcon: true,  
+      showLabel:false,  
+      style: {  
+          backgroundColor:'red'  
+      } ,
+    },
+    tabBarPosition:"bottom"
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <TabComponent Tabinfo={tabs} MainTabInfo={barOptions} />
   );
 }
 
