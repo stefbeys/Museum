@@ -8,8 +8,8 @@ let ScreenWidth = Dimensions.get("window").width;
 
 export default class IndexScreen extends React.Component {
   render() {
+    const tabnav=this.props.navigation;
     return (
-
       <View style={styles.contentContainer}>
         <Image
           resizeMode={"stretch"}
