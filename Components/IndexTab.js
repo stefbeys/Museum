@@ -1,28 +1,28 @@
 import React from "react";
 import { StyleSheet, View, Image, Dimensions, Button } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import CameraScreen from "./CameraScreen";
-
+import Navigation from '../Utils/navigatorUtil'
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
-export default class IndexScreen extends React.Component {
+export default class IndexTab extends React.Component {
   render() {
     return (
-
-      <View style={styles.contentContainer}>
-        <Image
-          resizeMode={"stretch"}
-          style={styles.c_background}
-          source={require("../assets/BackgroundL.png")}
-        />
-        <Button title="aaaah"/>
-        <Button title="useless" onPress={()=>{ this.props.navigation.navigate('Camera')}}/>
-       
-      </View>
+        <Navigation/>
     );
   }
 }
+IndexTab.navigationOptions = {
+  tabBarIcon: ({ tintColor }) => (
+    <SvgUri
+      height="30"
+      width="30"
+      style={styles.c_nav__item}
+      fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
+      source={require("../assets/Index.svg")}
+    />
+  )
+};
 
 // #region Stylesheet
 const styles = StyleSheet.create({

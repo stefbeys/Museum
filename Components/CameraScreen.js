@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
       height: ScreenHeight,
       width: ScreenWidth,
       position: 'absolute'
+    },
+    contentContainer:{
+        backgroundColor:"#000"
     }
   });
  // #endregion
