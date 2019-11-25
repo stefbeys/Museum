@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, View, Image, Dimensions, Text, TouchableHighlight, ListView, Button, FlatList} from 'react-native';
+import { StyleSheet, View, Image, Dimensions, Text, TouchableHighlight, TouchableOpacity, FlatList} from 'react-native';
 import Images from './images'
 import SvgUri from 'react-native-svg-uri';
 
-const dataList = [{img: 'duck1', name:'sticker1', data:'Bought'}, {img: 'duck2', name:'sticker2', data:'not bought'}]
+const dataList = [{img: 'duck1', name:'sticker1', data:'claimed'}, {img: 'duck2', name:'sticker2', data:'unclaimed'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -14,6 +14,10 @@ export default class StoreScreen extends React.Component {
     this.state = {
       data: dataList,
     }
+  }
+
+  _onPress(item){
+
   }
   //#endregion
 
@@ -28,12 +32,21 @@ export default class StoreScreen extends React.Component {
         </View>
         <FlatList data={dataList}
           renderItem={({item, index, separators}) => (
-            <TouchableHighlight onShowUnderlay={separators.highlight} onHideUnderlay={separators.unhighlight}>
-              <View style={styles.c_index}>
+            <TouchableHighlight>
+              <View style={styles.c_index_container}>
+                <View style={styles.c_index}>
                   <Image style={styles.c_index__picture} source={Images.ducks[item.img]}/>
-                  <Text style={styles.c_index_data__name}>{item.name}</Text>
-                  <Button style={styles.c_index__button} title="Buy"/>
-                </View>
+                  <View>
+                    <Text style={styles.c_index_data__name}>{item.name}</Text>
+                    <Text style={styles.c_index_data__points}>800Pts</Text>
+                  </View>
+                </View>  
+                <TouchableOpacity onPress={() => this._onPress(item)}>
+                  <View style = {styles.c_index__button__unclaimed}>
+                      <Text style={ styles.c_index__button_text__unclaimed}>Claim</Text>
+                  </View>
+            </TouchableOpacity>
+              </View>
             </TouchableHighlight>
           )}
         />
@@ -49,8 +62,11 @@ export default class StoreScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
-  c_lvw:{
-
+  c_index_container:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 24,
   },
 
   c_points_container:{
@@ -76,22 +92,23 @@ const styles = StyleSheet.create({
   },
 
   c_index:{
-    margin: 24,
     flex:1,
     flexDirection: 'row',
-    width: ScreenWidth,
   },
   
   c_index__picture:{
     height: 88,
     width: 88,
-    marginRight: 24
-  },
-
-  c_index_data:{
+    marginRight: 24,
+    borderRadius: 500
   },
 
   c_index_data__name:{
+    fontSize:32,
+    color: 'white',
+    marginRight: 200
+  },
+  c_index_data__points:{
     fontSize:24,
     color: 'white',
     marginRight: 200
@@ -101,9 +118,32 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 
-  c_index__button:{
-    marginLeft: 100,
-    width: 48
+  c_index__button__claimed:{
+    margin: 24,
+    width: 88,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+
+  c_index__button_text__claimed:{
+    color: "#405F7E"
+  },
+
+  c_index__button_text__unclaimed:{
+    color: "#405F7E"
+  },
+
+  c_index__button__unclaimed:{
+    margin: 24,
+    width: 88,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 5,
   },
 
   c_nav__item:{

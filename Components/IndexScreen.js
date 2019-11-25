@@ -1,11 +1,8 @@
 import React from "react";
-import {Platform, SectionList, StyleSheet, View, Text, Image, Dimensions, ListView, TouchableHighlight, FlatList} from 'react-native';
+import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList} from 'react-native';
 import Images from './images'
 
 const dataList = [{img: 'duck1', name:'BlaBla', data:'info about him'}, {img: 'duck2', name:'Bean Goose', data:'info about him'}, {img: 'duck3', name:'Oelala', data:'info about him'}]
-let selectedImg = null;
-let selectedName = null;
-let selectedData = null;
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -81,13 +78,15 @@ const styles = StyleSheet.create({
     c_index__picture:{
       height: 88,
       width: 88,
-      marginRight: 24
+      marginRight: 24,
+      borderRadius: 500
     },
 
     c_index__picture_selected:{
       height: 124,
       width: 124,
-      marginRight: 24
+      marginRight: 24,
+      borderRadius: 500
     },
 
     c_index_data:{
