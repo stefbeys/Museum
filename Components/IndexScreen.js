@@ -1,5 +1,5 @@
 import React from "react";
-import {Platform, SectionList, StyleSheet, View, Text, Image, Dimensions, ListView, TouchableHighlight} from 'react-native';
+import {Platform, SectionList, StyleSheet, View, Text, Image, Dimensions, ListView, TouchableHighlight, FlatList} from 'react-native';
 import Images from './images'
 
 const dataList = [{img: 'duck1', name:'BlaBla', data:'info about him'}, {img: 'duck2', name:'Bean Goose', data:'info about him'}, {img: 'duck3', name:'Oelala', data:'info about him'}]
@@ -10,43 +10,24 @@ let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
 
 export default class IndexScreen extends React.Component {
+  //#region listview code
   constructor(props) {
     super(props);
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      data: dataList,
-      dataSource: ds,
+      img: "",
+      name: "",
+      info: ""
     }
   }
-  
-  componentDidMount() {
+
+  _onPress(item) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(dataList)
+      img: item.img,
+      name: item.name,
+      info: item.data
     });
   }
-
-  _renderRow(rowData,sectionID, rowID) {
-    return (
-      <TouchableHighlight onPress={this._onPressRow.bind(this.rowID, rowData)}>
-        <View style={styles.c_index}>
-          <Image style={styles.c_index__picture} source={Images.ducks[rowData.img]}/>
-          <Text style={styles.c_index_data__name}>{rowData.name}</Text>
-          <Text style={styles.c_index_data__data}>{rowID}</Text>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-
-  _onPressRow(rowID, rowData) {
-    // let dataClone = dataList;
-    // console.warn(rowID)
-    // dataClone[rowID] = rowData;
-    this.setState({
-      dataSource: rowID,
-      data: rowID
-    });
-  }
-
+  //#endregion
 
   render() {
     return(
@@ -54,15 +35,24 @@ export default class IndexScreen extends React.Component {
           <Image resizeMode={'stretch'} style={styles.c_background} source={require('../assets/BackgroundL.png')}/>
           <View style={styles.c_info}>
             <View style={styles.c_index}> 
-            <Image style={styles.c_index__picture_selected} source={selectedImg}/>
+            <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
             <View>
               <Text style={styles.c_index_data__name}>{this.state.name}</Text>
-              <Text style={styles.c_index_data__name}>{selectedData}</Text>
+              <Text style={styles.c_index_data__name}>{this.state.info}</Text>
             </View>
             </View>
             
           </View>
-          <ListView dataSource = {this.state.dataSource} renderRow = {this._renderRow.bind(this)}/>
+          <FlatList data={dataList}
+            renderItem={({item, index, separators}) => (
+              <TouchableHighlight onPress={() => this._onPress(item)} onShowUnderlay={separators.highlight} onHideUnderlay={separators.unhighlight}>
+                <View style={styles.c_index}>
+                  <Image style={styles.c_index__picture} source={Images.ducks[item.img]}/>
+                  <Text style={styles.c_index_data__name}>{item.name}</Text>
+                </View>
+              </TouchableHighlight>
+            )}
+          />
       </View>
     )
   }
