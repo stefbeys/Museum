@@ -12,6 +12,7 @@
     "eslint": "^6.7.0",
     "expo": "^35.0.0",
     "expo-blur": "^7.0.0",
+    "expo-camera": "^7.0.0",
     "expo-permissions": "~7.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
@@ -28,6 +29,7 @@
     "react-native-web": "^0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-material-bottom-tabs": "^2.1.5",
+    "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.6.0",
     "readable-stream": "^3.4.0"
   },

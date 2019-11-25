@@ -68,7 +68,6 @@ export default class IndexScreen extends React.Component {
   }
 }
 
-
 // #region Stylesheet
 const styles = StyleSheet.create({
     c_info:{

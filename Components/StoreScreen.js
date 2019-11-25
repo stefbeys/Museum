@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image, Dimensions, Text, TouchableHighlight, ListView} from 'react-native';
 import Images from './images'
+import SvgUri from 'react-native-svg-uri';
 
 const dataList = [{img: 'duck1', name:'BlaBla', data:'info about him'}, {img: 'duck2', name:'Bean Goose', data:'info about him'}, {img: 'duck3', name:'Oelala', data:'info about him'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
@@ -58,6 +59,11 @@ export default class StoreScreen extends React.Component {
     )
   }
 }
+  StoreScreen.navigationOptions={
+    tabBarIcon: ({tintColor}) => (
+      <SvgUri height="30" width="30" style={styles.c_nav__item} fill={'#FFFFFF' ? tintColor : '#A8A8A8'} source={require('../assets/Store.svg')}/>
+      )
+  }
 
 // #region Stylesheet
 const styles = StyleSheet.create({
@@ -105,5 +111,9 @@ const styles = StyleSheet.create({
     c_index_data__data:{
       color: 'white',
     },
+    c_nav__item:{
+      color: '#A8A8A8',
+      fontSize: 14,
+    }
   });
 // #endregion
