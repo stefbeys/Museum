@@ -32,7 +32,7 @@ export default class StoreScreen extends React.Component {
           </View>
         </View>
         <FlatList data={dataList}
-          renderItem={({item, index, separators}) => (
+          renderItem={({item, index}) => (
             <TouchableHighlight>
               <View style={styles.c_index_container}>
                 <View style={styles.c_index}>

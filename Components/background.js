@@ -18,140 +18,145 @@ export default class backgrounds extends React.Component{
       }
 
       componentDidUpdate() {
-        //#region Eagle Animation
+
+        //#region X Animation
         Animated.loop(
-          Animated.sequence([
-            Animated.timing(this.moveAnimX1, {
-              toValue: 135,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: 200,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: 300,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: 400,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: ScreenWidth+60,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: ScreenWidth+60,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX1, {
-              toValue: 0,
-              duration: 1000,
-            }),
-          ])
-        ).start()
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(this.moveAnimY1, {
-              toValue: -50,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: -10,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: -25,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: -75,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: -30,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: +100,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY1, {
-              toValue: +100,
-              duration: 1000,
-            }),
-          ])
-        ).start()
-        //#endregion
-    
-        //#region Layer2 Animations
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(this.moveAnimX2, {
-              toValue: 135,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: 200,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: 300,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: 400,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: ScreenWidth+60,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: ScreenWidth+60,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimX2, {
-              toValue: 0,
-              duration: 1000,
-            }),
-          ])
-        ).start()
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(this.moveAnimY2, {
-              toValue: -50,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: -10,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: -25,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: -75,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: -30,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: +100,
-              duration: 1000,
-            }),
-            Animated.timing(this.moveAnimY2, {
-              toValue: +100,
-              duration: 1000,
-            }),
-          ])
+            Animated.sequence([
+                Animated.delay(5000),
+                //#region Bird 1
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: 135,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: 200,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: 300,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: 400,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: ScreenWidth+60,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: ScreenWidth+60,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX1, {
+                        toValue: 0,
+                        duration: 1000,
+                    }),
+                    //#endregion
+                Animated.delay(7000),
+                //#region Bird 2
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -50,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -175,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -275,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -450,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -625,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -625,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimX2, {
+                        toValue: -50,
+                        duration: 1000,
+                    }),
+                    //#endregion
+            ])
         ).start()
         //#endregion
-    
+
+        //#region Y Animation
+        Animated.loop(
+            Animated.sequence([
+                Animated.delay(5000),
+                //#region Bird 1
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: -50,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: -10,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: -25,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: -75,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: -30,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: +100,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY1, {
+                        toValue: +100,
+                        duration: 1000,
+                    }),
+                    //#endregion
+                Animated.delay(7000),
+                //#region Bird 2
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: 70,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: 40,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: 0,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: 30,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: -80,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: ScreenHeight -60,
+                        duration: 1000,
+                    }),
+                    Animated.timing(this.moveAnimY2, {
+                        toValue: ScreenHeight -60,
+                        duration: 1000,
+                    }),
+                    //#endregion
+            ])
+        ).start()
+        //#endregion
+
         //#region Layer3 Animations
         Animated.loop(
           Animated.sequence([
@@ -287,15 +292,16 @@ export default class backgrounds extends React.Component{
         //#endregion
     
       }
+    
 
     render(){
         return(
             <View>
-<Image resizeMode={'stretch'} style={styles.c_background} source={require('../assets/BackgroundL.png')}/>
-            <Animated.Image style={[styles.js_animate_bird_1, { transform: [{ translateX: this.moveAnimX1}, {translateY: this.moveAnimY1 }]} ]} fill={'#000000'} source={require('../assets/eagle.png')}/>
-          <Animated.Image style={[styles.js_animate_bird_2, { transform: [{ translateX: this.moveAnimX2}, {translateY: this.moveAnimY2 }]} ]} fill={'#000000'} source={require('../assets/dove.png')}/>
-          <Animated.Image style={[styles.js_animate_bird_3, { transform: [{ translateX: this.moveAnimX3}, {translateY: this.moveAnimY3 }]} ]} fill={'#000000'} source={require('../assets/hummingbird.png')}/>
-          <Animated.Image style={[styles.js_animate_bird_4, { transform: [{ translateX: this.moveAnimX4}, {translateY: this.moveAnimY4 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/>
+                <Image resizeMode={'stretch'} style={styles.c_background} source={require('../assets/BackgroundL.png')}/>
+                <Animated.Image style={[styles.js_animate_bird_1, { transform: [{ translateX: this.moveAnimX1}, {translateY: this.moveAnimY1 }]} ]} fill={'#000000'} source={require('../assets/eagle.png')}/>
+                <Animated.Image style={[styles.js_animate_bird_2, { transform: [{ translateX: this.moveAnimX2}, {translateY: this.moveAnimY2 }]} ]} fill={'#000000'} source={require('../assets/dove.png')}/>
+          {/* <Animated.Image style={[styles.js_animate_bird_3, { transform: [{ translateX: this.moveAnimX3}, {translateY: this.moveAnimY3 }]} ]} fill={'#000000'} source={require('../assets/hummingbird.png')}/> */}
+          {/* <Animated.Image style={[styles.js_animate_bird_4, { transform: [{ translateX: this.moveAnimX4}, {translateY: this.moveAnimY4 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/> */}
             </View>
             
         )
@@ -320,8 +326,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         height: 50,
         width: 50,
-        left: ScreenWidth - 75,
-        top: ScreenHeight - 300
+        left: ScreenWidth + 75,
+        top: ScreenHeight - 300,
+        // scaleX: -1
       },
       js_animate_bird_3:{
         position: 'absolute',
