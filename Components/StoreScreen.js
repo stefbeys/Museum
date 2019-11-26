@@ -7,6 +7,22 @@ const dataList = [{img: 'duck1', name:'sticker1', data:'claimed'}, {img: 'duck2'
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
 
+function AnimateBirds(){
+  setTimeout(() => {
+    
+  }, 1000);
+
+
+  setTimeout(() => {
+    
+  }, 3000);
+
+
+  setTimeout(() => {
+    
+  }, 7000);
+}
+
 export default class StoreScreen extends React.Component {
   // #region Listview code
   constructor(props) {
