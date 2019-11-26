@@ -2,26 +2,11 @@ import React from "react";
 import { StyleSheet, View, Image, Dimensions, Text, TouchableHighlight, TouchableOpacity, FlatList} from 'react-native';
 import Images from './images'
 import SvgUri from 'react-native-svg-uri';
+import Background from './background'
 
 const dataList = [{img: 'duck1', name:'sticker1', data:'claimed'}, {img: 'duck2', name:'sticker2', data:'unclaimed'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
-
-function AnimateBirds(){
-  setTimeout(() => {
-    
-  }, 1000);
-
-
-  setTimeout(() => {
-    
-  }, 3000);
-
-
-  setTimeout(() => {
-    
-  }, 7000);
-}
 
 export default class StoreScreen extends React.Component {
   // #region Listview code
@@ -40,7 +25,7 @@ export default class StoreScreen extends React.Component {
   render() {
     return(
       <View>
-        <Image resizeMode={'stretch'} style={styles.c_background} source={require('../assets/BackgroundL.png')}/>  
+        <Background />  
         <View style={styles.c_points_container}>
           <View style={styles.c_points_flexcontainer}>
             <Text style={styles.c_points_amount}>800<Text style={styles.c_points_pts}>Pts</Text></Text>
@@ -99,12 +84,6 @@ const styles = StyleSheet.create({
   c_points_pts:{
     color: 'white',
     fontSize: 24
-  },
-
-  c_background:{
-    height: ScreenHeight,
-    width: ScreenWidth,
-    position: 'absolute'
   },
 
   c_index:{
