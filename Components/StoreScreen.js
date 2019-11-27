@@ -4,6 +4,7 @@ import Images from './images'
 import SvgUri from 'react-native-svg-uri';
 import Background from './background'
 
+
 const dataList = [{img: 'duck1', name:'sticker1', data:'claimed'}, {img: 'duck2', name:'sticker2', data:'unclaimed'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
@@ -16,6 +17,7 @@ export default class StoreScreen extends React.Component {
       data: dataList,
     }
   }
+
 
   _onPress(item){
 

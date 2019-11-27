@@ -7,12 +7,13 @@ let ScreenWidth = Dimensions.get("window").width;
 
 export default class IndexTab extends React.Component {
   render() {
-    return ( <
-      Navigation / >
+    return ( 
+      <Navigation />
     );
   }
 }
 IndexTab.navigationOptions = {
+  
   tabBarIcon: ({ tintColor }) => ( 
     <SvgUri height="30" width="30" style={ styles.c_nav__item } fill={ "#FFFFFF"?tintColor:"#A8A8A8" } source={require("../assets/Index.svg")}
     />
@@ -23,12 +24,6 @@ IndexTab.navigationOptions = {
 const styles = StyleSheet.create({
   c_button: {
     height: 100
-  },
-
-  c_background: {
-    height: ScreenHeight,
-    width: ScreenWidth,
-    position: "absolute"
   },
 
   c_nav__item: {

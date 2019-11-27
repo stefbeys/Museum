@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList,
 import Images from './images'
 import Background from './background'
 import SvgUri from 'react-native-svg-uri';
+import Companion from './companionIndex'
 
 const dataList = [
   {img: 'duck1', name:'BlaBla', data:'info about him'}, 
@@ -43,7 +44,7 @@ export default class IndexScreen extends React.Component {
     return(
       <View style={styles.contentContainer}>
           <Background/>
-          
+          <Companion />
           <View style={styles.c_info}>
             <View style={styles.c_index}> 
             <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
