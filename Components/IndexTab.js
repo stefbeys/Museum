@@ -1,22 +1,38 @@
 import React from "react";
 import { StyleSheet, View, Image, Dimensions, Button } from "react-native";
 import SvgUri from "react-native-svg-uri";
-import Navigation from '../Utils/navigatorUtil'
+import AppNavigator from "./MyNavigator";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
+
 export default class IndexTab extends React.Component {
+  static Nav=null;
+  constructor(props){
+    super(props);
+    Nav=this.props.navigation;
+  }
+  componentDidUpdate(){
+
+  }
   render() {
-    return ( <
-      Navigation / >
-    );
+    return <AppNavigator setbars={this.setState} />;
   }
 }
-IndexTab.navigationOptions = {
-  tabBarIcon: ({ tintColor }) => ( 
-    <SvgUri height="30" width="30" style={ styles.c_nav__item } fill={ "#FFFFFF"?tintColor:"#A8A8A8" } source={require("../assets/Index.svg")}
-    />
-  )
+IndexTab.tabBarVisible=true;
+IndexTab.navigationOptions = ({navigation}) => {
+  return {
+    tabBarVisible:IndexTab.tabBarVisible,
+    tabBarIcon: ({ tintColor }) => (
+      <SvgUri
+        height="30"
+        width="30"
+        style={styles.c_nav__item}
+        fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
+        source={require("../assets/Index.svg")}
+      />
+    )
+  };
 };
 
 // #region Stylesheet
