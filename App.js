@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import TabScreen from "./Components/TabScreen";
 import NavigationService from "./Utils/NavigationService";
 import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import CameraScreen from "./Components/CameraScreen";
+import Companion from './Components/companionIndex'
+
 const TopLevelNavigator = createStackNavigator({
   TabScreen:TabScreen,
   CameraScreen:CameraScreen
@@ -17,7 +19,12 @@ const AppContainer = createAppContainer(TopLevelNavigator);
 
 export default class App extends React.Component{
   render(){
-    return <AppContainer ref={navigationRef=>{NavigationService.setTopLevelNavigator(navigationRef)}}/>
+    return (
+      <View style={{flex:1}}>
+        <AppContainer ref={navigationRef=>{NavigationService.setTopLevelNavigator(navigationRef)}}/>
+        <Companion />
+      </View>
+    )
   }
 }
 // #region Stylesheet

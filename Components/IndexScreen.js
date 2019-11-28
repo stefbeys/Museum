@@ -2,7 +2,6 @@ import React from "react";
 import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList, Animated, SafeAreaView} from 'react-native';
 import Images from './images'
 import Background from './background'
-import Companion from './companionIndex'
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
 import SvgUri from 'react-native-svg-uri';
@@ -49,7 +48,7 @@ export default class IndexScreen extends React.Component {
     return (
       <View style={styles.contentContainer}>
           <Background/>
-          <Companion />
+          
           <View style={styles.c_info}>
             <View style={styles.c_index}> 
             <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
