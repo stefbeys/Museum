@@ -1,6 +1,11 @@
 import React from "react";
 import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+  } from "react-native-responsive-dimensions";
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
@@ -102,11 +107,11 @@ const styles = StyleSheet.create({
     },
 
     c_companion__title:{
-        fontSize: 32,
+        fontSize: responsiveFontSize(3.5),
     },
 
     c_companion__text:{
-        fontSize: 18,
+        fontSize: responsiveFontSize(2),
         marginBottom: 24
     }
 
