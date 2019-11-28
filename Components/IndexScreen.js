@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList,
 import Images from './images'
 import Background from './background'
 import Companion from './companionIndex'
+import NavigationService from "../Utils/NavigationService";
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -43,6 +44,9 @@ export default class IndexScreen extends React.Component {
       name: item.name,
       info: item.data
     });
+    //#region test
+      NavigationService.navigate("CameraScreen",null)
+    //#endregion
   }
   //#endregion
 
@@ -85,7 +89,13 @@ export default class IndexScreen extends React.Component {
     );
   }
 }
-
+IndexScreen.navigationOptions = {
+  
+  tabBarIcon: ({ tintColor }) => ( 
+    <SvgUri height="30" width="30" style={ styles.c_nav__item } fill={ "#FFFFFF"?tintColor:"#A8A8A8" } source={require("../assets/Index.svg")}
+    />
+  )
+};
 // #region Stylesheet
 const styles = StyleSheet.create({
   contentContainer:{
