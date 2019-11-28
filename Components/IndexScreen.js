@@ -4,6 +4,8 @@ import Images from './images'
 import Background from './background'
 import Companion from './companionIndex'
 import NavigationService from "../Utils/NavigationService";
+import FAB from "./TestComponent";
+import SvgUri from 'react-native-svg-uri';
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -24,7 +26,6 @@ export default class IndexScreen extends React.Component {
   //#region listview code
   constructor(props) {
     super(props);
-    IndexTab.tabBarVisible=true;
     this.state = {
       img: "",
       name: "",
@@ -33,10 +34,7 @@ export default class IndexScreen extends React.Component {
     this.openCamera = this.openCamera.bind(this);
   }
   openCamera() {
-    IndexTab.tabBarVisible=false;
-    console.log(IndexTab.Nav);
-    //IndexTab.navigator.navigate("IndexScreen");
-    this.props.navigation.navigate("StoreScreen");
+    NavigationService.navigate("CameraScreen");
   }
   _onPress(item) {
     this.setState({
@@ -44,9 +42,6 @@ export default class IndexScreen extends React.Component {
       name: item.name,
       info: item.data
     });
-    //#region test
-      NavigationService.navigate("CameraScreen",null)
-    //#endregion
   }
   //#endregion
 
