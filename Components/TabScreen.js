@@ -1,12 +1,12 @@
 import React from 'react'
 import StoreScreen from "./StoreScreen";
 import TabComponent from './TabComponent';
-import IndexTab from './IndexTab';
+import IndexScreen from './IndexScreen';
 
 export default class TabScreen extends React.Component {
     render() {
         const tabs = {
-            IndexScreen: IndexTab,
+            IndexScreen: IndexScreen,
             StoreScreen: StoreScreen
           };
           const barOptions = {
