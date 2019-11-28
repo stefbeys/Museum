@@ -41,12 +41,6 @@ const styles = StyleSheet.create({
     height: 100
   },
 
-  c_background: {
-    height: ScreenHeight,
-    width: ScreenWidth,
-    position: "absolute"
-  },
-
   c_nav__item: {
     color: "#A8A8A8",
     fontSize: 14

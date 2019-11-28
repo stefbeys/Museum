@@ -19,10 +19,14 @@ export default class TabScreen extends React.Component {
               style: {
                 backgroundColor: "#405F7E",
                 borderTopWidth: 0,
-                height: 60
-              }
+                height: 60,
+              },
+              indicatorStyle: {
+                backgroundColor: 'white',
+              },
             },
-            tabBarPosition: "bottom"
+            tabBarPosition: "bottom",
+            
           };
           return(
        <TabComponent Tabinfo={tabs}  MainTabInfo={barOptions}/>)

@@ -1,19 +1,8 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Dimensions,
-  TouchableHighlight,
-  FlatList,
-  SafeAreaView,
-  Animated
-} from "react-native";
-import Images from "./images";
-import Background from "./background";
-import FAB from "./TestComponent";
-import IndexTab from "./IndexTab";
+import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList, Animated, SafeAreaView} from 'react-native';
+import Images from './images'
+import Background from './background'
+import Companion from './companionIndex'
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -60,14 +49,11 @@ export default class IndexScreen extends React.Component {
   render() {
     return (
       <View style={styles.contentContainer}>
-        <Background />
-        
-        <View style={styles.c_info}>
-          <View style={styles.c_index}>
-            <Image
-              style={styles.c_index__picture_selected}
-              source={Images.ducks[this.state.img]}
-            />
+          <Background/>
+          <Companion />
+          <View style={styles.c_info}>
+            <View style={styles.c_index}> 
+            <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
             <View>
               <Text style={styles.c_index_data__name}>{this.state.name}</Text>
               <Text style={styles.c_index_data__name}>{this.state.info}</Text>
