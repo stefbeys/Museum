@@ -55,8 +55,6 @@ const styles = StyleSheet.create({
         height: ScreenHeight,
         width: ScreenWidth,
         zIndex: 5,
-        
-            
     },
     c_companion_upper_cover:{
         width: ScreenWidth,
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: ScreenWidth,
         height: ScreenHeight/4,
-        bottom: 0,
+        bottom: -50,
         flex:1,
         flexDirection:'row',
         display: 'none'
