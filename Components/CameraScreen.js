@@ -2,15 +2,25 @@ import React from "react";
 import { StyleSheet, View, Dimensions,Text,TouchableOpacity } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-let ScreenHeight = Dimensions.get("window").height + 82;
-let ScreenWidth = Dimensions.get("window").width;
-
-
+const ScreenHeight = Dimensions.get("window").height + 82;
+const ScreenWidth = Dimensions.get("window").width;
+const ENDPOINT="http://192.168.0.176:8080/api/";
+let _camera;
 export default class CameraScreen extends React.Component {
+    constructor(props){
+      super(props)
+      this.ScanImage=this.ScanImage.bind(this);
+    }
+    
     state={
         hasCameraPermission:null,
         type: Camera.Constants.Type.back,
+    }
+    
+    ScanImage(){
+      console.log(_camera.takePictureAsync);
     }
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -25,31 +35,26 @@ export default class CameraScreen extends React.Component {
         } else {
           return (
             <View style={{ flex: 1 }}>
-              <Camera style={{ flex: 1 }} type={this.state.type}
+              <Camera 
+              ref={cameraref=>{_camera=cameraref}}
+              onTouchStart={this.ScanImage}
+              style={{ flex: 1 }} type={this.state.type}
               ratio="16:9" useCamera2Api={true} autoFocus="on"
               >
                 <View
+
                   style={{
                     flex: 1,
-                    backgroundColor: 'transparent',
-                    flexDirection: 'row',
+                    backgroundColor: 'transparant',
                   }}>
-                  <TouchableOpacity
-                    style={{
-                      flex: 0.1,
-                      alignSelf: 'flex-end',
-                      alignItems: 'center',
-                    }}
-                    onPress={() => {
-                      this.setState({
-                        type:
-                          this.state.type === Camera.Constants.Type.back
-                            ? Camera.Constants.Type.front
-                            : Camera.Constants.Type.back,
-                      });
-                    }}>
-                    <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-                  </TouchableOpacity>
+                  <TouchableWithoutFeedback 
+                  onPress={this.ScanImage}
+                  style={{
+                    height:"100%",
+                    width:"100%"
+                  }}>
+
+                  </TouchableWithoutFeedback>
                 </View>
               </Camera>
             </View>
