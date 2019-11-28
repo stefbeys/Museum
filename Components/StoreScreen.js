@@ -101,12 +101,12 @@ const styles = StyleSheet.create({
   },
 
   c_index_data__name:{
-    fontSize:32,
+    fontSize:24,
     color: 'white',
     marginRight: 200
   },
   c_index_data__points:{
-    fontSize:24,
+    fontSize:18,
     color: 'white',
     marginRight: 200
   },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
 
   c_index__button__claimed:{
-    margin: 24,
+    margin: 18,
     width: 88,
     height: 32,
     alignItems: 'center',

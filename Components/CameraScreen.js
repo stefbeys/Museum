@@ -3,7 +3,8 @@ import { StyleSheet, View, Dimensions,Text,TouchableOpacity } from 'react-native
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-
+import ImgToBase64 from 'react-native-image-base64';
+import * as Filesystem from 'expo-file-system';
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
 const ENDPOINT="http://192.168.0.176:8080/api/";
@@ -21,6 +22,14 @@ export default class CameraScreen extends React.Component {
     
     ScanImage(){
       console.log(_camera.takePictureAsync);
+      _camera.takePictureAsync().then(r=>{
+        console.log(r);
+        Filesystem.readAsStringAsync(r).then(s=>{
+          console.log(s.toString());
+        });
+        /*Filesystem.readAsStringAsync(r,{encoding:FileSystem.EncodingType.Base64}).then(s=>{
+          console.log(s);
+        })*/});
     }
     async componentDidMount() {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
