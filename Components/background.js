@@ -303,7 +303,6 @@ const styles = StyleSheet.create({
         width: 50,
         left: ScreenWidth + 75,
         top: ScreenHeight - 300,
-        // scaleX: -1
       },
       js_animate_bird_3:{
         position: 'absolute',

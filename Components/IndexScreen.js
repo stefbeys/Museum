@@ -5,6 +5,11 @@ import Background from './background'
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
 import SvgUri from 'react-native-svg-uri';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -140,7 +145,7 @@ const styles = StyleSheet.create({
 
   c_index_data: {},
   c_index_data__name: {
-    fontSize: 24,
+    fontSize:responsiveFontSize(3),
     color: "white"
   },
   c_index_data__data: {

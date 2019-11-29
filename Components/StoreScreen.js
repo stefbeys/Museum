@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
 
   c_index__button__unclaimed:{
-    margin: 24,
+    marginLeft: 24,
     width: 88,
     height: 32,
     alignItems: 'center',
