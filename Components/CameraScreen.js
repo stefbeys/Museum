@@ -9,10 +9,11 @@ import {
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import * as ImageManipulator from 'expo-image-manipulator';
 import * as Filesystem from "expo-file-system";
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
-const ENDPOINT = "http://192.168.0.176:8080/api/";
+const ENDPOINT = "http://192.168.0.176/api/";
 let _camera;
 export default class CameraScreen extends React.Component {
   constructor(props) {
@@ -25,32 +26,31 @@ export default class CameraScreen extends React.Component {
     type: Camera.Constants.Type.back
   };
 
-  ScanImage() {
-    _camera.takePictureAsync().then(r => {
-      Filesystem.readAsStringAsync(r.uri, {
-        encoding: Filesystem.EncodingType.Base64
-      }).then(s => {
-        fetch(ENDPOINT + "animal", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          
-          body: JSON.stringify({
-            Base64: s
-          })
-        }).then(res => {
-          // TODO: CHECK AND RETURN RESULT
-          console.warn(res);
-        }).catch(e=>{
-          // TODO: LET COMPANION EXPLAIN THE ISSUE...
-        })
-      });
+  async ScanImage() {
+    let imageresult = await _camera.takePictureAsync();
+    imageresult=await ImageManipulator.manipulateAsync(imageresult.uri,[{resize:{height:1920,width:1080}}])
+    console.warn(imageresult);
+    const base64 = await Filesystem.readAsStringAsync(imageresult.uri, {
+      encoding: Filesystem.EncodingType.Base64
     });
+    const httpresult = await fetch(ENDPOINT + "animal", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ Base64: base64 })
+    });
+    console.warn(httpresult);
+    if(httpresult.status==200){
+      console.log(await httpresult.json())
+    }
+    else{
+      //not found error
+    }
   }
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === "granted" });
+    this.setState({
+      hasCameraPermission: status === "granted",
+    });
   }
   render() {
     const { hasCameraPermission } = this.state;
@@ -65,6 +65,7 @@ export default class CameraScreen extends React.Component {
             ref={cameraref => {
               _camera = cameraref;
             }}
+            pictureSize="1920x1080"
             onTouchStart={this.ScanImage}
             style={{ flex: 1 }}
             type={this.state.type}
