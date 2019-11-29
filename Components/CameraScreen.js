@@ -4,8 +4,10 @@ import {
   View,
   Dimensions,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from "react-native";
+import SvgUri from 'react-native-svg-uri';
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -18,12 +20,43 @@ export default class CameraScreen extends React.Component {
   constructor(props) {
     super(props);
     this.ScanImage = this.ScanImage.bind(this);
+    this.scannerAnim = new Animated.Value(0)
+    this.stopScannerAnim = new Animated.Value(0)
+    this._onStartPress = this._onStartPress.bind(this)
   }
 
   state = {
     hasCameraPermission: null,
-    type: Camera.Constants.Type.back
+    type: Camera.Constants.Type.back,
+    display: false
   };
+
+  _onStartPress(){
+    this.setState({
+      display: true
+    });
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.scannerAnim, {
+            toValue: ScreenHeight-2,
+            duration: 3000,
+        }),
+        Animated.timing(this.scannerAnim, {
+            toValue: 0,
+            duration: 3000,
+        }),
+      ])
+    ).start()
+    setTimeout(() => {
+      this.ScanImage
+    }, 2000);
+  }
+
+  _onStopPress(){
+    this.setState({
+      display: false
+    });
+  }
 
   ScanImage() {
     _camera.takePictureAsync().then(r => {
@@ -61,11 +94,21 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
+          {this.state.display ? (
+          <Animated.View style={{ top: this.scannerAnim}}>
+            <View style={styles.c_scanner}></View>
+          </Animated.View>) : null
+          }
+          <View  style={styles.c_scanner__container}>
+            <TouchableWithoutFeedback style={styles.c_scanner__button_container}  onPressIn={() => this._onStartPress()} 
+                onPressOut={() => this._onStopPress()}>
+              <SvgUri  height="80" width="80" style={styles.c_scanner__button} source={require('../assets/scan.svg')}/>
+            </TouchableWithoutFeedback>
+          </View>
           <Camera
             ref={cameraref => {
               _camera = cameraref;
             }}
-            onTouchStart={this.ScanImage}
             style={{ flex: 1 }}
             type={this.state.type}
             ratio="16:9"
@@ -102,6 +145,41 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     backgroundColor: "#000"
+  },
+  c_scanner:{
+    width: '100%',
+    height: 3,
+    backgroundColor: 'white',
+    position:'absolute',
+    zIndex: 7,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 10,
+      height: 50,
+    },
+    shadowOpacity: 0.80,
+    shadowRadius: 6,
+    elevation: 13
+  },
+  c_scanner__button:{
+    zIndex:6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  c_scanner__container:{
+    bottom: '10%',
+    zIndex: 6,
+    position: 'absolute',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  c_scanner__button_container:{
+    width: 100,
+    height: 100,
+    zIndex:7,
   }
+
 });
 // #endregion

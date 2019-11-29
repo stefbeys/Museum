@@ -27,6 +27,7 @@ export default class App extends React.Component{
     )
   }
 }
+
 // #region Stylesheet
 const styles = StyleSheet.create({});
 // #endregion
