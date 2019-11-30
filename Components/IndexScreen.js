@@ -10,6 +10,8 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import Points from './points'
+
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -53,7 +55,6 @@ export default class IndexScreen extends React.Component {
     return (
       <View style={styles.contentContainer}>
           <Background/>
-          
           <View style={styles.c_info}>
             <View style={styles.c_index}> 
             <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
