@@ -13,6 +13,8 @@ import { Camera } from "expo-camera";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as Filesystem from "expo-file-system";
+import Points from "./points";
+
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
 const ENDPOINT = "http://192.168.0.176/api/";
@@ -24,12 +26,16 @@ export default class CameraScreen extends React.Component {
     this.scannerAnim = new Animated.Value(0);
     this.stopScannerAnim = new Animated.Value(0);
     this._onStartPress = this._onStartPress.bind(this);
+    this._onPointsPress = this._onPointsPress.bind(this);
   }
 
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    display: false
+    display: false,
+    displayPoints: false,
+    displayInfo: false,
+    displayScanner: true
   };
 
   _onStartPress() {
@@ -48,13 +54,22 @@ export default class CameraScreen extends React.Component {
         })
       ])
     ).start();
-    setTimeout(() => {
-      this.ScanImage;
-    }, 2000);
+    // setTimeout(() => {
+    this.ScanImage();
+    // }, 2000);
   }
 
   _onStopPress() {
     this.setState({
+      display: false
+    });
+  }
+
+  _onPointsPress() {
+    this.setState({
+      displayPoints: false,
+      displayScanner: false,
+      displayInfo: true,
       display: false
     });
   }
@@ -77,6 +92,12 @@ export default class CameraScreen extends React.Component {
       console.warn(httpresult);
       if (httpresult.status == 200) {
         console.log(await httpresult.json());
+        this.setState({
+          displayPoints: true,
+          displayScanner: false,
+          displayInfo: false,
+          display: false
+        });
       } else {
         //not found error
       }
@@ -105,20 +126,33 @@ export default class CameraScreen extends React.Component {
               <View style={styles.c_scanner}></View>
             </Animated.View>
           ) : null}
-          <View style={styles.c_scanner__container}>
+          {this.state.displayPoints ? (
             <TouchableWithoutFeedback
-              style={styles.c_scanner__button_container}
-              onPressIn={() => this._onStartPress()}
-              onPressOut={() => this._onStopPress()}
+              style={{ display: "flex" }}
+              onPress={() => this._onPointsPress()}
             >
-              <SvgUri
-                height="80"
-                width="80"
-                style={styles.c_scanner__button}
-                source={require("../assets/scan.svg")}
-              />
+              <Points />
             </TouchableWithoutFeedback>
-          </View>
+          ) : null}
+
+          {this.state.displayInfo ? <View></View> : null}
+
+          {this.state.displayScanner ? (
+            <View style={styles.c_scanner__container}>
+              <TouchableWithoutFeedback
+                style={styles.c_scanner__button_container}
+                onPressIn={() => this._onStartPress()}
+                onPressOut={() => this._onStopPress()}
+              >
+                <SvgUri
+                  height="80"
+                  width="80"
+                  style={styles.c_scanner__button}
+                  source={require("../assets/scan.svg")}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
           <Camera
             ref={cameraref => {
               _camera = cameraref;
