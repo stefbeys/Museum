@@ -1,12 +1,12 @@
 import React from 'react'
 import StoreScreen from "./StoreScreen";
 import TabComponent from './TabComponent';
-import IndexTab from './IndexTab';
+import IndexScreen from './IndexScreen';
 
 export default class TabScreen extends React.Component {
     render() {
         const tabs = {
-            IndexScreen: IndexTab,
+            IndexScreen: IndexScreen,
             StoreScreen: StoreScreen
           };
           const barOptions = {
@@ -19,10 +19,14 @@ export default class TabScreen extends React.Component {
               style: {
                 backgroundColor: "#405F7E",
                 borderTopWidth: 0,
-                height: 60
-              }
+                height: 60,
+              },
+              indicatorStyle: {
+                backgroundColor: 'white',
+              },
             },
-            tabBarPosition: "bottom"
+            tabBarPosition: "bottom",
+            
           };
           return(
        <TabComponent Tabinfo={tabs}  MainTabInfo={barOptions}/>)

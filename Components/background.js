@@ -271,7 +271,7 @@ export default class backgrounds extends React.Component{
     render(){
         return(
             <View>
-                <Image resizeMode={'stretch'} style={styles.c_background} source={require('../assets/BackgroundL.png')}/>
+                <Image resizeMode={'stretch'} style={styles.c_background} source={this.props.background}/>
                 <Animated.Image style={[styles.js_animate_bird_1, { transform: [{ translateX: this.moveAnimX1}, {translateY: this.moveAnimY1 }]} ]} fill={'#000000'} source={require('../assets/eagle.png')}/>
                 <Animated.Image style={[styles.js_animate_bird_2, { transform: [{ translateX: this.moveAnimX2}, {translateY: this.moveAnimY2 }]} ]} fill={'#000000'} source={require('../assets/dove.png')}/>
                 <Animated.Image style={[styles.js_animate_bird_3, { transform: [{ translateX: this.moveAnimX3}, {translateY: this.moveAnimY3 }]} ]} fill={'#000000'} source={require('../assets/hummingbird.png')}/>
@@ -281,6 +281,10 @@ export default class backgrounds extends React.Component{
             
         )
     }
+}
+
+backgrounds.defaultProps={
+    background: require('../assets/BackgroundL.png')
 }
 
 const styles = StyleSheet.create({
@@ -303,7 +307,6 @@ const styles = StyleSheet.create({
         width: 50,
         left: ScreenWidth + 75,
         top: ScreenHeight - 300,
-        // scaleX: -1
       },
       js_animate_bird_3:{
         position: 'absolute',
