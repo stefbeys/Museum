@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         height: '100%',
         top: ScreenHeight/2.5,
         zIndex: 8,
+        
     },
     c_companionPoints_container:{
         margin:24,        

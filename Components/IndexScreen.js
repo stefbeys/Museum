@@ -82,7 +82,6 @@ export default class IndexScreen extends React.Component {
      
       <FAB
       style={styles.FAB}
-        icon={require("../assets/dove.png")}
         onTap={this.openCamera}
       />
       </View>
