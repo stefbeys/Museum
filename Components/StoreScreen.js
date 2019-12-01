@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Image, Dimensions, Text, TouchableHighlight, TouchableOpacity, FlatList} from 'react-native';
-import Images from './images'
 import SvgUri from 'react-native-svg-uri';
 import Background from './background'
 import {
@@ -8,9 +7,18 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+import Stickers from './stickers'
 
-
-const dataList = [{img: 'duck1', name:'sticker1', data:'claimed'}, {img: 'duck2', name:'sticker2', data:'unclaimed'}]
+const dataList = [
+{img: 'Sticker3', name:'Proud Duck', data:'claimed'}, 
+{img: 'Sticker1', name:'Proud Duck V2', data:'claimed'}, 
+{img: 'Sticker5', name:'LOL Duck', data:'claimed'}, 
+{img: 'Sticker6', name:'Sleeping Duck', data:'unclaimed'},
+{img: 'Sticker7', name:'Hugging Ducks', data:'claimed'}, 
+{img: 'Sticker8', name:'Moikka Duck', data:'unclaimed'},
+{img: 'Sticker9', name:'Kvaak Duck', data:'claimed'}, 
+{img: 'Sticker10', name:'Laughing Duck', data:'unclaimed'},
+{img: 'Sticker11', name:'Moikkelis Duck', data:'claimed'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -35,16 +43,20 @@ export default class StoreScreen extends React.Component {
         <Background background={require('../assets/Background2L.png')}/>  
         <View style={styles.c_points_container}>
           <View style={styles.c_points_flexcontainer}>
-            <Text style={styles.c_points_amount}>800<Text style={styles.c_points_pts}>Pts</Text></Text>
+            <Text style={styles.c_points_amount}>1200<Text style={styles.c_points_pts}>Pts</Text></Text>
           </View>
         </View>
-        <FlatList data={dataList}
+        <FlatList
+        style={{
+          marginBottom: '15%'
+        }}
+        data={dataList}
           renderItem={({item, index}) => (
             <TouchableHighlight>
               <View style={styles.c_index_container}>
                 <View style={styles.c_index}>
                 <View style={{flex:1, flexDirection: 'row'}}>
-                  <Image style={styles.c_index__picture} source={Images.ducks[item.img]}/>
+                  <Image style={styles.c_index__picture} source={Stickers.stickers[item.img]}/>
                   
                   <View>
                     <Text style={styles.c_index_data__name}>{item.name}</Text>
@@ -106,7 +118,6 @@ const styles = StyleSheet.create({
   c_index__picture:{
     height: 88,
     width: 88,
-    borderRadius: 500,
     marginRight: 24
   },
 
