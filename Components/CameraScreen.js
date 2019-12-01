@@ -136,19 +136,6 @@ export default class CameraScreen extends React.Component {
               </TouchableWithoutFeedback>) : null
           }
 
-            <Animated.View style={{ top: this.scannerAnim }}>
-              <View style={styles.c_scanner}></View>
-            </Animated.View>
-          ) : null}
-          {this.state.displayPoints ? (
-            <TouchableWithoutFeedback
-              style={{ display: "flex" }}
-              onPress={() => this._onPointsPress()}
-            >
-              <Points />
-            </TouchableWithoutFeedback>
-          ) : null}
-
           {this.state.displayInfo ? <View></View> : null}
 
 
