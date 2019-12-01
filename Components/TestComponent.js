@@ -20,7 +20,7 @@ export default class FAB extends React.Component {
 }
 FAB.defaultProps = {
   onTap: () => {},
-  icon: require("./../assets/dove.png")
+  icon: require("./../assets/cam.png")
 };
 FAB.propTypes = {
   onTap: PropTypes.func,
@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.39,
     shadowRadius: 8.3,
-    elevation: 13,
+    elevation: 10,
     borderRadius: 50,
     borderWidth: 0,
     width: 56,
     height: 56,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#ffcb05"
+    backgroundColor: "#87AAD2"
   },
   FAB_Icon: {
     resizeMode: "contain",
-    width: 41,
-    height: 41
+    width: 30,
+    marginRight: 2
   }
 });

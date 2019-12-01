@@ -121,21 +121,23 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
+
+
           {this.state.display ? (
-            <Animated.View style={{ top: this.scannerAnim }}>
+            <Animated.View style={{ top: this.scannerAnim}}>
               <View style={styles.c_scanner}></View>
-            </Animated.View>
-          ) : null}
+            </Animated.View>) : null
+          }
+
+
           {this.state.displayPoints ? (
-            <TouchableWithoutFeedback
-              style={{ display: "flex" }}
-              onPress={() => this._onPointsPress()}
-            >
-              <Points />
-            </TouchableWithoutFeedback>
-          ) : null}
+              <TouchableWithoutFeedback style={{width:"100%", height:"100%", backgroundColor:"#ffffffff"}} onPress={() => this._onPointsPress()}>
+                <Points/>
+              </TouchableWithoutFeedback>) : null
+          }
 
           {this.state.displayInfo ? <View></View> : null}
+
 
           {this.state.displayScanner ? (
             <View style={styles.c_scanner__container}>
@@ -151,8 +153,10 @@ export default class CameraScreen extends React.Component {
                   source={require("../assets/scan.svg")}
                 />
               </TouchableWithoutFeedback>
-            </View>
-          ) : null}
+            </View>) : null
+          }
+
+
           <Camera
             ref={cameraref => {
               _camera = cameraref;
@@ -169,13 +173,13 @@ export default class CameraScreen extends React.Component {
                 backgroundColor: "transparant"
               }}
             >
-              <TouchableWithoutFeedback
+              {/* <TouchableWithoutFeedback
                 onPress={this.ScanImage}
                 style={{
                   height: "100%",
                   width: "100%"
                 }}
-              ></TouchableWithoutFeedback>
+              ></TouchableWithoutFeedback> */}
             </View>
           </Camera>
         </View>

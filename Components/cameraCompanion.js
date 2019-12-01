@@ -15,7 +15,6 @@ export default class cameraCompanion extends React.Component {
         return(
             <TouchableWithoutFeedback onPress={this._onPress} style={styles.test}>
                 <View style={styles.c_container}>
-                    <View style={styles.c_companion_upper_cover}/>
                     <View style={styles.c_companion__cover}>
                         <View style={styles.c_companionContainer}>
                             <SvgUri height={150} width={150} style={styles.c_companion} source={require('../assets/companion.svg')}/>
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
         width:ScreenWidth,
         height: ScreenHeight,
         position: 'absolute',
-        zIndex: 4
+        zIndex: 4,
     },
 
     c_companion__cover:{
