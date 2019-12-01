@@ -4,50 +4,43 @@ import PropTypes from "prop-types";
 import { PanGestureHandler } from "react-native-gesture-handler";
 
 let _scrollref;
-let scrollpos = 0;
-let reallscrolpos = 0;
+let selecteditem = -1
 export default class CustomList extends React.Component {
   constructor(props) {
     super(props);
     this.scrollEvent = this.scrollEvent.bind(this);
-    this.PanScrollEvent = this.PanScrollEvent.bind(this);
+    this.scrollEnd = this.scrollEnd.bind(this);
     this.state = {
-      paddingT: 65,
-      paddingB: 0,
-      canUseScrollbar: false
+      zIndex: 0
     };
   }
-  scrollEvent(event) {
-    if (event.nativeEvent.contentOffset.y == reallscrolpos) {
-      scrollpos = reallscrolpos;
-      this.setState({
-        canUseScrollbar: false
-      });
-    } else {
-      reallscrolpos = event.nativeEvent.contentOffset.y;
+  componentDidMount() {
+    if (this.props.data.length > 0) {
+      selecteditem = 0;
+      this.props.selectedEvent(this.props.data[selecteditem]);
     }
   }
-  PanScrollEvent(event) {
-    if (!this.state.canUseScrollbar) {
-      if (this.state.paddingT > 0 && event.nativeEvent.translationY < 0) {
-        this.setState({ paddingT: this.state.paddingT - 2 });
-      }
-      if (this.state.paddingT <= 0 && !this.state.canUseScrollbar) {
-        this.setState({ canUseScrollbar: true });
-      }
+  scrollEnd(event) {
+    console.log("test");
+    if (this.state.zIndex != 0) {
+      this.setState({ zIndex: 0 });
     }
-    if (this.state.canUseScrollbar && event.nativeEvent.translationY < 0) {
-      scrollpos += 5;
-      _scrollref.scrollTo({ y: scrollpos });
+  }
+  scrollEvent(event) {
+    if (this.state.zIndex != 1) {
+      this.setState({ zIndex: 1 })
     }
-    console.log(!this.state.canUseScrollbar);
-    if (
-      !this.state.canUseScrollbar &&
-      scrollpos > 0 &&
-      event.nativeEvent.translationY < 0 &&
-      this.state.paddingB < 60
-    ) {
-      this.setState({ paddingB: this.state.paddingB + 2 });
+    if (event.nativeEvent.contentOffset.y / 100 > this.props.data.length - 1) {
+      _scrollref.scrollTo({ y: (this.props.data.length - 1) * 100 })
+    }
+    let selecti = event.nativeEvent.contentOffset.y / 100;
+    selecti = Math.round(selecti);
+    if (selecti != selecteditem) {
+      selecteditem = selecti;
+      if (selecteditem < this.props.data.length) {
+
+        this.props.selectedEvent(this.props.data[selecteditem])
+      }
     }
   }
   render() {
@@ -62,36 +55,33 @@ export default class CustomList extends React.Component {
       return ListItems;
     };
     return (
-      // <PanGestureHandler
-      //   onGestureEvent={this.PanScrollEvent}
-      //   style={{ flex: 1, backgroundColor: "#0f0" }}
-      // >
-      <View style={{flex:1,paddingTop:250,paddingBottom:250,overflow:"visible"}}>
+      <View style={{ flex: 1 }}>
+        <View style={{ position: "absolute", height: 100, marginTop: "65%", width: "100%", borderWidth: 2, borderColor: "#fff", borderRadius: 12, zIndex: this.state.zIndex }} />
         <ScrollView
-          ref={scrollRef => (_scrollref = scrollRef)}
-          decelerationRate={0}
+          onMomentumScrollEnd={this.scrollEnd}
+          showsVerticalScrollIndicator={false}
+          ref={scrollref => { _scrollref = scrollref }}
+          contentContainerStyle={{ paddingBottom: "145%" }}
+          onScroll={this.scrollEvent}
           snapToInterval={100}
           snapToAlignment="center"
-          scrollEnabled={true}
-          onScroll={this.scrollEvent}
-          style={{
-            flex: 1,
-            marginBottom: this.state.paddingB + "%"
-          }}
-        >
-          {renderItems()}
+          style={{ flex: 1, paddingTop: "65%", marginBottom: this.state.paddingB }}>
+          <View>
+            {renderItems()}
+          </View>
         </ScrollView>
       </View>
-      // </PanGestureHandler>
     );
   }
 }
 CustomList.defaultProps = {
   data: [],
-  renderItem: item => {}
+  renderItem: item => { },
+  selectedEvent: item => { }
 };
 CustomList.propTypes = {
   data: PropTypes.array,
-  renderItem: PropTypes.func
+  renderItem: PropTypes.func,
+  selectedEvent: PropTypes.func
 };
 CustomList.styles = StyleSheet.create({});

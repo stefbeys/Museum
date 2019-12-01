@@ -19,7 +19,7 @@ export default class backgrounds extends React.Component{
         this.moveAnimY5 = new Animated.Value(0)
       }
 
-      componentDidUpdate() {
+      componentDidMount() {
 
         //#region X Animation
         Animated.loop(

@@ -54,16 +54,24 @@ export default class IndexScreen extends React.Component {
   openCamera() {
     NavigationService.navigate("CameraScreen");
   }
+  addPad(s,size){
+      while (s.length < (size || 2)) {s = "0" + s;}
+      return s;
+  }
   _renderItem(item,Index) {
-    console.log(Index);
     return (
-      <TouchableHighlight style={styles.c_index__container} key={Index} onPress={() => this._onPress(item)}>
-        <View style={styles.c_index}>
+      <TouchableHighlight style={styles.c_index__container} key={Index}>
+        <View style={styles.c_index__list}>
           <Image
             style={styles.c_index__picture}
             source={Images.ducks[item.img]}
           />
+          <View style={{flex:1,flexDirection:"row"}}>
+            <Text  style={styles.c_index_data__name}>{this.addPad((Index+1).toString(),3)}</Text>
+            <Text  style={styles.c_index_data__name}> | </Text>
           <Text style={styles.c_index_data__name}>{item.name}</Text>
+
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -93,7 +101,7 @@ export default class IndexScreen extends React.Component {
             </View>
           </View>
         </View>
-        <CustomList data={dataList} renderItem={this._renderItem} />
+        <CustomList selectedEvent={this._onPress} data={dataList} renderItem={this._renderItem} />
 
         <FAB
           style={styles.FAB}
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
   c_index__container:{
     height:100,
     flex:1,
-    backgroundColor: "#f00"
   },
   contentContainer: {
     flex: 1
@@ -151,7 +158,15 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 8,
     flex: 1,
-    flexDirection: "row"
+    flexDirection: "row",
+  },
+  c_index__list:{
+    margin: 24,
+    marginTop: 8,
+    marginBottom: 8,
+    flex: 1,
+    flexDirection: "row",
+    alignItems:"center"
   },
 
   c_index__picture: {
