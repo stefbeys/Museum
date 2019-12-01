@@ -32,7 +32,7 @@ export default class StoreScreen extends React.Component {
   render() {
     return(
       <View>
-        <Background />  
+        <Background background={require('../assets/Background2L.png')}/>  
         <View style={styles.c_points_container}>
           <View style={styles.c_points_flexcontainer}>
             <Text style={styles.c_points_amount}>800<Text style={styles.c_points_pts}>Pts</Text></Text>
