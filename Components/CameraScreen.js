@@ -27,6 +27,7 @@ export default class CameraScreen extends React.Component {
     this.stopScannerAnim = new Animated.Value(0);
     this._onStartPress = this._onStartPress.bind(this);
     this._onPointsPress = this._onPointsPress.bind(this);
+    this._onClosePress = this._onClosePress.bind(this);
   }
 
   state = {
@@ -72,6 +73,10 @@ export default class CameraScreen extends React.Component {
       displayInfo: true,
       display: false
     });
+  }
+
+  _onClosePress(){
+    this.props.navigation.goBack()
   }
 
   async ScanImage() {
@@ -138,8 +143,16 @@ export default class CameraScreen extends React.Component {
 
           {this.state.displayInfo ? <View></View> : null}
 
+          {this.state.displayScanner ? (
+            <View style={styles.c_close}>
+              <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
+                <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
+              </TouchableWithoutFeedback>
+            </View>) : null
+          }
 
           {this.state.displayScanner ? (
+           
             <View style={styles.c_scanner__container}>
               <TouchableWithoutFeedback
                 style={styles.c_scanner__button_container}
@@ -173,13 +186,6 @@ export default class CameraScreen extends React.Component {
                 backgroundColor: "transparant"
               }}
             >
-              {/* <TouchableWithoutFeedback
-                onPress={this.ScanImage}
-                style={{
-                  height: "100%",
-                  width: "100%"
-                }}
-              ></TouchableWithoutFeedback> */}
             </View>
           </Camera>
         </View>
@@ -190,10 +196,17 @@ export default class CameraScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
+  c_close:{
+    zIndex: 7,
+    position: 'absolute',
+    top: 64,
+    left: 32
+  },
+
   c_background: {
     height: ScreenHeight,
     width: ScreenWidth,
-    position: "absolute"
+    position: "absolute",
   },
   contentContainer: {
     backgroundColor: "#000"

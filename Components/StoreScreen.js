@@ -61,13 +61,13 @@ export default class StoreScreen extends React.Component {
                   <View>
                     <Text style={styles.c_index_data__name}>{item.name}</Text>
                     <Text style={styles.c_index_data__points}>800Pts</Text>
-                  </View>
-                </View>  
                 <TouchableOpacity onPress={() => this._onPress(item)}>
                   <View style = {styles.c_index__button__unclaimed}>
                       <Text style={ styles.c_index__button_text__unclaimed}>Claim</Text>
                   </View>
             </TouchableOpacity>
+                  </View>
+                </View>  
                   </View>
                   
               </View>
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
   },
   
   c_index__picture:{
-    height: 88,
-    width: 88,
+    height: 108,
+    width: 108,
     marginRight: 24
   },
 
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
   },
 
   c_index__button__claimed:{
+    marginTop:8,
     width: 88,
     height: 32,
     alignItems: 'center',
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
   },
 
   c_index__button__unclaimed:{
-    marginLeft: 24,
+    marginTop:8,
     width: 88,
     height: 32,
     alignItems: 'center',
