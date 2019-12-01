@@ -1,17 +1,27 @@
 import React from "react";
-import {StyleSheet, View, Text, Image, Dimensions, TouchableHighlight, FlatList, Animated, SafeAreaView} from 'react-native';
-import Images from './images'
-import Background from './background'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  TouchableHighlight,
+  FlatList,
+  Animated,
+  SafeAreaView
+} from "react-native";
+import Images from "./images";
+import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
-import SvgUri from 'react-native-svg-uri';
+import SvgUri from "react-native-svg-uri";
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-import Points from './points'
-
+import Points from "./points";
+import CustomList from "./CustomList";
 
 const dataList = [
   { img: "duck1", name: "BlaBla", data: "info about him" },
@@ -37,10 +47,26 @@ export default class IndexScreen extends React.Component {
       name: "",
       info: ""
     };
+    this._renderItem = this._renderItem.bind(this);
+    this._onPress = this._onPress.bind(this);
     this.openCamera = this.openCamera.bind(this);
   }
   openCamera() {
     NavigationService.navigate("CameraScreen");
+  }
+  _renderItem(item,Index) {
+    console.log(Index);
+    return (
+      <TouchableHighlight style={styles.c_index__container} key={Index} onPress={() => this._onPress(item)}>
+        <View style={styles.c_index}>
+          <Image
+            style={styles.c_index__picture}
+            source={Images.ducks[item.img]}
+          />
+          <Text style={styles.c_index_data__name}>{item.name}</Text>
+        </View>
+      </TouchableHighlight>
+    );
   }
   _onPress(item) {
     this.setState({
@@ -54,58 +80,56 @@ export default class IndexScreen extends React.Component {
   render() {
     return (
       <View style={styles.contentContainer}>
-          <Background/>
-          <View style={styles.c_info}>
-            <View style={styles.c_index}> 
-            <Image style={styles.c_index__picture_selected} source={Images.ducks[this.state.img]}/>
+        <Background />
+        <View style={styles.c_info}>
+          <View style={styles.c_index}>
+            <Image
+              style={styles.c_index__picture_selected}
+              source={Images.ducks[this.state.img]}
+            />
             <View>
               <Text style={styles.c_index_data__name}>{this.state.name}</Text>
               <Text style={styles.c_index_data__name}>{this.state.info}</Text>
             </View>
           </View>
         </View>
-        <FlatList
-          data={dataList}
-          scrollEnabled={true}
-          renderItem={({ item, index }) => (
-            <TouchableHighlight onPress={() => this._onPress(item, index)}>
-              <View style={styles.c_index}>
-                <Image
-                  style={styles.c_index__picture}
-                  source={Images.ducks[item.img]}
-                />
-                <Text style={styles.c_index_data__name}>{item.name}</Text>
-              </View>
-            </TouchableHighlight>
-          )}
+        <CustomList data={dataList} renderItem={this._renderItem} />
+
+        <FAB
+          style={styles.FAB}
+          icon={require("../assets/dove.png")}
+          onTap={this.openCamera}
         />
-     
-      <FAB
-      style={styles.FAB}
-        icon={require("../assets/dove.png")}
-        onTap={this.openCamera}
-      />
       </View>
     );
   }
 }
 IndexScreen.navigationOptions = {
-  
-  tabBarIcon: ({ tintColor }) => ( 
-    <SvgUri height="30" width="30" style={ styles.c_nav__item } fill={ "#FFFFFF"?tintColor:"#A8A8A8" } source={require("../assets/Index.svg")}
+  tabBarIcon: ({ tintColor }) => (
+    <SvgUri
+      height="30"
+      width="30"
+      style={styles.c_nav__item}
+      fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
+      source={require("../assets/Index.svg")}
     />
   )
 };
 // #region Stylesheet
 const styles = StyleSheet.create({
-  contentContainer:{
+  c_index__container:{
+    height:100,
     flex:1,
+    backgroundColor: "#f00"
+  },
+  contentContainer: {
+    flex: 1
   },
   FAB: {
-    flex:1,
-    width:"100%",
-    height:"100%",
-    backgroundColor:"#0f0"
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#0f0"
   },
   container: {
     flex: 1,
@@ -146,7 +170,7 @@ const styles = StyleSheet.create({
 
   c_index_data: {},
   c_index_data__name: {
-    fontSize:responsiveFontSize(3),
+    fontSize: responsiveFontSize(3),
     color: "white"
   },
   c_index_data__data: {
