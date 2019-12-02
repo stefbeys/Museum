@@ -24,16 +24,23 @@ import Points from "./points";
 import CustomList from "./CustomList";
 
 const dataList = [
-  { img: "duck1", name: "BlaBla", data: "info about him" },
-  { img: "duck1", name: "BlaBla", data: "info about him" },
-  { img: "duck1", name: "BlaBla", data: "info about him" },
-  { img: "duck2", name: "Bean Goose", data: "info about him" },
-  { img: "duck1", name: "BlaBla", data: "info about him" },
-  { img: "duck2", name: "Bean Goose", data: "info about him" },
-  { img: "duck2", name: "Bean Goose", data: "info about him" },
-  { img: "duck1", name: "Oelala", data: "info about him" },
-  { img: "duck1", name: "Oelala", data: "info about him" },
-  { img: "duck2", name: "Bean Goose", data: "info about him" }
+  { img: "duck1", name: "Harmaa Haikara", data: "info about him" },
+  { img: "duck1", name: "Kakkuri", data: "info about him" },
+  { img: "duck1", name: "Kaulushaikara", data: "info about him" },
+  { img: "duck2", name: "Kurki", data: "info about him" },
+  { img: "duck1", name: "Lapasorsa", data: "info about him" },
+  { img: "duck2", name: "Merilokki", data: "info about him" },
+  { img: "duck2", name: "Nokikana", data: "info about him" },
+  { img: "duck1", name: "Ooievaar", data: "info about him" },
+  { img: "duck2", name: "Ristisorsa", data: "info about him" },
+  { img: "duck1", name: "Ruisrääkkä", data: "info about him" },
+  { img: "duck2", name: "Ruokki", data: "info about him" },
+  { img: "duck1", name: "Ruokokerttunen", data: "info about him" },
+  { img: "duck2", name: "Ruskosuohaukka", data: "info about him" },
+  { img: "duck1", name: "Sinitainen", data: "info about him" },
+  { img: "duck1", name: "Punasotka", data: "info about him" },
+  { img: "duck1", name: "Taivaavuohi", data: "info about him" },
+  { img: "duck2", name: "Räkättirastas", data: "info about him" }
 ];
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
