@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 
@@ -8,6 +8,7 @@ let ScreenWidth = Dimensions.get("window").width;
 
 export default class cameraCompanion extends React.Component {  
     constructor(props){
+        super(props)
         this.moveAnim = new Animated.Value(325)
     }
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         width: ScreenWidth,
         height: ScreenHeight,
         position: 'absolute',
-        backgroundColor: '#000000B3',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
         bottom: 0
     },
 

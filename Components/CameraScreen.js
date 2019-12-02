@@ -14,6 +14,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as Filesystem from "expo-file-system";
 import Points from "./points";
+import InfoComponent from "./Infocomponent";
 
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
@@ -28,20 +29,32 @@ export default class CameraScreen extends React.Component {
     this._onStartPress = this._onStartPress.bind(this);
     this._onPointsPress = this._onPointsPress.bind(this);
     this._onClosePress = this._onClosePress.bind(this);
+    this._onPressed = this._onPressed.bind(this);
+    this._onInfoPress = this._onInfoPress.bind(this);
   }
 
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    display: false,
+    displayScannerAnim: false,
     displayPoints: false,
     displayInfo: false,
-    displayScanner: true
+    displayScanner: true,
+    name: "",
+    appearance: "",
+    behaviour: "",
+    diet: "",
+    endangerment: "",
+    img: 'require("")',
+    sizeL: "",
+    sizeW: "",
+    dietShort: "",
+    region: "",
   };
 
   _onStartPress() {
     this.setState({
-      display: true
+      displayScannerAnim: true
     });
     Animated.loop(
       Animated.sequence([
@@ -56,13 +69,28 @@ export default class CameraScreen extends React.Component {
       ])
     ).start();
     // setTimeout(() => {
-    this.ScanImage();
-    // }, 2000);
+      this.ScanImage();
+      // }, 2000);
+  }
+
+  _onPressed(){
+    this.setState({
+      name: "1",
+          appearance: "2",
+          behaviour: "3",
+          diet: "4",
+          endangerment: "5",
+          sizeL: "6",
+          sizeW: "7",
+          dietShort: "8",
+          region: "9",
+          img: 'require("../assets/duck1.png")'
+    })
   }
 
   _onStopPress() {
     this.setState({
-      display: false
+      displayScannerAnim: false
     });
   }
 
@@ -71,10 +99,19 @@ export default class CameraScreen extends React.Component {
       displayPoints: false,
       displayScanner: false,
       displayInfo: true,
-      display: false
+      displayScannerAnim: false
     });
   }
 
+  _onInfoPress(){
+    this.setState({
+      displayPoints: false,
+      displayScanner: true,
+      displayInfo: false,
+      displayScannerAnim: false
+    })
+  }
+  
   _onClosePress(){
     this.props.navigation.goBack()
   }
@@ -96,12 +133,22 @@ export default class CameraScreen extends React.Component {
       });
       console.warn(httpresult);
       if (httpresult.status == 200) {
-        console.log(await httpresult.json());
         this.setState({
           displayPoints: true,
           displayScanner: false,
           displayInfo: false,
-          display: false
+          displayScannerAnim: false,
+          name: httpresult.name,
+          appearance: httpresult.appearance,
+          behaviour: httpresult.behaviour,
+          diet: httpresult.diet,
+          endangerment: httpresult.endangerment,
+          sizeL: httpresult["length"],
+          sizeW: httpresult.width,
+          dietShort: httpresult.dietShort,
+          region: httpresult.region,
+          
+
         });
       } else {
         //not found error
@@ -128,7 +175,7 @@ export default class CameraScreen extends React.Component {
         <View style={{ flex: 1 }}>
 
 
-          {this.state.display ? (
+          {this.state.displayScannerAnim ? (
             <Animated.View style={{ top: this.scannerAnim}}>
               <View style={styles.c_scanner}></View>
             </Animated.View>) : null
@@ -136,12 +183,20 @@ export default class CameraScreen extends React.Component {
 
 
           {this.state.displayPoints ? (
-              <TouchableWithoutFeedback style={{width:"100%", height:"100%", backgroundColor:"#ffffffff"}} onPress={() => this._onPointsPress()}>
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onPointsPress()}>
                 <Points/>
-              </TouchableWithoutFeedback>) : null
+              </TouchableWithoutFeedback>
+              </View>) : null
           }
 
-          {this.state.displayInfo ? <View></View> : null}
+          {this.state.displayInfo ? (
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onInfoPress()}>
+                <InfoComponent img={this.state.img} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
 
           {this.state.displayScanner ? (
             <View style={styles.c_close}>
@@ -158,6 +213,7 @@ export default class CameraScreen extends React.Component {
                 style={styles.c_scanner__button_container}
                 onPressIn={() => this._onStartPress()}
                 onPressOut={() => this._onStopPress()}
+                onPress={() => this._onPressed()}
               >
                 <SvgUri
                   height="80"
@@ -196,6 +252,18 @@ export default class CameraScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
+  c_touchable:{
+    width: ScreenWidth,
+    height: ScreenHeight,
+    zIndex: 10
+  },
+  c_touchableView:{
+    zIndex: 6,
+    position: "absolute",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   c_close:{
     zIndex: 7,
     position: 'absolute',
