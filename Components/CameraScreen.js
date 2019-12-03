@@ -8,6 +8,8 @@ import * as ImageManipulator from "expo-image-manipulator";
 import * as Filesystem from "expo-file-system";
 import Points from "./points";
 import InfoComponent from "./Infocomponent";
+import NavigationService from "../Utils/NavigationService";
+
 
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
@@ -89,6 +91,7 @@ export default class CameraScreen extends React.Component {
         displayScannerAnim: false
       })
     }, 1750);
+    NavigationService.navigate('InfoTabComponent')
   }
   
   _onClosePress(){

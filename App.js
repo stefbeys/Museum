@@ -6,10 +6,12 @@ import {createAppContainer } from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import CameraScreen from "./Components/CameraScreen";
 import Companion from './Components/companionIndex'
+import InfoTabComponent from './Components/InfoTabComponent'
 
 const TopLevelNavigator = createStackNavigator({
   TabScreen:TabScreen,
-  CameraScreen:CameraScreen
+  CameraScreen:CameraScreen,
+  InfoScreen:InfoTabComponent
 },{
   defaultNavigationOptions:{
     header:null
