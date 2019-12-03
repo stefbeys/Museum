@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  Animated
-} from "react-native";
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated}from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -70,22 +63,22 @@ export default class CameraScreen extends React.Component {
     ).start();
     // setTimeout(() => {
       this.ScanImage();
-      // }, 2000);
+      // }, 750);
   }
 
   _onPressed(){
-    this.setState({
-      name: "1",
-          appearance: "2",
-          behaviour: "3",
-          diet: "4",
-          endangerment: "5",
-          sizeL: "6",
-          sizeW: "7",
-          dietShort: "8",
-          region: "9",
-          img: 'require("../assets/duck1.png")'
-    })
+    // this.setState({
+    //   name: "Kurkki",
+    //   appearance: "2",
+    //   behaviour: "3",
+    //   diet: "4",
+    //   endangerment: "5",
+    //   sizeL: "41-46cm",
+    //   sizeW: "70-78cm",
+    //   dietShort: "Small fish, plant material",
+    //   region: "West and East Europe",
+    //   img: 'require("../assets/duck1.png")'
+    // })
   }
 
   _onStopPress() {
@@ -178,8 +171,8 @@ export default class CameraScreen extends React.Component {
           {this.state.displayScannerAnim ? (
             <Animated.View style={{ top: this.scannerAnim}}>
               <View style={styles.c_scanner}></View>
-            </Animated.View>) : null
-          }
+            </Animated.View>
+          ) : null}
 
 
           {this.state.displayPoints ? (
@@ -187,8 +180,8 @@ export default class CameraScreen extends React.Component {
               <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onPointsPress()}>
                 <Points/>
               </TouchableWithoutFeedback>
-              </View>) : null
-          }
+            </View>
+          ) : null }
 
           {this.state.displayInfo ? (
             <View style={styles.c_touchableView}>
@@ -196,15 +189,15 @@ export default class CameraScreen extends React.Component {
                 <InfoComponent img={this.state.img} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
               </TouchableWithoutFeedback>
             </View>
-          ) : null}
+          ) : null }
 
           {this.state.displayScanner ? (
             <View style={styles.c_close}>
               <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
                 <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
               </TouchableWithoutFeedback>
-            </View>) : null
-          }
+            </View>
+          ) : null }
 
           {this.state.displayScanner ? (
            

@@ -9,12 +9,12 @@ let ScreenWidth = Dimensions.get("window").width;
 export default class cameraCompanion extends React.Component {  
     constructor(props){
         super(props)
-        this.moveAnim = new Animated.Value(325)
+        this.moveAnim = new Animated.Value(ScreenHeight + 235)
     }
 
     componentDidMount(){
         Animated.timing(this.moveAnim, {
-            toValue: 0,
+            toValue: ScreenHeight,
             duration: 1000,
         }).start()
       }
@@ -51,19 +51,12 @@ const styles = StyleSheet.create({
         zIndex: 5,
     },
 
-    c_container:{
-        width:ScreenWidth,
-        height: ScreenHeight,
-        position: 'absolute',
-        zIndex: 4,
-    },
-
     c_companion__cover:{
         width: ScreenWidth,
         height: ScreenHeight,
         position: 'absolute',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        bottom: 0
+        backgroundColor: '#000000ff',
+        bottom: 0,
     },
 
     c_companionContainer:{
@@ -72,7 +65,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
         position: 'absolute',
         width: '100%',
-        height: '30%',
+        height: 235,
         bottom: -50,
         flex:1,
         flexDirection:'row',
