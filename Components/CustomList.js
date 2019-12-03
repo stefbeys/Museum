@@ -48,6 +48,7 @@ export default class CustomList extends React.Component {
           onScroll={this.scrollEvent}
           snapToInterval={100}
           snapToAlignment="center"
+          decelerationRate={100}
           style={{ flex: 1 }}>
           <View>
             {renderItems()}

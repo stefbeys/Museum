@@ -44,8 +44,8 @@ export default class IndexScreen extends React.Component {
    this.getAnimals(); 
   }
   openCamera() {
-    NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
-    //NavigationService.navigate("CameraScreen");
+    // NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
+    NavigationService.navigate("CameraScreen");
   }
   addPad(s,size){
       while (s.length < (size || 2)) {s = "0" + s;}

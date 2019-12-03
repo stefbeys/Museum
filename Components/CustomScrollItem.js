@@ -1,15 +1,25 @@
 import React from "react";
-import {View} from 'react-native';
+import {View, Animated, Easing} from 'react-native';
 export default class CustomScrollItem extends React.Component {
   constructor(props) {
     super(props);
+    this.replaceAnim = new Animated.Value(0);
   }
+
+  componentDidUpdate(){
+        const margin=(Math.abs(this.props.selectedindex-this.props.index)*40);
+        Animated.timing(this.replaceAnim, {
+          toValue: margin.toString(),
+          duration: 250,
+          easing: Easing.ease
+        }).start()
+  }
+
   render() {
-    const margin=(Math.abs(this.props.selectedindex-this.props.index)*5)+"%";
     return (
-      <View style={this.props.selectedindex==this.props.index?{ borderWidth: 2, borderColor: "#fff", borderRadius: 12}:{marginLeft:margin}}>        
-        {this.props.children}
-      </View>
+      <Animated.View style={this.props.selectedindex==this.props.index?{ borderWidth: 2, borderColor: "#fff", borderRadius: 12}:{marginLeft: this.replaceAnim}}>    
+        {this.props.children}    
+      </Animated.View>
     );
   }
 }

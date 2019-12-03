@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated, Easing} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import {
     responsiveHeight,
@@ -31,6 +31,7 @@ export default class Companion extends React.Component {
     Animated.timing(this.moveAnim, {
         toValue: 0,
         duration: 1000,
+        easing: Easing.ease
     }).start()
   }
   //#endregion
