@@ -46,6 +46,7 @@ export default class CustomList extends React.Component {
           ref={scrollref => { _scrollref = scrollref }}
           contentContainerStyle={{paddingTop: "65%", paddingBottom: ScreenHeight*0.07+"%"}}
           onScroll={this.scrollEvent}
+          
           snapToInterval={100}
           snapToAlignment="center"
           style={{ flex: 1 }}>
