@@ -22,26 +22,7 @@ import {
 } from "react-native-responsive-dimensions";
 import Points from "./points";
 import CustomList from "./CustomList";
-
-const dataList = [
-  { img: "duck1", name: "Harmaa Haikara", data: "info about him" },
-  { img: "duck1", name: "Kakkuri", data: "info about him" },
-  { img: "duck1", name: "Kaulushaikara", data: "info about him" },
-  { img: "duck2", name: "Kurki", data: "info about him" },
-  { img: "duck1", name: "Lapasorsa", data: "info about him" },
-  { img: "duck2", name: "Merilokki", data: "info about him" },
-  { img: "duck2", name: "Nokikana", data: "info about him" },
-  { img: "duck1", name: "Ooievaar", data: "info about him" },
-  { img: "duck2", name: "Ristisorsa", data: "info about him" },
-  { img: "duck1", name: "Ruisrääkkä", data: "info about him" },
-  { img: "duck2", name: "Ruokki", data: "info about him" },
-  { img: "duck1", name: "Ruokokerttunen", data: "info about him" },
-  { img: "duck2", name: "Ruskosuohaukka", data: "info about him" },
-  { img: "duck1", name: "Sinitainen", data: "info about him" },
-  { img: "duck1", name: "Punasotka", data: "info about him" },
-  { img: "duck1", name: "Taivaavuohi", data: "info about him" },
-  { img: "duck2", name: "Räkättirastas", data: "info about him" }
-];
+import { ENDPOINT } from "./CameraScreen";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -50,6 +31,7 @@ export default class IndexScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      animals:[],
       img: "",
       name: "",
       info: ""
@@ -58,12 +40,36 @@ export default class IndexScreen extends React.Component {
     this._onPress = this._onPress.bind(this);
     this.openCamera = this.openCamera.bind(this);
   }
+  componentDidMount(){
+   this.getAnimals(); 
+  }
   openCamera() {
-    NavigationService.navigate("CameraScreen");
+    NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
+    //NavigationService.navigate("CameraScreen");
   }
   addPad(s,size){
       while (s.length < (size || 2)) {s = "0" + s;}
       return s;
+  }
+  async getAnimals(){
+    //TODO: check if animals are in DB?
+    let httpresult=await fetch(ENDPOINT+"ai/categories");
+    if(httpresult.status==200){
+      let results=await httpresult.json();
+      let endresult=[]
+      for(let item of results.categories){
+        
+        endresult.push({name:this.isDiscovered(item)?item:"---",img:"duck1",data:"placeholder data"})
+      }
+      this.setState({animals:endresult})
+    }
+  }
+  isDiscovered(animalname){
+    //check in db if user has discovered the animal
+    if(animalname=="ooievaar"){
+      return false;
+    }
+    return true
   }
   _renderItem(item,Index) {
     return (
@@ -108,7 +114,7 @@ export default class IndexScreen extends React.Component {
             </View>
           </View>
         </View>
-        <CustomList selectedEvent={this._onPress} data={dataList} renderItem={this._renderItem} />
+        <CustomList selectedEvent={this._onPress} data={this.state.animals} renderItem={this._renderItem} />
 
         <FAB
           style={styles.FAB}

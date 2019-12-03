@@ -13,7 +13,7 @@ import NavigationService from "../Utils/NavigationService";
 
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
-const ENDPOINT = "http://88.114.129.242/api/";
+export const ENDPOINT = "http://192.168.0.176/api/";
 let _camera;
 export default class CameraScreen extends React.Component {
   constructor(props) {
@@ -113,6 +113,7 @@ export default class CameraScreen extends React.Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Base64: base64 })
       });
+      console.warn(httpresult);
       if (httpresult.status == 200) {
         let animaldata= await httpresult.json();
         console.log(animaldata);
