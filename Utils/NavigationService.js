@@ -7,6 +7,12 @@ function setTopLevelNavigator(navigatorRef) {
   _navigator = navigatorRef;
 }
 
+function popToTop(){
+  _navigator.dispatch(
+    NavigationActions.popToTop()
+  );
+}
+
 function navigate(routeName, params) {
   _params=params;
   _navigator.dispatch(
@@ -24,5 +30,6 @@ function getParam(paramname){
 export default {
   navigate,
   setTopLevelNavigator,
-  getParam
+  getParam,
+  popToTop
 };
