@@ -22,7 +22,6 @@ export default class CameraScreen extends React.Component {
     this._onStartPress = this._onStartPress.bind(this);
     this._onPointsPress = this._onPointsPress.bind(this);
     this._onClosePress = this._onClosePress.bind(this);
-    this._onPressed = this._onPressed.bind(this);
     this._onInfoPress = this._onInfoPress.bind(this);
   }
 
@@ -61,24 +60,9 @@ export default class CameraScreen extends React.Component {
         })
       ])
     ).start();
-    // setTimeout(() => {
+    setTimeout(() => {
       this.ScanImage();
-      // }, 750);
-  }
-
-  _onPressed(){
-    // this.setState({
-    //   name: "Kurkki",
-    //   appearance: "2",
-    //   behaviour: "3",
-    //   diet: "4",
-    //   endangerment: "5",
-    //   sizeL: "41-46cm",
-    //   sizeW: "70-78cm",
-    //   dietShort: "Small fish, plant material",
-    //   region: "West and East Europe",
-    //   img: 'require("../assets/duck1.png")'
-    // })
+      }, 750);
   }
 
   _onStopPress() {
@@ -87,22 +71,24 @@ export default class CameraScreen extends React.Component {
     });
   }
 
-  _onPointsPress() {
-    this.setState({
-      displayPoints: false,
-      displayScanner: false,
-      displayInfo: true,
-      displayScannerAnim: false
-    });
+  _onPointsPress() {      
+      this.setState({
+        displayPoints: false,
+        displayScanner: false,
+        displayInfo: true,
+        displayScannerAnim: false
+      });
   }
 
   _onInfoPress(){
-    this.setState({
-      displayPoints: false,
-      displayScanner: true,
-      displayInfo: false,
-      displayScannerAnim: false
-    })
+    setTimeout(() => {
+      this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
+    }, 1750);
   }
   
   _onClosePress(){
@@ -206,7 +192,6 @@ export default class CameraScreen extends React.Component {
                 style={styles.c_scanner__button_container}
                 onPressIn={() => this._onStartPress()}
                 onPressOut={() => this._onStopPress()}
-                onPress={() => this._onPressed()}
               >
                 <SvgUri
                   height="80"
