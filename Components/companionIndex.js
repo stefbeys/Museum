@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import {
     responsiveHeight,
@@ -18,6 +18,7 @@ export default class Companion extends React.Component {
       display: true
     }
     this._onPress = this._onPress.bind(this)
+    this.moveAnim = new Animated.Value(325)
   }
 
   _onPress() {
@@ -25,7 +26,15 @@ export default class Companion extends React.Component {
       display: false
     });
   }
+
+  componentDidMount(){
+    Animated.timing(this.moveAnim, {
+        toValue: 0,
+        duration: 1000,
+    }).start()
+  }
   //#endregion
+
 
   render() {
     if(this.state.display){
@@ -34,14 +43,14 @@ export default class Companion extends React.Component {
                 <View style={styles.c_container}>
                     <View style={styles.c_companion_upper_cover}/>
                     <View style={styles.c_companion__cover}>
-                        <View style={styles.c_companionContainer}>
+                        <Animated.View style={[styles.c_companionContainer, { transform: [{translateY: this.moveAnim}]} ]}>
                             <SvgUri height={150} width={150} style={styles.c_companion} source={require('../assets/companion.svg')}/>
                             <View style={styles.c_companion__text_container}>
                                 <Text style={styles.c_companion__title}>Willy: </Text>
                                 <Text style={styles.c_companion__text}>You can see the info about the animal that is currently selected.</Text>
                                 <Text style={styles.c_companion__text}>Tap anywhere to continue.</Text>
                             </View>
-                        </View>
+                        </Animated.View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -77,7 +86,7 @@ const styles = StyleSheet.create({
 
     c_companion__cover:{
         width: ScreenWidth,
-        height: ScreenHeight - 175,
+        height: ScreenHeight - 200,
         position: 'absolute',
         backgroundColor: '#000000B3',
         bottom: 0
@@ -89,11 +98,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
         position: 'absolute',
         width: '100%',
-        height: '30%',
+        height: 235,
         bottom: -50,
         flex:1,
         flexDirection:'row',
-        display: 'none'
+        display: 'none',
     },
 
     c_companion:{
@@ -112,7 +121,7 @@ const styles = StyleSheet.create({
 
     c_companion__text:{
         fontSize: responsiveFontSize(2),
-        marginBottom: 24
+        marginBottom: 12
     }
 
 

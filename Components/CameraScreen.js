@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Dimensions,
-  Text,
-  TouchableOpacity,
-  Animated
-} from "react-native";
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated}from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -14,10 +7,13 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as Filesystem from "expo-file-system";
 import Points from "./points";
+import InfoComponent from "./Infocomponent";
+import NavigationService from "../Utils/NavigationService";
+
 
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
-const ENDPOINT = "http://192.168.0.176/api/";
+export const ENDPOINT = "http://192.168.0.176/api/";
 let _camera;
 export default class CameraScreen extends React.Component {
   constructor(props) {
@@ -27,20 +23,32 @@ export default class CameraScreen extends React.Component {
     this.stopScannerAnim = new Animated.Value(0);
     this._onStartPress = this._onStartPress.bind(this);
     this._onPointsPress = this._onPointsPress.bind(this);
+    this._onClosePress = this._onClosePress.bind(this);
+    this._onInfoPress = this._onInfoPress.bind(this);
   }
 
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    display: false,
+    displayScannerAnim: false,
     displayPoints: false,
     displayInfo: false,
-    displayScanner: true
+    displayScanner: true,
+    name: "",
+    appearance: "",
+    behaviour: "",
+    diet: "",
+    endangerment: "",
+    img: 'require("")',
+    sizeL: "",
+    sizeW: "",
+    dietShort: "",
+    region: "",
   };
 
   _onStartPress() {
     this.setState({
-      display: true
+      displayScannerAnim: true
     });
     Animated.loop(
       Animated.sequence([
@@ -54,24 +62,40 @@ export default class CameraScreen extends React.Component {
         })
       ])
     ).start();
-    // setTimeout(() => {
-    this.ScanImage();
-    // }, 2000);
+    setTimeout(() => {
+      this.ScanImage();
+      }, 750);
   }
 
   _onStopPress() {
     this.setState({
-      display: false
+      displayScannerAnim: false
     });
   }
 
-  _onPointsPress() {
-    this.setState({
-      displayPoints: false,
-      displayScanner: false,
-      displayInfo: true,
-      display: false
-    });
+  _onPointsPress() {      
+      this.setState({
+        displayPoints: false,
+        displayScanner: false,
+        displayInfo: true,
+        displayScannerAnim: false
+      });
+  }
+
+  _onInfoPress(){
+    setTimeout(() => {
+      this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
+    }, 1750);
+    NavigationService.navigate('InfoTabComponent')
+  }
+  
+  _onClosePress(){
+    this.props.navigation.goBack()
   }
 
   async ScanImage() {
@@ -91,12 +115,24 @@ export default class CameraScreen extends React.Component {
       });
       console.warn(httpresult);
       if (httpresult.status == 200) {
-        console.log(await httpresult.json());
+        let animaldata= await httpresult.json();
+        console.log(animaldata);
         this.setState({
           displayPoints: true,
           displayScanner: false,
           displayInfo: false,
-          display: false
+          displayScannerAnim: false,
+          name: animaldata.name,
+          appearance: animaldata.appearance,
+          behaviour: animaldata.behaviour,
+          diet: animaldata.diet,
+          endangerment: animaldata.endangerment,
+          sizeL: animaldata["length"],
+          sizeW: animaldata.width,
+          dietShort: animaldata.dietShort,
+          region: animaldata.region,
+          
+
         });
       } else {
         //not found error
@@ -123,23 +159,39 @@ export default class CameraScreen extends React.Component {
         <View style={{ flex: 1 }}>
 
 
-          {this.state.display ? (
+          {this.state.displayScannerAnim ? (
             <Animated.View style={{ top: this.scannerAnim}}>
               <View style={styles.c_scanner}></View>
-            </Animated.View>) : null
-          }
+            </Animated.View>
+          ) : null}
 
 
           {this.state.displayPoints ? (
-              <TouchableWithoutFeedback style={{width:"100%", height:"100%", backgroundColor:"#ffffffff"}} onPress={() => this._onPointsPress()}>
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onPointsPress()}>
                 <Points/>
-              </TouchableWithoutFeedback>) : null
-          }
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null }
 
-          {this.state.displayInfo ? <View></View> : null}
-
+          {this.state.displayInfo ? (
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onInfoPress()}>
+                <InfoComponent img={this.state.img} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null }
 
           {this.state.displayScanner ? (
+            <View style={styles.c_close}>
+              <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
+                <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null }
+
+          {this.state.displayScanner ? (
+           
             <View style={styles.c_scanner__container}>
               <TouchableWithoutFeedback
                 style={styles.c_scanner__button_container}
@@ -173,13 +225,6 @@ export default class CameraScreen extends React.Component {
                 backgroundColor: "transparant"
               }}
             >
-              {/* <TouchableWithoutFeedback
-                onPress={this.ScanImage}
-                style={{
-                  height: "100%",
-                  width: "100%"
-                }}
-              ></TouchableWithoutFeedback> */}
             </View>
           </Camera>
         </View>
@@ -190,10 +235,29 @@ export default class CameraScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
+  c_touchable:{
+    width: ScreenWidth,
+    height: ScreenHeight,
+    zIndex: 10
+  },
+  c_touchableView:{
+    zIndex: 6,
+    position: "absolute",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  c_close:{
+    zIndex: 7,
+    position: 'absolute',
+    top: 64,
+    left: 32
+  },
+
   c_background: {
     height: ScreenHeight,
     width: ScreenWidth,
-    position: "absolute"
+    position: "absolute",
   },
   contentContainer: {
     backgroundColor: "#000"

@@ -21,7 +21,6 @@ export default class CustomList extends React.Component {
     }
   }
   scrollEnd(event) {
-    console.log("test");
     if (this.state.zIndex != 0) {
       this.setState({ zIndex: 0 });
     }

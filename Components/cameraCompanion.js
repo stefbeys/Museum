@@ -1,29 +1,36 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
-import {
-    responsiveHeight,
-    responsiveWidth,
-    responsiveFontSize
-  } from "react-native-responsive-dimensions";
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
 
 export default class cameraCompanion extends React.Component {  
+    constructor(props){
+        super(props)
+        this.moveAnim = new Animated.Value(ScreenHeight + 235)
+    }
+
+    componentDidMount(){
+        Animated.timing(this.moveAnim, {
+            toValue: ScreenHeight,
+            duration: 1000,
+        }).start()
+      }
   render() {
         return(
             <TouchableWithoutFeedback onPress={this._onPress} style={styles.test}>
                 <View style={styles.c_container}>
                     <View style={styles.c_companion__cover}>
-                        <View style={styles.c_companionContainer}>
+                    <Animated.View style={[styles.c_companionContainer, { transform: [{translateY: this.moveAnim}]} ]}>
                             <SvgUri height={150} width={150} style={styles.c_companion} source={require('../assets/companion.svg')}/>
                             <View style={styles.c_companion__text_container}>
                                 <Text style={styles.c_companion__title}>Willy: </Text>
                                 <Text style={styles.c_companion__text}>{this.props.scanText}</Text>
                                 <Text style={styles.c_companion__text}>Tap anywhere to continue.</Text>
                             </View>
-                        </View>
+                        </Animated.View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -44,19 +51,12 @@ const styles = StyleSheet.create({
         zIndex: 5,
     },
 
-    c_container:{
-        width:ScreenWidth,
-        height: ScreenHeight,
-        position: 'absolute',
-        zIndex: 4,
-    },
-
     c_companion__cover:{
         width: ScreenWidth,
         height: ScreenHeight,
         position: 'absolute',
-        backgroundColor: '#000000B3',
-        bottom: 0
+        backgroundColor: '#000000ff',
+        bottom: 0,
     },
 
     c_companionContainer:{
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 15,
         position: 'absolute',
         width: '100%',
-        height: '30%',
+        height: 235,
         bottom: -50,
         flex:1,
         flexDirection:'row',
