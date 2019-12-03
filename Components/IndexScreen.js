@@ -23,6 +23,7 @@ import {
 import Points from "./points";
 import CustomList from "./CustomList";
 import { ENDPOINT } from "./CameraScreen";
+import DB from "../Utils/DatabaseService";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -41,7 +42,9 @@ export default class IndexScreen extends React.Component {
     this.openCamera = this.openCamera.bind(this);
   }
   componentDidMount(){
-   this.getAnimals(); 
+    var db=new DB();
+    
+   this.getAnimals(db); 
   }
   openCamera() {
     NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
@@ -51,8 +54,9 @@ export default class IndexScreen extends React.Component {
       while (s.length < (size || 2)) {s = "0" + s;}
       return s;
   }
-  async getAnimals(){
+  async getAnimals(db){
     //TODO: check if animals are in DB?
+    console.warn(await db.animalByName("ooievaar"))
     let httpresult=await fetch(ENDPOINT+"ai/categories");
     if(httpresult.status==200){
       let results=await httpresult.json();

@@ -1,35 +1,44 @@
-/*import * as SQLite from 'expo-sqlite';
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
-
+import * as SQLite from 'expo-sqlite';
 const database_name = "Reactoffline.db";
 const database_version = "1.0";
 const database_displayname = "SQLite React Offline Database";
 const database_size = 200000;
-
-const _db;
-class DB {
+const db=SQLite.openDatabase(database_name, database_version, database_displayname, database_size);
+export default class DB {
+    _db;
     constructor() {
-
-        _db = SQLite.openDatabase(database_name, database_version, database_displayname, database_size);
-        _db.transaction(tx => {
+        this._db=db;
+        this.openDB();
+    }
+    async openDB(){
+        this._db.transaction(tx => {
             tx.executeSql('CREATE TABLE IF NOT EXISTS Animals(index, name, info, image, category, scanned)');
             tx.executeSql('CREATE TABLE IF NOT EXISTS User (points)');
             tx.executeSql('CREATE TABLE IF NOT EXISTS Stickers (index, image, name, bought)');
         })
+    }
+    executeSql = (sql,params=[])=>new Promise((resolve , reject)=>{
+        this._db.transaction((trans)=>{
+            trans.executeSql(sql,params,(db,results)=>{
 
+                resolve(results);
+            },
+            (error)=>{
+                reject(error);
+            });
+        });
+    });
+    async animalByName(name){
+        try{
+       return await this.executeSql("SELECT * FROM Birds WHERE index = ?",name);
     }
-    static closeDB() {
-        if (_db != null) {
-            _db.close();
-        }
-        _db=null;
+    catch{
+        return null;
     }
-    static async animalByName(name){
-        _db.transaction(tx=>)
     }
+
 }
-
+/*
 export default class Database {
     static async initDBalt() {
         console.log(await SQLite.echoTest())
