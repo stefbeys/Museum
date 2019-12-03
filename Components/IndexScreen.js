@@ -69,7 +69,7 @@ export default class IndexScreen extends React.Component {
     if(animalname=="ooievaar"){
       return false;
     }
-    return false
+    return true
   }
   _renderItem(item,Index) {
     return (
