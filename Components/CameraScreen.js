@@ -124,22 +124,23 @@ export default class CameraScreen extends React.Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Base64: base64 })
       });
-      console.warn(httpresult);
       if (httpresult.status == 200) {
+        let animaldata= await httpresult.json();
+        console.log(animaldata);
         this.setState({
           displayPoints: true,
           displayScanner: false,
           displayInfo: false,
           displayScannerAnim: false,
-          name: httpresult.name,
-          appearance: httpresult.appearance,
-          behaviour: httpresult.behaviour,
-          diet: httpresult.diet,
-          endangerment: httpresult.endangerment,
-          sizeL: httpresult["length"],
-          sizeW: httpresult.width,
-          dietShort: httpresult.dietShort,
-          region: httpresult.region,
+          name: animaldata.name,
+          appearance: animaldata.appearance,
+          behaviour: animaldata.behaviour,
+          diet: animaldata.diet,
+          endangerment: animaldata.endangerment,
+          sizeL: animaldata["length"],
+          sizeW: animaldata.width,
+          dietShort: animaldata.dietShort,
+          region: animaldata.region,
           
 
         });
