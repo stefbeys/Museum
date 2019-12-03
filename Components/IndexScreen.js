@@ -59,9 +59,9 @@ export default class IndexScreen extends React.Component {
       let endresult=[]
       for(let item of results.categories){
         
-        endresult.push({name:this.isDiscovered(item)?item:"---",img:"duck1",data:"placeholder data"})
+        endresult.push({name:this.isDiscovered(item)?item:"---",img:"duck1",info:"placeholder data"})
       }
-      this.setState({animals:endresult})
+      this.setState({animals:endresult,...endresult[0]})
     }
   }
   isDiscovered(animalname){
@@ -93,7 +93,7 @@ export default class IndexScreen extends React.Component {
     this.setState({
       img: item.img,
       name: item.name,
-      info: item.data
+      info: item.info
     });
   }
   //#endregion
