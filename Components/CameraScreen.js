@@ -13,7 +13,7 @@ import NavigationService from "../Utils/NavigationService";
 
 const ScreenHeight = Dimensions.get("window").height + 82;
 const ScreenWidth = Dimensions.get("window").width;
-const ENDPOINT = "http://192.168.0.176/api/";
+const ENDPOINT = "http://88.114.129.242/api/";
 let _camera;
 export default class CameraScreen extends React.Component {
   constructor(props) {
