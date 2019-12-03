@@ -58,8 +58,8 @@ export default class IndexScreen extends React.Component {
       let results=await httpresult.json();
       let endresult=[]
       for(let item of results.categories){
-        
-        endresult.push({name:this.isDiscovered(item)?item:"---",img:"duck1",info:"placeholder data"})
+        const check=this.isDiscovered(item);
+        endresult.push({name:check?item:"---",img:check?"duck1":"unknown",info:check?"placeholder data":"Unknown"})
       }
       this.setState({animals:endresult,...endresult[0]})
     }
@@ -69,7 +69,7 @@ export default class IndexScreen extends React.Component {
     if(animalname=="ooievaar"){
       return false;
     }
-    return true
+    return false
   }
   _renderItem(item,Index) {
     return (
