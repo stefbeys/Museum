@@ -6,6 +6,14 @@ export default class CustomScrollItem extends React.Component {
     this.replaceAnim = new Animated.Value(0);
   }
 
+  componentDidMount(){
+        const margin=(Math.abs(this.props.selectedindex-this.props.index)*40);
+        Animated.timing(this.replaceAnim, {
+          toValue: margin.toString(),
+          duration: 250,
+          easing: Easing.ease
+        }).start()
+  }
   componentDidUpdate(){
         const margin=(Math.abs(this.props.selectedindex-this.props.index)*40);
         Animated.timing(this.replaceAnim, {
