@@ -91,7 +91,7 @@ export default class CameraScreen extends React.Component {
         displayScannerAnim: false
       })
     }, 1750);
-    NavigationService.navigate('InfoTabComponent')
+    NavigationService.navigate('InfoTabComponent', {selectedAnimal: this.state.name})
   }
   
   _onClosePress(){
@@ -131,8 +131,6 @@ export default class CameraScreen extends React.Component {
           sizeW: animaldata.width,
           dietShort: animaldata.dietShort,
           region: animaldata.region,
-          
-
         });
       } else {
         //not found error
