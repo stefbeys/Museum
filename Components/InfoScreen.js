@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet,  View,  Text,  Image,  Dimensions,  ScrollView, Animated, TouchableWithoutFeedback} from "react-native";
+import { StyleSheet,  View,  Text,  Image,  Dimensions,  ScrollView, Animated} from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import Images from "./images";
 import NavigationService from '../Utils/NavigationService';
@@ -19,7 +20,7 @@ export default class InfoScreen extends React.Component{
     }
 
     _onClosePress(){
-        NavigationService.popToTop()
+        NavigationService.navigate("TabScreen")
     }
 
     render(){
@@ -33,7 +34,7 @@ export default class InfoScreen extends React.Component{
             <View style={styles.contentContainer}>
                 <Background />
                 <View style={styles.c_close}>
-                    <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
+                    <TouchableWithoutFeedback onPress={this._onClosePress}>
                         <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
                     </TouchableWithoutFeedback>
                 </View>
@@ -117,10 +118,10 @@ const styles = StyleSheet.create({
     },
 
     c_close:{
-        zIndex: 7,
+        zIndex: 2,
         position: 'absolute',
         top: 64,
-        left: 32
+        left: 32,
       },
   });
   // #endregion

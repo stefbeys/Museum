@@ -9,7 +9,7 @@ export default class CustomScrollItem extends React.Component {
 
   componentDidMount(){
         const margin=(Math.abs(this.props.selectedindex-this.props.index)*40);
-        const opacity=(Math.abs(this.props.selectedindex - this.props.index)/5);
+        const opacity=(100/(Math.abs(this.props.index-this.props.selectedindex)+1))/80;
 
           Animated.timing(this.replaceAnim, {
             toValue: margin.toString(),
@@ -24,7 +24,7 @@ export default class CustomScrollItem extends React.Component {
   }
   componentDidUpdate(){
         const margin=(Math.abs(this.props.selectedindex-this.props.index)*40);
-        const opacity=(Math.abs(this.props.selectedindex - this.props.index)/5);
+        const opacity=(100/(Math.abs(this.props.index-this.props.selectedindex)+1))/80;
 
           Animated.timing(this.replaceAnim, {
             toValue: margin.toString(),
