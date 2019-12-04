@@ -23,6 +23,7 @@ import {
 import Points from "./points";
 import CustomList from "./CustomList";
 import { ENDPOINT } from "./CameraScreen";
+import DB from "../Utils/DatabaseService";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -31,7 +32,7 @@ export default class IndexScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      animals:[],
+      animals: [],
       img: "",
       name: "",
       info: ""
@@ -39,50 +40,54 @@ export default class IndexScreen extends React.Component {
     this._renderItem = this._renderItem.bind(this);
     this._onPress = this._onPress.bind(this);
     this.openCamera = this.openCamera.bind(this);
+    this.toInfoPage=this.toInfoPage.bind(this);
   }
-  componentDidMount(){
-   this.getAnimals(); 
+  componentDidMount() {
+    this.getAnimals();
   }
   openCamera() {
-    // NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
-    NavigationService.navigate("CameraScreen");
+    NavigationService.navigate("CameraScreen", { onGoBack: () => this.refresh() });
   }
-  addPad(s,size){
-      while (s.length < (size || 2)) {s = "0" + s;}
-      return s;
+  refresh() {
+    this.getAnimals();
   }
-  async getAnimals(){
+  addPad(s, size) {
+    while (s.length < (size || 2)) { s = "0" + s; }
+    return s;
+  }
+  async getAnimals() {
     //TODO: check if animals are in DB?
-    let httpresult=await fetch(ENDPOINT+"ai/categories");
-    if(httpresult.status==200){
-      let results=await httpresult.json();
-      let endresult=[]
-      for(let item of results.categories){
-        const check=this.isDiscovered(item);
-        endresult.push({name:check?item:"---",img:check?"duck1":"unknown",info:check?"placeholder data":"Unknown"})
+    let httpresult = await fetch(ENDPOINT + "ai/categories");
+    if (httpresult.status == 200) {
+      let results = await httpresult.json();
+      let endresult = []
+      for (let item of results.categories) {
+        const check = await this.isDiscovered(item);
+        endresult.push({ name: check != null ? item : "---", img: check != null ? { isStatic: true, uri: check.image } : Images.ducks.unknown, info: check != null ? "placeholder data" : "Unknown" })
       }
-      this.setState({animals:endresult,...endresult[0]})
+      this.setState({ animals: endresult, ...endresult[0] })
     }
   }
-  isDiscovered(animalname){
-    //check in db if user has discovered the animal
-    if(animalname=="ooievaar"){
-      return false;
+  async isDiscovered(animalname) {
+    var db = new DB();
+    const hasanimal = await db.getAnimalByName(animalname)
+    if (hasanimal != null) {
+      return hasanimal;
     }
-    return true
+    return null;
   }
-  _renderItem(item,Index) {
+  _renderItem(item, Index) {
     return (
       <TouchableHighlight style={styles.c_index__container} key={Index}>
         <View style={styles.c_index__list}>
           <Image
             style={styles.c_index__picture}
-            source={Images.ducks[item.img]}
+            source={item.img}
           />
-          <View style={{flex:1,flexDirection:"row"}}>
-            <Text  style={styles.c_index_data__name}>{this.addPad((Index+1).toString(),3)}</Text>
-            <Text  style={styles.c_index_data__name}> | </Text>
-          <Text style={styles.c_index_data__name}>{item.name}</Text>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <Text style={styles.c_index_data__name}>{this.addPad((Index + 1).toString(), 3)}</Text>
+            <Text style={styles.c_index_data__name}> | </Text>
+            <Text style={styles.c_index_data__name}>{item.name}</Text>
 
           </View>
         </View>
@@ -97,23 +102,32 @@ export default class IndexScreen extends React.Component {
     });
   }
   //#endregion
-
+  async toInfoPage(){
+    const animalData=await new DB().getAnimalByName(this.state.name);
+    if(animalData==null){
+      NavigationService.navigate("CameraScreen");
+    }
+    else{
+      NavigationService.navigate("InfoScreen",{selectedName: animalData.name, selectedAppearance: animalData.appearance ,
+        selectedDiet : animalData.diet ,selectedBehaviour : animalData.behaviour ,selectedEndangerment : animalData.endangerment,selectedImage:{isstatic:true,uri:animalData.image} })
+    }
+  }
   render() {
     return (
       <View style={styles.contentContainer}>
         <Background />
-        <View style={styles.c_info}>
+        <TouchableHighlight onPress={this.toInfoPage} style={styles.c_info}>
           <View style={styles.c_index}>
             <Image
               style={styles.c_index__picture_selected}
-              source={Images.ducks[this.state.img]}
+              source={this.state.img}
             />
-            <View>
+            <View style={{flex:1,alignContent:"center",justifyContent:"center"}}>
               <Text style={styles.c_index_data__name}>{this.state.name}</Text>
               <Text style={styles.c_index_data__name}>{this.state.info}</Text>
             </View>
           </View>
-        </View>
+        </TouchableHighlight>
         <CustomList selectedEvent={this._onPress} data={this.state.animals} renderItem={this._renderItem} />
 
         <FAB
@@ -121,11 +135,11 @@ export default class IndexScreen extends React.Component {
           icon={require("../assets/dove.png")}
           onTap={this.openCamera}
         />
-     
-      <FAB
-      style={styles.FAB}
-        onTap={this.openCamera}
-      />
+
+        <FAB
+          style={styles.FAB}
+          onTap={this.openCamera}
+        />
       </View>
     );
   }
@@ -143,9 +157,9 @@ IndexScreen.navigationOptions = {
 };
 // #region Stylesheet
 const styles = StyleSheet.create({
-  c_index__container:{
-    height:100,
-    flex:1,
+  c_index__container: {
+    height: 100,
+    flex: 1,
   },
   contentContainer: {
     flex: 1
@@ -162,7 +176,6 @@ const styles = StyleSheet.create({
   },
   c_info: {
     marginTop: 48,
-    marginBottom: 124
   },
 
   c_background: {
@@ -175,16 +188,17 @@ const styles = StyleSheet.create({
     margin: 24,
     marginTop: 8,
     marginBottom: 8,
-    flex: 1,
+    justifyContent:"center",
+    alignItems:"center",
     flexDirection: "row",
   },
-  c_index__list:{
+  c_index__list: {
     margin: 24,
     marginTop: 8,
     marginBottom: 8,
     flex: 1,
     flexDirection: "row",
-    alignItems:"center"
+    alignItems: "center"
   },
 
   c_index__picture: {
