@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet,  View,  Text,  Image,  Dimensions,  ScrollView, Animated, TouchableWithoutFeedback} from "react-native";
+import { StyleSheet,  View,  Text,  Image,  Dimensions,  ScrollView, Animated} from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import Images from "./images";
 import NavigationService from '../Utils/NavigationService';
@@ -21,9 +22,8 @@ export default class InfoScreen extends React.Component{
 
 
     _onClosePress(){
-        NavigationService.popToTop()
+        NavigationService.navigate("TabScreen")
     }
-
     render(){
         const headerHeight = this.scrollY.interpolate({
             inputRange: [0, HEADER_EXPANDED_HEIGHT-HEADER_COLLAPSED_HEIGHT],
@@ -35,12 +35,12 @@ export default class InfoScreen extends React.Component{
             <View style={styles.contentContainer}>
                 <Background />
                 <View style={styles.c_close}>
-                    <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
+                    <TouchableWithoutFeedback onPress={this._onClosePress}>
                         <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
                     </TouchableWithoutFeedback>
                 </View>
-                <Animated.Image  style={{height: headerHeight, width: ScreenWidth, position: 'absolute', top: 0, left: 0}}  source={Images.ducks["duck1"]}/>
-                <ScrollView scrollbarVisible={false} style={styles.c_infoScreen__container} onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY}}}])} scrollEventThrottle={16} contentContainerStyle={{padding: 16, paddingTop: HEADER_EXPANDED_HEIGHT}}>
+                <Animated.Image  style={{height: headerHeight, width: ScreenWidth, position: 'absolute', top: 0, left: 0}}  source={NavigationService.getParam("selectedImage")}/>
+                <ScrollView showsVerticalScrollIndicator={false} style={styles.c_infoScreen__container} onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY}}}])} scrollEventThrottle={16} contentContainerStyle={{padding: 16, paddingTop: HEADER_EXPANDED_HEIGHT}}>
                     <View style={styles.c_infoScreen__name_container}>
                         <Text style={styles.c_infoScreen__name}>{NavigationService.getParam("selectedName")}</Text>
                     </View>
@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     },
 
     c_close:{
-        zIndex: 7,
+        zIndex: 2,
         position: 'absolute',
         top: 64,
-        left: 32
+        left: 32,
       },
   });
   // #endregion
