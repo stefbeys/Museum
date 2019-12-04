@@ -9,46 +9,11 @@ import {  responsiveHeight,  responsiveWidth,  responsiveFontSize} from "react-n
 import Points from "./points";
 import CustomList from "./CustomList";
 import { ENDPOINT } from "./CameraScreen";
-import { Accelerometer } from 'expo-sensors';
-import { Audio } from 'expo-av';
-
-
 
 import DB from "../Utils/DatabaseService";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 const soundObject = new Audio.Sound();
-
-//this is shake sensitivity - lowering this will give high sensitivity and increasing this will give lower sensitivity
-const THRESHOLD = 150;
-export class ShakeEventExpo {
-  static addListener(handler) {
-    let last_x,
-      last_y,
-      last_z;
-    let lastUpdate = 0;
-    
-    Accelerometer.addListener(accelerometerData => {
-      let { x, y, z } = accelerometerData;
-      let currTime = Date.now();
-      if ((currTime - lastUpdate) > 100) {
-        let diffTime = (currTime - lastUpdate);
-        lastUpdate = currTime;
-        let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-        if (speed > THRESHOLD) {
-          handler();
-        }
-        last_x = x;
-        last_y = y;
-        last_z = z;
-      }
-    });
-  }
-
-  static removeListener() {
-    Accelerometer.removeAllListeners()
-  }
-};
 
 export default class IndexScreen extends React.Component {
   //#region listview code
@@ -67,20 +32,8 @@ export default class IndexScreen extends React.Component {
     this.toInfoPage=this.toInfoPage.bind(this);
   }
 
-  async componentDidMount(){
-    await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));
+  componentDidMount(){
     this.getAnimals(); 
-  }
-    
-  componentWillMount(){
-    ShakeEventExpo.addListener(() => {
-      console.warn('Device shake!');
-      this.playSound()
-    });
-  }
-
-  async playSound(){
-    await soundObject.playAsync();
   }
   
   openCamera() {
@@ -90,10 +43,12 @@ export default class IndexScreen extends React.Component {
   async refresh() {
       this.getAnimals();
   }
+
   addPad(s, size) {
     while (s.length < (size || 2)) { s = "0" + s; }
     return s;
   }
+
   async getAnimals() {
     //TODO: check if animals are in DB?
     let httpresult = await fetch(ENDPOINT + "ai/categories");
@@ -107,6 +62,7 @@ export default class IndexScreen extends React.Component {
       this.setState({ animals: endresult, ...endresult[0] })
     }
   }
+
   db = new DB();
   async isDiscovered(animalname) { 
     const hasanimal = await this.db.getAnimalByName(animalname)
@@ -115,6 +71,7 @@ export default class IndexScreen extends React.Component {
     }
     return null;
   }
+
   _renderItem(item, Index) {
     return (
       <TouchableHighlight style={styles.c_index__container} key={Index}>
@@ -133,6 +90,7 @@ export default class IndexScreen extends React.Component {
       </TouchableHighlight>
     );
   }
+
   _onPress(item) {
     this.setState({
       img: item.img,
@@ -140,6 +98,7 @@ export default class IndexScreen extends React.Component {
       info: item.info
     });
   }
+
   //#endregion
   async toInfoPage(){
     const animalData=await new DB().getAnimalByName(this.state.name);
@@ -151,6 +110,7 @@ export default class IndexScreen extends React.Component {
         selectedDiet : animalData.diet ,selectedBehaviour : animalData.behaviour ,selectedEndangerment : animalData.endangerment,selectedImage:{isstatic:true,uri:animalData.image} })
     }
   }
+  
   render() {
     return (
       <View style={styles.contentContainer}>

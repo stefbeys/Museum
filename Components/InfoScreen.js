@@ -6,12 +6,45 @@ import Images from "./images";
 import NavigationService from '../Utils/NavigationService';
 import Background from "./background";
 import SvgUri from "react-native-svg-uri";
+import { Accelerometer } from 'expo-sensors';
+import { Audio } from 'expo-av';
 
 
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 const HEADER_EXPANDED_HEIGHT = ScreenWidth
 const HEADER_COLLAPSED_HEIGHT = 48
+
+//this is shake sensitivity - lowering this will give high sensitivity and increasing this will give lower sensitivity
+const THRESHOLD = 150;
+export class ShakeEventExpo {
+  static addListener(handler) {
+    let last_x,
+      last_y,
+      last_z;
+    let lastUpdate = 0;
+    
+    Accelerometer.addListener(accelerometerData => {
+      let { x, y, z } = accelerometerData;
+      let currTime = Date.now();
+      if ((currTime - lastUpdate) > 100) {
+        let diffTime = (currTime - lastUpdate);
+        lastUpdate = currTime;
+        let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+        if (speed > THRESHOLD) {
+          handler();
+        }
+        last_x = x;
+        last_y = y;
+        last_z = z;
+      }
+    });
+  }
+
+  static removeListener() {
+    Accelerometer.removeAllListeners()
+  }
+};
 
 export default class InfoScreen extends React.Component{
     constructor(props){
@@ -20,10 +53,24 @@ export default class InfoScreen extends React.Component{
         this._onClosePress = this._onClosePress.bind(this)
     }
 
+    async componentDidMount(){
+        await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));
+    }
+
+    componentWillMount(){
+        ShakeEventExpo.addListener(() => {
+          this.playSound()
+        });
+      }
+
+    async playSound(){
+        await soundObject.playAsync();
+      }
 
     _onClosePress(){
         NavigationService.navigate("TabScreen")
     }
+
     render(){
         const headerHeight = this.scrollY.interpolate({
             inputRange: [0, HEADER_EXPANDED_HEIGHT-HEADER_COLLAPSED_HEIGHT],

@@ -49,24 +49,24 @@ export default class InfoComponent extends React.Component {
             
     }
 
-
-
   render() {
         return(
             <View>
                 <View style={styles.c_container}>
                         <Animated.Image style={[styles.c_shortInfo__img, , {transform:[{scale: this.scalePic}, {translateY: this.movePic}]}]} source={require('../assets/duck1.png')}/>
                         <Fade visible={this.state.showInfo}>
-                            <View  style={styles.c_shortInfo}>
-                                <Text style={styles.c_shortInfo__name}>{this.props.name}</Text>
-                                <Text style={styles.c_shortInfo__title}>Size</Text>
-                                <Text style={styles.c_shortInfo__data_1}>{this.props.sizeL}</Text>
-                                <Text style={styles.c_shortInfo__data}>{this.props.sizeW}</Text>
-                                <Text style={styles.c_shortInfo__title}>Diet</Text>
-                                <Text style={styles.c_shortInfo__data}>{this.props.diet}</Text>
-                                <Text style={styles.c_shortInfo__title}>Region</Text>
-                                <Text style={styles.c_shortInfo__data_last}>{this.props.region}</Text>
-                                <Text style={styles.c_shortInfo__data}>Tap to continue.</Text>
+                            <View style={styles.c_shortInfo}>   
+                                <View style={{backgroundColor: 'white', borderRadius: 15}}>
+                                    <Text style={styles.c_shortInfo__name}>{this.props.name}</Text>
+                                    <Text style={styles.c_shortInfo__title}>Size</Text>
+                                    <Text style={styles.c_shortInfo__data_1}>Length: {this.props.sizeL}</Text>
+                                    <Text style={styles.c_shortInfo__data}>Wingspan: {this.props.sizeW}</Text>
+                                    <Text style={styles.c_shortInfo__title}>Diet</Text>
+                                    <Text style={styles.c_shortInfo__data}>{this.props.diet}</Text>
+                                    <Text style={styles.c_shortInfo__title}>Region</Text>
+                                    <Text style={styles.c_shortInfo__data_last}>{this.props.region}</Text>
+                                    <Text style={styles.c_shortInfo__data}>Tap to continue.</Text>
+                                </View>
                             </View>
                         </Fade>
                 </View>
@@ -116,8 +116,6 @@ const styles = StyleSheet.create({
         height: ScreenWidth/1.4,
         width: ScreenWidth/1.4,
         top: 0,
-        backgroundColor: 'white',
-        borderRadius: 15,
         marginTop: 0,   
         top: -150
     },
