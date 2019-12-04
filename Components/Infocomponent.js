@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, Image, Animated} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, Image, Animated, Easing} from 'react-native';
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import CameraCompanion from './cameraCompanion'
 import SvgUri from 'react-native-svg-uri';
@@ -28,6 +28,7 @@ export default class InfoComponent extends React.Component {
                 Animated.timing(this.movePic, {
                     toValue: -150,
                     duration: 1000,
+                    easing: Easing.ease
                 })
             ]).start()
 
@@ -36,6 +37,7 @@ export default class InfoComponent extends React.Component {
                 Animated.timing(this.scalePic, {
                     toValue: 1,
                     duration: 1000,
+                    easing: Easing.ease
                 })
             ]).start()
 

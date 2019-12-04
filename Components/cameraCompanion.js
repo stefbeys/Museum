@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated, Easing} from 'react-native';
 import SvgUri from 'react-native-svg-uri';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from "react-native-responsive-dimensions";
 
@@ -16,6 +16,7 @@ export default class cameraCompanion extends React.Component {
         Animated.timing(this.moveAnim, {
             toValue: ScreenHeight,
             duration: 1000,
+            easing: Easing.ease
         }).start()
       }
   render() {

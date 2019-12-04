@@ -26,6 +26,7 @@ export default class CameraScreen extends React.Component {
     this._onPointsPress = this._onPointsPress.bind(this);
     this._onClosePress = this._onClosePress.bind(this);
     this._onInfoPress = this._onInfoPress.bind(this);
+    this._onLongPress = this._onLongPress.bind(this);
   }
 
   state = {
@@ -46,6 +47,11 @@ export default class CameraScreen extends React.Component {
     dietShort: "",
     region: "",
   };
+
+  _onLongPress(){
+    this.ScanImage();
+  }
+
   _onStartPress() {
     this.setState({
       displayScannerAnim: true
@@ -62,9 +68,6 @@ export default class CameraScreen extends React.Component {
         })
       ])
     ).start();
-    setTimeout(() => {
-      this.ScanImage();
-      }, 750);
   }
 
   _onStopPress() {
@@ -91,7 +94,8 @@ export default class CameraScreen extends React.Component {
         displayScannerAnim: false
       })
     }, 1750);
-    NavigationService.navigate('InfoTabComponent', {selectedAnimal: this.state.name})
+    NavigationService.navigate('InfoScreen', {selectedName: this.state.name, selectedAppearance: this.state.appearance ,
+      selectedDiet : this.state.diet ,selectedBehaviour : this.state.behaviour ,selectedEndangerment : this.state.endangerment })
   }
   
   _onClosePress(){
@@ -196,6 +200,7 @@ export default class CameraScreen extends React.Component {
             <View style={styles.c_scanner__container}>
               <TouchableWithoutFeedback
                 style={styles.c_scanner__button_container}
+                onLongPress={() => this._onLongPress()}
                 onPressIn={() => this._onStartPress()}
                 onPressOut={() => this._onStopPress()}
               >
