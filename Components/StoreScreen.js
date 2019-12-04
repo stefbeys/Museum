@@ -8,6 +8,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import Stickers from './stickers'
+import DB from "../Utils/DatabaseService";
 
 const dataList = [
 {img: 'Sticker3', name:'Proud Duck', data:'claimed'}, 
@@ -24,14 +25,24 @@ let ScreenWidth = Dimensions.get("window").width;
 
 export default class StoreScreen extends React.Component {
   // #region Listview code
+  _db=new DB();
   constructor(props) {
     super(props);
+    
     this.state = {
       data: dataList,
+      credits:0
     }
+    this.getCredits()
   }
-
-
+  async getCredits(){
+    this.setState({
+      credits: await this._db.getCredits()
+    })
+  }
+  componentWillUpdate(){
+    this.getCredits();
+  }
   _onPress(item){
 
   }
@@ -43,7 +54,7 @@ export default class StoreScreen extends React.Component {
         <Background background={require('../assets/Background2L.png')}/>  
         <View style={styles.c_points_container}>
           <View style={styles.c_points_flexcontainer}>
-            <Text style={styles.c_points_amount}>1200<Text style={styles.c_points_pts}>Pts</Text></Text>
+            <Text style={styles.c_points_amount}>{this.state.credits}<Text style={styles.c_points_pts}>Pts</Text></Text>
           </View>
         </View>
         <FlatList
@@ -63,7 +74,7 @@ export default class StoreScreen extends React.Component {
                     <Text style={styles.c_index_data__points}>800Pts</Text>
                 <TouchableOpacity onPress={() => this._onPress(item)}>
                   <View style = {styles.c_index__button__unclaimed}>
-                      <Text style={ styles.c_index__button_text__unclaimed}>Claim</Text>
+                      <Text style={ styles.c_index__button_text__unclaimed}>Coming Soon</Text>
                   </View>
             </TouchableOpacity>
                   </View>

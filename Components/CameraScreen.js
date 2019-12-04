@@ -46,6 +46,7 @@ export default class CameraScreen extends React.Component {
     sizeW: "",
     dietShort: "",
     region: "",
+    image:"",
   };
 
   _onLongPress(){
@@ -94,8 +95,11 @@ export default class CameraScreen extends React.Component {
         displayScannerAnim: false
       })
     }, 1750);
+    if(undefined!=this.props.navigation.state.params){
+      this.props.navigation.state.params.onGoBack();
+    }
     NavigationService.navigate('InfoScreen', {selectedName: this.state.name, selectedAppearance: this.state.appearance ,
-      selectedDiet : this.state.diet ,selectedBehaviour : this.state.behaviour ,selectedEndangerment : this.state.endangerment,selectedImage:this.state.img })
+      selectedDiet : this.state.diet ,selectedBehaviour : this.state.behaviour ,selectedEndangerment : this.state.endangerment,selectedImage:this.state.image })
   }
   
   _onClosePress(){
@@ -125,7 +129,9 @@ export default class CameraScreen extends React.Component {
         let animaldata= await httpresult.json();
         console.log(animaldata);
         const db= new DB();
-       await db.addAnimal({...animaldata,image:imageresult.uri})
+       if(await db.addAnimal({...animaldata,image:imageresult.uri})){
+       await db.addCredits(400);
+      }
         this.setState({
           displayPoints: true,
           displayScanner: false,
@@ -140,7 +146,7 @@ export default class CameraScreen extends React.Component {
           sizeW: animaldata.width,
           dietShort: animaldata.dietShort,
           region: animaldata.region,
-          img:{isstatic:true,uri:imageresult}
+          image:{isstatic:true,uri:imageresult.uri}
         });
       } else {
         //not found error

@@ -1,43 +1,92 @@
 import { AsyncStorage } from 'react-native';
+import { number } from 'prop-types';
 export default class DB {
-    Animalkey="Animals"
-    async getData(key){
-        let result= await AsyncStorage.getItem(key);
-        if(result!=null){
-            result=JSON.parse(result)
+    Animalkey = "Animals"
+    StoreKey = "Store"
+    MoneyKey = "Money"
+    constructor() {
+        this.initDB()
+    }
+    async initDB() {
+        if (await this.getJsonData(this.Animalkey) == null) {
+            await this.saveIntData(this.Animalkey, []);
+        }
+        if (await this.getJsonData(this.StoreKey) == null) {
+            await this.saveIntData(this.StoreKey, []);
+        }
+        if (await this.getIntData(this.MoneyKey) == null) {
+            await this.saveIntData(this.MoneyKey, 0);
+        }
+    }
+    async resetDB(){
+        await this.saveIntData(this.Animalkey, []);
+        await this.saveIntData(this.StoreKey, []);
+        await this.saveIntData(this.MoneyKey, 0);
+    }
+
+    async getJsonData(key) {
+        let result = await AsyncStorage.getItem(key);
+        if (result != null) {
+            result = JSON.parse(result)
         }
         return result;
     }
-    async saveData(key,values){
-        await AsyncStorage.setItem(key,JSON.stringify(values));
-    }
-    async getAnimalByName(name){
-        const ScannedAnimals=await this.getData(this.Animalkey);
-        if(ScannedAnimals==null){
+    async getIntData(key){
+        let result=await AsyncStorage.getItem(key);
+        if(result!=null){
+            return result
+        }
+        else{
             return null;
         }
-        for(let animal of ScannedAnimals){
-            if(animal.name==name){
+    }
+    async saveIntData(key,value){
+        await AsyncStorage.setItem(key,value.toString());
+    }
+    async saveJsonData(key, values) {
+        await AsyncStorage.setItem(key, JSON.stringify(values));
+    }
+    async getAnimalByName(name) {
+        const ScannedAnimals = await this.getJsonData(this.Animalkey);
+        if (ScannedAnimals == null) {
+            return null;
+        }
+        for (let animal of ScannedAnimals) {
+            if (animal.name == name) {
                 return animal;
             }
         }
         return null;
     }
-    async addAnimal(animal){
-      
-        try{
-        const data=await this.getData(this.Animalkey);
-        if(data==null){
-            await this.saveData(this.Animalkey,[animal])
+    async addAnimal(animal) {
+
+        try {
+            const data = await this.getJsonData(this.Animalkey);
+            if (data == null) {
+                await this.saveJsonData(this.Animalkey, [animal])
+            }
+            else {
+                for(let item of data){
+                    if(animal.name==item.name){
+                        return false;
+                    }
+                }
+                data.push(animal);
+                await this.saveJsonData(this.Animalkey, data);
+                return true;
+            }
         }
-        else{
-            data.push(animal);
-            await this.saveData(this.Animalkey,data);
+        catch (e) {
+            console.warn(e);
+            return false;
         }
     }
-    catch(e){
-        console.warn(e);
+    async getCredits(){
+        return await this.getIntData(this.MoneyKey);
     }
+    async addCredits(credits){
+        const currentcreds=await this.getCredits();
+        await this.saveIntData(this.MoneyKey,currentcreds==null?credits.toString():(parseInt(currentcreds)+credits).toString());
     }
 }
 /*

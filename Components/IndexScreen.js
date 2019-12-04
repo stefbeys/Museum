@@ -35,10 +35,11 @@ export default class IndexScreen extends React.Component {
       animals: [],
       img: "",
       name: "",
-      info: ""
+      info: "",
     };
     this._renderItem = this._renderItem.bind(this);
     this._onPress = this._onPress.bind(this);
+    this.refresh=this.refresh.bind(this);
     this.openCamera = this.openCamera.bind(this);
     this.toInfoPage=this.toInfoPage.bind(this);
   }
@@ -48,8 +49,8 @@ export default class IndexScreen extends React.Component {
   openCamera() {
     NavigationService.navigate("CameraScreen", { onGoBack: () => this.refresh() });
   }
-  refresh() {
-    this.getAnimals();
+  async refresh() {
+      this.getAnimals();
   }
   addPad(s, size) {
     while (s.length < (size || 2)) { s = "0" + s; }
@@ -68,9 +69,9 @@ export default class IndexScreen extends React.Component {
       this.setState({ animals: endresult, ...endresult[0] })
     }
   }
-  async isDiscovered(animalname) {
-    var db = new DB();
-    const hasanimal = await db.getAnimalByName(animalname)
+  db = new DB();
+  async isDiscovered(animalname) { 
+    const hasanimal = await this.db.getAnimalByName(animalname)
     if (hasanimal != null) {
       return hasanimal;
     }
