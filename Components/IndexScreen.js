@@ -83,10 +83,6 @@ export default class IndexScreen extends React.Component {
     await soundObject.playAsync();
   }
   
-    componentDidMount() {
-    this.getAnimals();
-  }
-  
   openCamera() {
     NavigationService.navigate("CameraScreen", { onGoBack: () => this.refresh() });
   }
