@@ -6,6 +6,7 @@ import NavigationService from '../Utils/NavigationService';
 import Background from "./background";
 import SvgUri from "react-native-svg-uri";
 
+
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 const HEADER_EXPANDED_HEIGHT = ScreenWidth
@@ -17,6 +18,7 @@ export default class InfoScreen extends React.Component{
         this.scrollY = new Animated.Value(0)
         this._onClosePress = this._onClosePress.bind(this)
     }
+
 
     _onClosePress(){
         NavigationService.popToTop()

@@ -1,30 +1,53 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Dimensions,
-  TouchableHighlight,
-  FlatList,
-  Animated,
-  SafeAreaView
-} from "react-native";
+import {  StyleSheet,  View,  Text,  Image,  Dimensions,  TouchableHighlight,  FlatList,  Animated,  SafeAreaView} from "react-native";
 import Images from "./images";
 import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
 import SvgUri from "react-native-svg-uri";
-import {
-  responsiveHeight,
-  responsiveWidth,
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
+import {  responsiveHeight,  responsiveWidth,  responsiveFontSize} from "react-native-responsive-dimensions";
 import Points from "./points";
 import CustomList from "./CustomList";
 import { ENDPOINT } from "./CameraScreen";
+import { Accelerometer } from 'expo-sensors';
+import { Audio } from 'expo-av';
+
+
+
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
+const soundObject = new Audio.Sound();
+
+//this is shake sensitivity - lowering this will give high sensitivity and increasing this will give lower sensitivity
+const THRESHOLD = 150;
+export class ShakeEventExpo {
+  static addListener(handler) {
+    let last_x,
+      last_y,
+      last_z;
+    let lastUpdate = 0;
+    
+    Accelerometer.addListener(accelerometerData => {
+      let { x, y, z } = accelerometerData;
+      let currTime = Date.now();
+      if ((currTime - lastUpdate) > 100) {
+        let diffTime = (currTime - lastUpdate);
+        lastUpdate = currTime;
+        let speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+        if (speed > THRESHOLD) {
+          handler();
+        }
+        last_x = x;
+        last_y = y;
+        last_z = z;
+      }
+    });
+  }
+
+  static removeListener() {
+    Accelerometer.removeAllListeners()
+  }
+};
 
 export default class IndexScreen extends React.Component {
   //#region listview code
@@ -40,17 +63,33 @@ export default class IndexScreen extends React.Component {
     this._onPress = this._onPress.bind(this);
     this.openCamera = this.openCamera.bind(this);
   }
-  componentDidMount(){
-   this.getAnimals(); 
+
+  async componentDidMount(){
+    await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));
+    this.getAnimals(); 
   }
+    
+  componentWillMount(){
+    ShakeEventExpo.addListener(() => {
+      console.warn('Device shake!');
+      this.playSound()
+    });
+  }
+
+  async playSound(){
+    await soundObject.playAsync();
+  }
+  
   openCamera() {
     // NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
     NavigationService.navigate("CameraScreen");
   }
+
   addPad(s,size){
       while (s.length < (size || 2)) {s = "0" + s;}
       return s;
   }
+
   async getAnimals(){
     //TODO: check if animals are in DB?
     let httpresult=await fetch(ENDPOINT+"ai/categories");
