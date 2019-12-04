@@ -9,6 +9,7 @@ import * as Filesystem from "expo-file-system";
 import Points from "./points";
 import InfoComponent from "./Infocomponent";
 import NavigationService from "../Utils/NavigationService";
+import DB from "../Utils/DatabaseService";
 
 
 const ScreenHeight = Dimensions.get("window").height + 82;
@@ -45,7 +46,6 @@ export default class CameraScreen extends React.Component {
     dietShort: "",
     region: "",
   };
-
   _onStartPress() {
     this.setState({
       displayScannerAnim: true
@@ -95,6 +95,7 @@ export default class CameraScreen extends React.Component {
   }
   
   _onClosePress(){
+    this.props.navigation.state.params.onGoBack();
     this.props.navigation.goBack()
   }
 
@@ -117,6 +118,8 @@ export default class CameraScreen extends React.Component {
       if (httpresult.status == 200) {
         let animaldata= await httpresult.json();
         console.log(animaldata);
+        const db= new DB();
+       await db.addAnimal({...animaldata,image:imageresult.uri})
         this.setState({
           displayPoints: true,
           displayScanner: false,

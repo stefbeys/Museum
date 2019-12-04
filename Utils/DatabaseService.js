@@ -1,42 +1,44 @@
-import * as SQLite from 'expo-sqlite';
-const database_name = "Reactoffline.db";
-const database_version = "1.0";
-const database_displayname = "SQLite React Offline Database";
-const database_size = 200000;
-const db=SQLite.openDatabase(database_name, database_version, database_displayname, database_size);
+import { AsyncStorage } from 'react-native';
 export default class DB {
-    _db;
-    constructor() {
-        this._db=db;
-        this.openDB();
+    Animalkey="Animals"
+    async getData(key){
+        let result= await AsyncStorage.getItem(key);
+        if(result!=null){
+            result=JSON.parse(result)
+        }
+        return result;
     }
-    async openDB(){
-        this._db.transaction(tx => {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS Animals(index, name, info, image, category, scanned)');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS User (points)');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS Stickers (index, image, name, bought)');
-        })
+    async saveData(key,values){
+        await AsyncStorage.setItem(key,JSON.stringify(values));
     }
-    executeSql = (sql,params=[])=>new Promise((resolve , reject)=>{
-        this._db.transaction((trans)=>{
-            trans.executeSql(sql,params,(db,results)=>{
-
-                resolve(results);
-            },
-            (error)=>{
-                reject(error);
-            });
-        });
-    });
-    async animalByName(name){
-        try{
-       return await this.executeSql("SELECT * FROM Birds WHERE index = ?",name);
-    }
-    catch{
+    async getAnimalByName(name){
+        const ScannedAnimals=await this.getData(this.Animalkey);
+        if(ScannedAnimals==null){
+            return null;
+        }
+        for(let animal of ScannedAnimals){
+            if(animal.name==name){
+                return animal;
+            }
+        }
         return null;
     }
+    async addAnimal(animal){
+      
+        try{
+        const data=await this.getData(this.Animalkey);
+        if(data==null){
+            await this.saveData(this.Animalkey,[animal])
+        }
+        else{
+            data.push(animal);
+            await this.saveData(this.Animalkey,data);
+        }
     }
-
+    catch(e){
+        console.warn(e);
+    }
+    }
 }
 /*
 export default class Database {
@@ -60,13 +62,13 @@ export default class Database {
                         .then(DB => {
                             db = DB;
                             console.log("Database OPEN");
-                            db.executeSql('SELECT 1 FROM Birds LIMIT 1').then(() => {
+                            db.executeSql('SELECT 1 FROM animals LIMIT 1').then(() => {
                                 console.log("Database is ready ... executing query ...");
                             }).catch((error) => {
                                 console.log("Received error: ", error);
                                 console.log("Database not yet ready ... populating data");
                                 db.transaction((tx) => {
-                                    tx.executeSql('CREATE TABLE IF NOT EXISTS Birds (index, name, info, image, category, scanned)');
+                                    tx.executeSql('CREATE TABLE IF NOT EXISTS animals (index, name, info, image, category, scanned)');
                                     tx.executeSql('CREATE TABLE IF NOT EXISTS User (points)');
                                     tx.executeSql('CREATE TABLE IF NOT EXISTS Stickes (index, image, name, bought)');
                                 }).then(() => {
@@ -102,12 +104,12 @@ export default class Database {
         }
     };
 
-    birdByIndex(index) {
+    animalByIndex(index) {
         console.log(index);
         return new Promise((resolve) => {
             this.initDB().then((db) => {
                 db.transaction((tx) => {
-                    tx.executeSql('SELECT * FROM Birds WHERE index = ?', [index]).then(([tx, results]) => {
+                    tx.executeSql('SELECT * FROM animals WHERE index = ?', [index]).then(([tx, results]) => {
                         console.log(results);
                         if (results.rows.length > 0) {
                             let row = results.rows.item(0);
@@ -125,11 +127,11 @@ export default class Database {
         });
     }
 
-    scanBird(index) {
+    scananimal(index) {
         return new Promise((resolve) => {
             this.initDB().then((db) => {
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE Birds SET scanned = true WHERE index = ?', [index]).then(([tx, results]) => {
+                    tx.executeSql('UPDATE animals SET scanned = true WHERE index = ?', [index]).then(([tx, results]) => {
                         resolve(results);
                     });
                 }).then((result) => {

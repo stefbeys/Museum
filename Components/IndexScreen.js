@@ -41,39 +41,39 @@ export default class IndexScreen extends React.Component {
     this._onPress = this._onPress.bind(this);
     this.openCamera = this.openCamera.bind(this);
   }
-  componentDidMount(){
-    var db=new DB();
-    
-   this.getAnimals(db); 
+  componentDidMount(){   
+   this.getAnimals(); 
   }
   openCamera() {
-    NavigationService.navigate("InfoScreen",{ selectedAnimal:this.state.name})
-    //NavigationService.navigate("CameraScreen");
+    NavigationService.navigate("CameraScreen",{ onGoBack: () => this.refresh()});
+  }
+  refresh() {
+    this.getAnimals(); 
   }
   addPad(s,size){
       while (s.length < (size || 2)) {s = "0" + s;}
       return s;
   }
-  async getAnimals(db){
+  async getAnimals(){
     //TODO: check if animals are in DB?
-    console.warn(await db.animalByName("ooievaar"))
     let httpresult=await fetch(ENDPOINT+"ai/categories");
     if(httpresult.status==200){
       let results=await httpresult.json();
       let endresult=[]
       for(let item of results.categories){
-        const check=this.isDiscovered(item);
+        const check=await this.isDiscovered(item);
         endresult.push({name:check?item:"---",img:check?"duck1":"unknown",info:check?"placeholder data":"Unknown"})
       }
       this.setState({animals:endresult,...endresult[0]})
     }
   }
-  isDiscovered(animalname){
-    //check in db if user has discovered the animal
-    if(animalname=="ooievaar"){
+  async isDiscovered(animalname){
+    var db=new DB();
+    const hasanimal=await db.getAnimalByName(animalname)
+    if(hasanimal==null){
       return false;
     }
-    return true
+    return true;
   }
   _renderItem(item,Index) {
     return (
