@@ -33,7 +33,6 @@ export default class IndexScreen extends React.Component {
   }
 
   async componentDidMount(){
-    await this.db.resetDB();
     await this.getAnimals(); 
   }
   
