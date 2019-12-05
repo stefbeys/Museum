@@ -52,7 +52,10 @@ export default class InfoScreen extends React.Component{
         this.scrollY = new Animated.Value(0)
         this._onClosePress = this._onClosePress.bind(this)
     }
-
+    async componentWillUnmount(){
+      soundObject.setOnPlaybackStatusUpdate(null);
+      await soundObject.stopAsync()
+    }
     async componentDidMount(){
         await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));
         this.state={
