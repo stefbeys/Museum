@@ -5,12 +5,12 @@ import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
 import SvgUri from "react-native-svg-uri";
-import {  responsiveHeight,  responsiveWidth,  responsiveFontSize} from "react-native-responsive-dimensions";
-import Points from "./points";
+import {responsiveFontSize} from "react-native-responsive-dimensions";
 import CustomList from "./CustomList";
 import { ENDPOINT } from "./CameraScreen";
-
 import DB from "../Utils/DatabaseService";
+import CONSTANT_STRINGS from "../assets/en/strings";
+
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
@@ -58,7 +58,7 @@ export default class IndexScreen extends React.Component {
       let endresult = []
       for (let item of results.categories) {
         const check = await this.isDiscovered(item);
-        endresult.push({ name: check != null ? item : "---", img: check != null ? { isStatic: true, uri: check.image } : Images.ducks.unknown, info: check != null ? "placeholder data" : "Unknown" })
+        endresult.push({ name: check != null ? item : "---", img: check != null ? { isStatic: true, uri: check.image } : Images.ducks.unknown, info: check != null ? CONSTANT_STRINGS.Click_INFO : CONSTANT_STRINGS.UNKNOWN })
       }
       this.setState({ animals: endresult, ...endresult[0] })
     }
