@@ -2,7 +2,6 @@ import React from "react";
 import {StyleSheet, View, Text, Dimensions, Image, Animated, Easing} from 'react-native';
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import CameraCompanion from './cameraCompanion'
-import SvgUri from 'react-native-svg-uri';
 import { requireNativeViewManager } from "@unimodules/core";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Fade from "react-native-fade";
@@ -120,11 +119,11 @@ const styles = StyleSheet.create({
         top: -150
     },
     c_shortInfo__title:{
-        fontSize: responsiveFontSize(3.5),
+        fontSize: responsiveFontSize(3),
         marginLeft: 24,
     },
     c_shortInfo__name:{
-        fontSize: responsiveFontSize(5),
+        fontSize: responsiveFontSize(3.5),
         marginLeft: 24,
         marginBottom: 12
     },

@@ -13,7 +13,7 @@ import { ENDPOINT } from "./CameraScreen";
 import DB from "../Utils/DatabaseService";
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
-const soundObject = new Audio.Sound();
+
 
 export default class IndexScreen extends React.Component {
   //#region listview code
