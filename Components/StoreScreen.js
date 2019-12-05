@@ -121,8 +121,9 @@ const styles = StyleSheet.create({
   },
   
   c_index__picture:{
-    height: 108,
-    width: 108,
+    height: 150,
+    resizeMode: 'contain',
+    width: '100%',
     marginRight: 24
   },
 
