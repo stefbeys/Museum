@@ -52,7 +52,7 @@ export default class InfoComponent extends React.Component {
         return(
             <View>
                 <View style={styles.c_container}>
-                        <Animated.Image style={[styles.c_shortInfo__img, , {transform:[{scale: this.scalePic}, {translateY: this.movePic}]}]} source={require('../assets/duck1.png')}/>
+                        <Animated.Image style={[styles.c_shortInfo__img, , {transform:[{scale: this.scalePic}, {translateY: this.movePic}]}]} source={this.props.img}/>
                         <Fade visible={this.state.showInfo}>
                             <View style={styles.c_shortInfo}>   
                                 <View style={{backgroundColor: 'white', borderRadius: 15}}>
