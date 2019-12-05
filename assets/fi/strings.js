@@ -1,14 +1,14 @@
 const CONSTANT_STRINGS = {
     //camerascreen
-    NO_ACCESS_CAMERA: 'No access to camera',
+    NO_ACCESS_CAMERA: 'Ei pääsyä kameraan',
     //companionIndex
-    COMPANION_ANIMAL_INFO: 'You can see the info about the animal that is currently selected.',
-    COMPANION_CONTINUE: 'Tap anywhere to continue.',
+    COMPANION_ANIMAL_INFO: 'Täällä näet valitun eläimen tiedot.',
+    COMPANION_CONTINUE: 'Napauta mihin vain jatkaaksesi.',
     //points
-    ANIMAL_SCANNED: 'You have received a reward for scanning the animal! You can later use all the points you’ve won!',
-    SCANNING_REWARD: 'Scanning Reward',
+    ANIMAL_SCANNED: 'Sait palkinnon eläimen skannauksesta! Voit myöhemmin käyttää kaikki pisteet jotka olet saanut!',
+    SCANNING_REWARD: 'Palkinto skannauksesta',
     //StoreScreen
-    CLAIM: 'Claim'
+    CLAIM: 'Osta'
 }
 
 export default CONSTANT_STRINGS
