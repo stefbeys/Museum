@@ -143,10 +143,20 @@ export default class CameraScreen extends React.Component {
           image:{isstatic:true,uri:imageresult.uri}
         });
       } else {
-        //not found error
+        this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
       }
     } catch (e) {
-      //fetch failed... network error or server not online!
+      this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
     }
   }
 
