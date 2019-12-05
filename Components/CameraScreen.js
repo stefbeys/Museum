@@ -41,7 +41,6 @@ export default class CameraScreen extends React.Component {
     behaviour: "",
     diet: "",
     endangerment: "",
-    img: 'require("")',
     sizeL: "",
     sizeW: "",
     dietShort: "",
@@ -191,7 +190,7 @@ export default class CameraScreen extends React.Component {
           {this.state.displayInfo ? (
             <View style={styles.c_touchableView}>
               <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onInfoPress()}>
-                <InfoComponent img={this.state.img} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
+                <InfoComponent img={this.state.image} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
               </TouchableWithoutFeedback>
             </View>
           ) : null }
