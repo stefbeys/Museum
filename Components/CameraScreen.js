@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated}from "react-native";
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated, Image}from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -71,9 +71,9 @@ export default class CameraScreen extends React.Component {
   }
 
   _onStopPress() {
-    this.setState({
-      displayScannerAnim: false
-    });
+    // this.setState({
+    //   displayScannerAnim: false
+    // });
   }
 
   _onPointsPress() {      
@@ -198,7 +198,7 @@ export default class CameraScreen extends React.Component {
           {this.state.displayScanner ? (
             <View style={styles.c_close}>
               <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
-                <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
+                <Image styles={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
               </TouchableWithoutFeedback>
             </View>
           ) : null }

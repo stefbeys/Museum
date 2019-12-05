@@ -1,6 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated, Easing} from 'react-native';
-import SvgUri from 'react-native-svg-uri';
+import {StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback, Animated, Easing, Image} from 'react-native';
 import {
     responsiveHeight,
     responsiveWidth,
@@ -45,9 +44,9 @@ export default class Companion extends React.Component {
                     <View style={styles.c_companion_upper_cover}/>
                     <View style={styles.c_companion__cover}>
                         <Animated.View style={[styles.c_companionContainer, { transform: [{translateY: this.moveAnim}]} ]}>
-                            <SvgUri height={150} width={150} style={styles.c_companion} source={require('../assets/companion.svg')}/>
+                            <Image style={styles.c_companion} source={require('../assets/will.png')}/>
                             <View style={styles.c_companion__text_container}>
-                                <Text style={styles.c_companion__title}>Willy: </Text>
+                                <Text style={styles.c_companion__title}>Will: </Text>
                                 <Text style={styles.c_companion__text}>You can see the info about the animal that is currently selected.</Text>
                                 <Text style={styles.c_companion__text}>Tap anywhere to continue.</Text>
                             </View>
@@ -107,12 +106,15 @@ const styles = StyleSheet.create({
     },
 
     c_companion:{
-        marginLeft: 12
+        margin: 12,
+        marginTop: 24,
+        height: 140,
+        width: 140
     },
 
     c_companion__text_container:{
         marginTop: 24,
-        marginLeft: 24,
+        marginLeft: 12,
         width: '50%'
     },
 

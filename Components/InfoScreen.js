@@ -9,11 +9,11 @@ import SvgUri from "react-native-svg-uri";
 import { Accelerometer } from 'expo-sensors';
 import { Audio } from 'expo-av';
 
-
+const soundObject = new Audio.Sound();
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 const HEADER_EXPANDED_HEIGHT = ScreenWidth
-const HEADER_COLLAPSED_HEIGHT = 48
+const HEADER_COLLAPSED_HEIGHT = 108
 
 //this is shake sensitivity - lowering this will give high sensitivity and increasing this will give lower sensitivity
 const THRESHOLD = 150;
@@ -83,7 +83,7 @@ export default class InfoScreen extends React.Component{
                 <Background />
                 <View style={styles.c_close}>
                     <TouchableWithoutFeedback onPress={this._onClosePress}>
-                        <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
+                      <Image styles={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
                     </TouchableWithoutFeedback>
                 </View>
                 <Animated.Image  style={{height: headerHeight, width: ScreenWidth, position: 'absolute', top: 0, left: 0}}  source={NavigationService.getParam("selectedImage")}/>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     },
     c_infoScreen__container: {
         margin: 24,
+        marginTop: 124
     },
 
     c_infoScreen__name_container: {
