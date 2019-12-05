@@ -64,7 +64,7 @@ export default class InfoComponent extends React.Component {
                                     <Text style={styles.c_shortInfo__data}>{this.props.diet}</Text>
                                     <Text style={styles.c_shortInfo__title}>Region</Text>
                                     <Text style={styles.c_shortInfo__data_last}>{this.props.region}</Text>
-                                    <Text style={styles.c_shortInfo__data}>Tap to continue.</Text>
+                                    <Text style={[styles.c_shortInfo__data, {marginBottom: 12}]}>Tap to continue.</Text>
                                 </View>
                             </View>
                         </Fade>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     c_shortInfo:{
-        margin:24,        
+        // margin:24,        
         height: ScreenWidth/1.4,
         width: ScreenWidth/1.4,
         top: 0,
@@ -121,25 +121,30 @@ const styles = StyleSheet.create({
     c_shortInfo__title:{
         fontSize: responsiveFontSize(3),
         marginLeft: 24,
+        marginRight: 24,
     },
     c_shortInfo__name:{
         fontSize: responsiveFontSize(3.5),
         marginLeft: 24,
-        marginBottom: 12
+        marginBottom: 12,
+        marginRight: 24,
     },
     c_shortInfo__data:{
         fontSize: responsiveFontSize(1.7),
         marginBottom: 8,
         marginLeft: 24,
+        marginRight: 24,
     },
     c_shortInfo__data_1: {
         fontSize: responsiveFontSize(1.7),
         marginLeft: 24,
+        marginRight: 24,
     },
     c_shortInfo__data_last: {
         fontSize: responsiveFontSize(1.7),
         marginLeft: 24,
-        marginBottom: 24
+        marginBottom: 24,
+        marginRight: 24,
     },
     c_flexbox:{
         flex:1,
