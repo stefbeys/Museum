@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
         margin: 12,
         marginTop: 24,
         height: 140,
-        width: 140
+        width: 140,
+        resizeMode: 'contain',
     },
 
     c_companion__text_container:{
