@@ -32,8 +32,9 @@ export default class IndexScreen extends React.Component {
     this.toInfoPage=this.toInfoPage.bind(this);
   }
 
-  componentDidMount(){
-    this.getAnimals(); 
+  async componentDidMount(){
+    await this.db.resetDB();
+    await this.getAnimals(); 
   }
   
   openCamera() {
@@ -41,7 +42,8 @@ export default class IndexScreen extends React.Component {
   }
 
   async refresh() {
-      this.getAnimals();
+      await this.getAnimals();
+      await NavigationService.getParam("refreshCredits")();
   }
 
   addPad(s, size) {
