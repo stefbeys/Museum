@@ -8,6 +8,7 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import Stickers from './stickers'
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 const dataList = [
 {img: 'Sticker3', name:'Proud Duck', data:'claimed'}, 
@@ -63,7 +64,7 @@ export default class StoreScreen extends React.Component {
                     <Text style={styles.c_index_data__points}>800Pts</Text>
                 <TouchableOpacity onPress={() => this._onPress(item)}>
                   <View style = {styles.c_index__button__unclaimed}>
-                      <Text style={ styles.c_index__button_text__unclaimed}>Claim</Text>
+                      <Text style={ styles.c_index__button_text__unclaimed}>{CONSTANT_STRINGS.CLAIM}</Text>
                   </View>
             </TouchableOpacity>
                   </View>

@@ -9,6 +9,7 @@ import * as Filesystem from "expo-file-system";
 import Points from "./points";
 import InfoComponent from "./Infocomponent";
 import NavigationService from "../Utils/NavigationService";
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 
 const ScreenHeight = Dimensions.get("window").height + 82;
@@ -151,7 +152,7 @@ export default class CameraScreen extends React.Component {
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
+      return CONSTANT_STRINGS.NO_ACCESS_CAMERA;
     } else {
       return (
         <View style={{ flex: 1 }}>
