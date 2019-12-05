@@ -71,9 +71,6 @@ export default class CameraScreen extends React.Component {
   }
 
   _onStopPress() {
-    // this.setState({
-    //   displayScannerAnim: false
-    // });
   }
 
   _onPointsPress() {      
@@ -123,10 +120,8 @@ export default class CameraScreen extends React.Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Base64: base64 })
       });
-      console.warn(httpresult);
       if (httpresult.status == 200) {
         let animaldata= await httpresult.json();
-        console.log(animaldata);
         const db= new DB();
         const test=await db.addAnimal({...animaldata,image:imageresult.uri})
         console.warn(test);
@@ -151,10 +146,20 @@ export default class CameraScreen extends React.Component {
           image:{isstatic:true,uri:imageresult.uri}
         });
       } else {
-        //not found error
+        this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
       }
     } catch (e) {
-      //fetch failed... network error or server not online!
+      this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
     }
   }
 
@@ -179,6 +184,12 @@ export default class CameraScreen extends React.Component {
             <Animated.View style={{ top: this.scannerAnim}}>
               <View style={styles.c_scanner}></View>
             </Animated.View>
+          ) : null}
+
+          {this.state.displayScannerAnim ? (
+            <View style={styles.c_scanningImage}>
+                <Image style={styles.c_scanningImage_image} source={require('../assets/scanninganimal.png')}/>
+            </View>
           ) : null}
 
 
@@ -252,6 +263,21 @@ export default class CameraScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
+  c_scanningImage_image:{
+    margin: 24,
+    zIndex: 12,
+    width: ScreenWidth-48,
+    resizeMode: 'contain',
+  },
+  c_scanningImage:{
+    width:'100%',
+    height: '100%',
+    position:'absolute',
+    top:0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 11,
+  },
   c_touchable:{
     width: ScreenWidth,
     height: ScreenHeight,
