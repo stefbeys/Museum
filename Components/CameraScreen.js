@@ -199,7 +199,7 @@ export default class CameraScreen extends React.Component {
           {this.state.displayScanner ? (
             <View style={styles.c_close}>
               <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
-                <Image styles={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
+                <Image style={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
               </TouchableWithoutFeedback>
             </View>
           ) : null }

@@ -83,7 +83,7 @@ export default class InfoScreen extends React.Component{
                 <Background />
                 <View style={styles.c_close}>
                     <TouchableWithoutFeedback onPress={this._onClosePress}>
-                      <Image styles={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
+                      <Image style={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
                     </TouchableWithoutFeedback>
                 </View>
                 <Animated.Image  style={{height: headerHeight, width: ScreenWidth, position: 'absolute', top: 0, left: 0}}  source={NavigationService.getParam("selectedImage")}/>
