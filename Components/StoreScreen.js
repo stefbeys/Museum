@@ -17,7 +17,12 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
+<<<<<<< HEAD
 import Stickers from "./stickers";
+=======
+import Stickers from './stickers'
+import CONSTANT_STRINGS from "../assets/fi/strings";
+>>>>>>> 87f3730be0d69bdfa5dc5aad0beff085ab49d69a
 import DB from "../Utils/DatabaseService";
 
 const dataList = [
@@ -99,10 +104,8 @@ export default class StoreScreen extends React.Component {
                       <Text style={styles.c_index_data__name}>{item.name}</Text>
                       <Text style={styles.c_index_data__points}>800Pts</Text>
                       <TouchableOpacity onPress={() => this._onPress(item)}>
-                        <View style={styles.c_index__button__unclaimed}>
-                          <Text style={styles.c_index__button_text__unclaimed}>
-                            Coming Soon
-                          </Text>
+                        <View style = {styles.c_index__button__unclaimed}>
+                            <Text style={ styles.c_index__button_text__unclaimed}>{CONSTANT_STRINGS.CLAIM}</Text>
                         </View>
                       </TouchableOpacity>
                     </View>

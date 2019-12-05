@@ -2,6 +2,8 @@ import React from "react";
 import {StyleSheet, View, Text, Dimensions, Image} from 'react-native';
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import CameraCompanion from './cameraCompanion'
+import SvgUri from 'react-native-svg-uri';
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
@@ -10,11 +12,11 @@ export default class Points extends React.Component {
   render() {
         return(
             <View>
-                <CameraCompanion scanText={"You have received a reward for scanning the animal! You can later use all the points you’ve won!"} />
+                <CameraCompanion scanText={CONSTANT_STRINGS.ANIMAL_SCANNED} />
                 <View style={styles.c_container}>
                     <View  style={styles.c_companionPoints_container}>
                         <View style={styles.c_companionPoints_overall_container}>
-                            <Text style={styles.c_companionPoints_1}>Scanning Reward</Text>
+                            <Text style={styles.c_companionPoints_1}>{CONSTANT_STRINGS.SCANNING_REWARD}</Text>
                             <Image style={{marginLeft:45, height: 250, width: 250}}  source={require("../assets/points.png")} />
                         </View>
                     </View>

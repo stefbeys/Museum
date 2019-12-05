@@ -5,6 +5,7 @@ import {
     responsiveWidth,
     responsiveFontSize
   } from "react-native-responsive-dimensions";
+  import CONSTANT_STRINGS from "../assets/fi/strings";
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
@@ -47,8 +48,8 @@ export default class Companion extends React.Component {
                             <Image style={styles.c_companion} source={require('../assets/will.png')}/>
                             <View style={styles.c_companion__text_container}>
                                 <Text style={styles.c_companion__title}>Will: </Text>
-                                <Text style={styles.c_companion__text}>You can see the info about the animal that is currently selected.</Text>
-                                <Text style={styles.c_companion__text}>Tap anywhere to continue.</Text>
+                                <Text style={styles.c_companion__text}>{CONSTANT_STRINGS.COMPANION_ANIMAL_INFO}</Text>
+                                <Text style={styles.c_companion__text}>{CONSTANT_STRINGS.COMPANION_CONTINUE}</Text>
                             </View>
                         </Animated.View>
                     </View>
