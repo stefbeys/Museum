@@ -123,7 +123,10 @@ export default class CameraScreen extends React.Component {
       if (httpresult.status == 200) {
         let animaldata= await httpresult.json();
         const db= new DB();
-       if(await db.addAnimal({...animaldata,image:imageresult.uri})){
+        const test=await db.addAnimal({...animaldata,image:imageresult.uri})
+        console.warn(test);
+       if(test){
+         console.warn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
        await db.addCredits(400);
       }
         this.setState({

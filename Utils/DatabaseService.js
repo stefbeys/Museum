@@ -34,7 +34,7 @@ export default class DB {
     async getIntData(key){
         let result=await AsyncStorage.getItem(key);
         if(result!=null){
-            return result
+            return parseInt(result)
         }
         else{
             return null;
@@ -64,10 +64,12 @@ export default class DB {
             const data = await this.getJsonData(this.Animalkey);
             if (data == null) {
                 await this.saveJsonData(this.Animalkey, [animal])
+                return true
             }
             else {
                 for(let item of data){
                     if(animal.name==item.name){
+                    
                         return false;
                     }
                 }
