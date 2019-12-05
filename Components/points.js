@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, Image} from 'react-native';
 import { responsiveFontSize} from "react-native-responsive-dimensions";
 import CameraCompanion from './cameraCompanion'
 import SvgUri from 'react-native-svg-uri';
@@ -15,8 +15,10 @@ export default class Points extends React.Component {
                 <CameraCompanion scanText={CONSTANT_STRINGS.ANIMAL_SCANNED} />
                 <View style={styles.c_container}>
                     <View  style={styles.c_companionPoints_container}>
-                        <Text style={styles.c_companionPoints_1}>{CONSTANT_STRINGS.SCANNING_REWARD}</Text>
-                        <SvgUri style={{marginLeft:45}} height="250" width="250" source={require("../assets/points.svg")} />
+                        <View style={styles.c_companionPoints_overall_container}>
+                            <Text style={styles.c_companionPoints_1}>{CONSTANT_STRINGS.SCANNING_REWARD}</Text>
+                            <Image style={{marginLeft:45, height: 250, width: 250}}  source={require("../assets/points.png")} />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -36,15 +38,20 @@ const styles = StyleSheet.create({
         zIndex: 8,
         
     },
+
+    c_companionPoints_overall_container:{
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems:'center',
+        borderRadius: 15,
+        marginTop: 12
+    },
+
     c_companionPoints_container:{
         margin:24,        
         height: ScreenWidth/1.4,
         width: ScreenWidth/1.4,
         top: 0,
-        justifyContent: 'center',
-        alignItems:'center',
-        backgroundColor: 'white',
-        borderRadius: 15
     },
     c_companionPoints_1:{
         fontSize: responsiveFontSize(3.5),

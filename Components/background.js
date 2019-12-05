@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Image, Dimensions, Animated, View} from 'react-native';
+import {StyleSheet, Image, Dimensions, Animated, View, Easing} from 'react-native';
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
@@ -29,30 +29,37 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimX1, {
                         toValue: 135,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: 200,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: 300,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: 400,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: ScreenWidth+60,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: ScreenWidth+60,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
                         toValue: 0,
                         duration: 1000,
+                        easing:Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -60,30 +67,37 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimX2, {
                         toValue: -50,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -175,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -275,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -450,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -625,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -625,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX2, {
                         toValue: -50,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -91,22 +105,27 @@ export default class backgrounds extends React.Component{
                 Animated.timing(this.moveAnimX3, {
                     toValue: 200,
                     duration: 1000,
+                    easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
                     toValue: 450,
                     duration: 1000,
+                    easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
                     toValue: ScreenWidth+60,
                     duration: 1000,
+                    easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
                     toValue: ScreenWidth+60,
                     duration: 1000,
+                    easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
                     toValue: -50,
                     duration: 1000,
+                    easing: Easing.linear
                   }),
                   //#endregion
                 Animated.delay(5000),
@@ -114,14 +133,17 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimX4, {
                         toValue: -150,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX4, {
                         toValue: -225,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimX4, {
                         toValue: -275,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -129,14 +151,17 @@ export default class backgrounds extends React.Component{
             Animated.timing(this.moveAnimX5, {
                 toValue: -175,
                 duration: 1500,
+                easing: Easing.linear
             }),
             Animated.timing(this.moveAnimX5, {
                 toValue: -250,
                 duration: 1500,
+                easing: Easing.linear
             }),
             Animated.timing(this.moveAnimX5, {
                 toValue: +50,
                 duration: 1500,
+                easing: Easing.linear
             }),
             //#endregion
                 ])
@@ -151,30 +176,37 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimY1, {
                         toValue: -50,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: -10,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: -25,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: -75,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: -30,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: +100,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY1, {
                         toValue: +100,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -182,30 +214,37 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimY2, {
                         toValue: 70,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: 40,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: 0,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: 30,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: -80,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: ScreenHeight -60,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
                         toValue: ScreenHeight -60,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -213,22 +252,27 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimY3, {
                         toValue: -50,
                         duration: 1000,
+                        easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
                         toValue: -75,
                         duration: 1000,
+                        easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
                         toValue: 20,
                         duration: 1000,
+                        easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
                         toValue: ScreenHeight+ 50,
                         duration: 1000,
+                        easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
                         toValue: ScreenHeight + 50,
                         duration: 1000,
+                        easing: Easing.linear
                       }),
                      //#endregion
                 Animated.delay(5000),
@@ -236,14 +280,17 @@ export default class backgrounds extends React.Component{
                     Animated.timing(this.moveAnimY4, {
                         toValue: -70,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY4, {
                         toValue: -200,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY4, {
                         toValue: -400,
                         duration: 1000,
+                        easing: Easing.linear
                     }),
                     //#endregion
                 Animated.delay(5000),
@@ -251,14 +298,17 @@ export default class backgrounds extends React.Component{
                 Animated.timing(this.moveAnimY5, {
                     toValue: -150,
                     duration: 1500,
+                    easing: Easing.linear
                 }),
                 Animated.timing(this.moveAnimY5, {
                     toValue: -350,
                     duration: 1500,
+                    easing: Easing.linear
                 }),
                 Animated.timing(this.moveAnimY5, {
                     toValue: -500,
                     duration: 1500,
+                    easing: Easing.linear
                 }),
                 //#endregion
             ])
