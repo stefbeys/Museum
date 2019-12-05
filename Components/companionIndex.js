@@ -6,7 +6,7 @@ import {
     responsiveWidth,
     responsiveFontSize
   } from "react-native-responsive-dimensions";
-import CONSTANT_STRINGS from "../assets/fi";
+  import CONSTANT_STRINGS from "../assets/fi/strings";
 
 let ScreenHeight = Dimensions.get("window").height+40;
 let ScreenWidth = Dimensions.get("window").width;
