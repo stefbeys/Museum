@@ -55,6 +55,12 @@ export default class InfoScreen extends React.Component{
 
     async componentDidMount(){
         await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));
+        this.state={
+          isplaying:false
+        }
+        soundObject.setOnPlaybackStatusUpdate(status=>{
+          this.setState({ isplaying: status.isPlaying});
+        })
     }
 
     componentWillMount(){
@@ -62,9 +68,18 @@ export default class InfoScreen extends React.Component{
           this.playSound()
         });
       }
-
     async playSound(){
-        await soundObject.playAsync();
+      try{
+        if(!this.state.isplaying){
+          await soundObject.setPositionAsync(0);
+          await soundObject.playAsync();
+
+        }
+      }
+      catch(e) {
+        console.warn(e);
+      }
+      
       }
 
     _onClosePress(){
@@ -83,7 +98,7 @@ export default class InfoScreen extends React.Component{
                 <Background />
                 <View style={styles.c_close}>
                     <TouchableWithoutFeedback onPress={this._onClosePress}>
-                      <Image styles={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
+                      <Image style={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
                     </TouchableWithoutFeedback>
                 </View>
                 <Animated.Image  style={{height: headerHeight, width: ScreenWidth, position: 'absolute', top: 0, left: 0}}  source={NavigationService.getParam("selectedImage")}/>
