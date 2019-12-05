@@ -55,6 +55,8 @@ export default class InfoScreen extends React.Component{
     async componentWillUnmount(){
       soundObject.setOnPlaybackStatusUpdate(null);
       await soundObject.stopAsync()
+      await soundObject.unloadAsync();
+      ShakeEventExpo.removeListener();
     }
     async componentDidMount(){
         await soundObject.loadAsync(require('../assets/Ristisorsa.mp3'));

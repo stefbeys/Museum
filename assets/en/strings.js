@@ -1,4 +1,7 @@
 const CONSTANT_STRINGS = {
+    //IndexScreen
+    Click_INFO: 'Click for more info',
+    UNKNOWN: "You havent found this animal yet",
     //camerascreen
     NO_ACCESS_CAMERA: 'No access to camera',
     //companionIndex
@@ -8,7 +11,8 @@ const CONSTANT_STRINGS = {
     ANIMAL_SCANNED: 'You have received a reward for scanning the animal! You can later use all the points you’ve won!',
     SCANNING_REWARD: 'Scanning Reward',
     //StoreScreen
-    CLAIM: 'Osta'
+    CLAIM: 'Claim'
+    //InfoScreen
 }
 
 export default CONSTANT_STRINGS

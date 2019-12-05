@@ -14,13 +14,16 @@ function popToTop(){
 }
 
 function navigate(routeName, params) {
-  _params=params;
+  _params={..._params, ...params};
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
       params,
     })
   );
+}
+function addParams(params){
+  _params={..._params,...params}
 }
 function getParam(paramname){
   return _params[paramname];
@@ -31,5 +34,6 @@ export default {
   navigate,
   setTopLevelNavigator,
   getParam,
-  popToTop
+  popToTop,
+  addParams
 };
