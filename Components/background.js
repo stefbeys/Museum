@@ -1,7 +1,7 @@
 import React from "react";
 import {StyleSheet, Image, Dimensions, Animated, View, Easing} from 'react-native';
 
-let ScreenHeight = Dimensions.get("window").height+40;
+let ScreenHeight = Dimensions.get("window").height+48;
 let ScreenWidth = Dimensions.get("window").width;
 
 export default class backgrounds extends React.Component{

@@ -11,7 +11,9 @@ const CONSTANT_STRINGS = {
     ANIMAL_SCANNED: 'You have received a reward for scanning the animal! You can later use all the points you’ve won!',
     SCANNING_REWARD: 'Scanning Reward',
     //StoreScreen
-    CLAIM: 'Claim'
+    Not_ENOUGH_PT:'Not enough points',
+    CLAIM: 'Claim',
+    CLAIMED: 'Already claimed',
     //InfoScreen
 }
 

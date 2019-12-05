@@ -12,10 +12,8 @@ import {
 import SvgUri from "react-native-svg-uri";
 import NavigationService from "../Utils/NavigationService";
 import Background from "./background";
-import {
-  responsiveFontSize
-} from "react-native-responsive-dimensions";
-import Stickers from './stickers'
+import { responsiveFontSize } from "react-native-responsive-dimensions";
+import Stickers from "./stickers";
 import CONSTANT_STRINGS from "../assets/fi/strings";
 import DB from "../Utils/DatabaseService";
 
@@ -23,17 +21,23 @@ const dataList = [
   {
     img: "pack1",
     name: "Proud Duck, Proud Duck V2, Kvaak Duck",
-    data: "claimed"
+    pack: 1,
+    claimed: false,
+    price: 400
   },
   {
     img: "pack2",
     name: "Hugging Ducks, Sleeping Duck, LOL Duck",
-    data: "claimed"
+    claimed: false,
+    pack: 2,
+    price: 800
   },
   {
     img: "pack3",
     name: "Moikka Duck, Moikkelis Duck, Laughing Duck",
-    data: "claimed"
+    claimed: false,
+    pack: 3,
+    price: 800
   }
 ];
 let ScreenHeight = Dimensions.get("window").height + 82;
@@ -46,14 +50,17 @@ export default class StoreScreen extends React.Component {
     super(props);
 
     this.state = {
+      list:dataList,
       data: dataList,
       credits: 0
     };
     this.getCredits = this.getCredits.bind(this);
-    NavigationService.addParams({refreshCredits:this.getCredits});
+    this._onPress = this._onPress.bind(this);
+    this.refreshPage = this.refreshPage.bind(this);
+    NavigationService.addParams({ refreshCredits: this.getCredits });
   }
   async componentDidMount() {
-    await this.getCredits();
+    await this.refreshPage();
   }
   async getCredits() {
     var creds = await this._db.getCredits();
@@ -63,8 +70,28 @@ export default class StoreScreen extends React.Component {
       });
     }
   }
-
-  _onPress(item) {}
+  async refreshPage(){
+    await this.getCredits()
+    const StickerList=[]
+    for(let item of this.state.list){
+      item.claimed=await this._db.checkIfBought(item.pack);
+      StickerList.push(item);
+    }
+    this.setState({list:StickerList});
+  }
+  async _onPress(item) {
+    if (!item.claimed && item.price <= this.state.credits) {
+      try {
+        const buypack = item.pack;
+        //buy price here
+        await this._db.buyStickerPack(item);
+        this.refreshPage()
+      } catch (e) {
+        console.warn("eerorrrr")
+        console.warn(e);
+      }
+    }
+  }
   //#endregion
 
   render() {
@@ -83,7 +110,7 @@ export default class StoreScreen extends React.Component {
           style={{
             marginBottom: "15%"
           }}
-          data={dataList}
+          data={this.state.list}
           renderItem={({ item, index }) => (
             <TouchableHighlight>
               <View style={styles.c_index_container}>
@@ -96,10 +123,24 @@ export default class StoreScreen extends React.Component {
 
                     <View style={{ justifyContent: "center" }}>
                       <Text style={styles.c_index_data__name}>{item.name}</Text>
-                      <Text style={styles.c_index_data__points}>800Pts</Text>
+                      <Text style={styles.c_index_data__points}>
+                        {item.price}Pts
+                      </Text>
                       <TouchableOpacity onPress={() => this._onPress(item)}>
-                        <View style = {styles.c_index__button__unclaimed}>
-                            <Text style={ styles.c_index__button_text__unclaimed}>{CONSTANT_STRINGS.CLAIM}</Text>
+                        <View
+                          style={
+                            item.claimed||item.price>this.state.credits
+                              ? styles.c_index__button__claimed
+                              : styles.c_index__button__unclaimed
+                          }
+                        >
+                          <Text style={styles.c_index__button_text__unclaimed}>
+                            {item.claimed
+                              ? CONSTANT_STRINGS.CLAIMED
+                              : item.price <= this.state.credits
+                              ? CONSTANT_STRINGS.CLAIM
+                              : CONSTANT_STRINGS.Not_ENOUGH_PT}
+                          </Text>
                         </View>
                       </TouchableOpacity>
                     </View>
@@ -181,11 +222,11 @@ const styles = StyleSheet.create({
 
   c_index__button__claimed: {
     marginTop: 8,
-    width: 88,
+    width: "100%",
     height: 32,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#ffffff77",
     borderRadius: 5
   },
 
