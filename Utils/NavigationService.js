@@ -26,7 +26,6 @@ function addParams(params){
   _params={..._params,...params}
 }
 function getParam(paramname){
-  console.warn(_params);
   return _params[paramname];
 }
 // add other navigation functions that you need and export them
