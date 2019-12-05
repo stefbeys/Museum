@@ -8,30 +8,35 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 import Stickers from './stickers'
+import DB from "../Utils/DatabaseService";
 
 const dataList = [
-{img: 'Sticker3', name:'Proud Duck', data:'claimed'}, 
-{img: 'Sticker1', name:'Proud Duck V2', data:'claimed'}, 
-{img: 'Sticker5', name:'LOL Duck', data:'claimed'}, 
-{img: 'Sticker6', name:'Sleeping Duck', data:'unclaimed'},
-{img: 'Sticker7', name:'Hugging Ducks', data:'claimed'}, 
-{img: 'Sticker8', name:'Moikka Duck', data:'unclaimed'},
-{img: 'Sticker9', name:'Kvaak Duck', data:'claimed'}, 
-{img: 'Sticker10', name:'Laughing Duck', data:'unclaimed'},
-{img: 'Sticker11', name:'Moikkelis Duck', data:'claimed'}]
+{img: 'pack1', name:'Proud Duck, Proud Duck V2, Kvaak Duck', data:'claimed'}, 
+{img: 'pack2', name:'Hugging Ducks, Sleeping Duck, LOL Duck', data:'claimed'}, 
+{img: 'pack3', name:'Moikka Duck, Moikkelis Duck, Laughing Duck', data:'claimed'}]
 let ScreenHeight = Dimensions.get("window").height + 82;
 let ScreenWidth = Dimensions.get("window").width;
 
 export default class StoreScreen extends React.Component {
   // #region Listview code
+  _db=new DB();
   constructor(props) {
     super(props);
+    
     this.state = {
       data: dataList,
+      credits:0
     }
+    this.getCredits()
   }
-
-
+  async getCredits(){
+    this.setState({
+      credits: await this._db.getCredits()
+    })
+  }
+  componentWillUpdate(){
+    this.getCredits();
+  }
   _onPress(item){
 
   }
@@ -43,7 +48,7 @@ export default class StoreScreen extends React.Component {
         <Background background={require('../assets/Background2L.png')}/>  
         <View style={styles.c_points_container}>
           <View style={styles.c_points_flexcontainer}>
-            <Text style={styles.c_points_amount}>1200<Text style={styles.c_points_pts}>Pts</Text></Text>
+            <Text style={styles.c_points_amount}>{this.state.credits}<Text style={styles.c_points_pts}>Pts</Text></Text>
           </View>
         </View>
         <FlatList
@@ -55,20 +60,20 @@ export default class StoreScreen extends React.Component {
             <TouchableHighlight>
               <View style={styles.c_index_container}>
                 <View style={styles.c_index}>
-                <View style={{flex:1, flexDirection: 'row'}}>
-                  <Image style={styles.c_index__picture} source={Stickers.stickers[item.img]}/>
-                  
-                  <View>
-                    <Text style={styles.c_index_data__name}>{item.name}</Text>
-                    <Text style={styles.c_index_data__points}>800Pts</Text>
-                <TouchableOpacity onPress={() => this._onPress(item)}>
-                  <View style = {styles.c_index__button__unclaimed}>
-                      <Text style={ styles.c_index__button_text__unclaimed}>Claim</Text>
-                  </View>
-            </TouchableOpacity>
-                  </View>
-                </View>  
-                  </View>
+                  <View style={{flex: 1}}>
+                    <Image style={styles.c_index__picture} source={Stickers.stickers[item.img]}/>
+                    
+                    <View style={{justifyContent: 'center'}}>
+                      <Text style={styles.c_index_data__name}>{item.name}</Text>
+                      <Text style={styles.c_index_data__points}>800Pts</Text>
+                      <TouchableOpacity onPress={() => this._onPress(item)}>
+                        <View style = {styles.c_index__button__unclaimed}>
+                            <Text style={ styles.c_index__button_text__unclaimed}>Coming Soon</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>  
+                </View>
                   
               </View>
             </TouchableHighlight>
@@ -116,20 +121,22 @@ const styles = StyleSheet.create({
   },
   
   c_index__picture:{
-    height: 108,
-    width: 108,
+    height: 150,
+    resizeMode: 'contain',
+    width: '100%',
     marginRight: 24
   },
 
   c_index_data__name:{
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(2.5),
     color: 'white',
     width: '100%'
   },
   c_index_data__points:{
     fontSize: responsiveFontSize(2),
     color: 'white',
-    width: '100%'
+    width: '100%',
+    justifyContent: 'center'
   },
 
   c_index_data__data:{
@@ -156,7 +163,7 @@ const styles = StyleSheet.create({
 
   c_index__button__unclaimed:{
     marginTop:8,
-    width: 88,
+    width: '100%',
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',

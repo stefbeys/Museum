@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated}from "react-native";
+import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated, Image}from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -9,6 +9,7 @@ import * as Filesystem from "expo-file-system";
 import Points from "./points";
 import InfoComponent from "./Infocomponent";
 import NavigationService from "../Utils/NavigationService";
+import DB from "../Utils/DatabaseService";
 
 
 const ScreenHeight = Dimensions.get("window").height + 82;
@@ -25,6 +26,7 @@ export default class CameraScreen extends React.Component {
     this._onPointsPress = this._onPointsPress.bind(this);
     this._onClosePress = this._onClosePress.bind(this);
     this._onInfoPress = this._onInfoPress.bind(this);
+    this._onLongPress = this._onLongPress.bind(this);
   }
 
   state = {
@@ -39,12 +41,16 @@ export default class CameraScreen extends React.Component {
     behaviour: "",
     diet: "",
     endangerment: "",
-    img: 'require("")',
     sizeL: "",
     sizeW: "",
     dietShort: "",
     region: "",
+    image:"",
   };
+
+  _onLongPress(){
+    this.ScanImage();
+  }
 
   _onStartPress() {
     this.setState({
@@ -62,15 +68,9 @@ export default class CameraScreen extends React.Component {
         })
       ])
     ).start();
-    setTimeout(() => {
-      this.ScanImage();
-      }, 750);
   }
 
   _onStopPress() {
-    this.setState({
-      displayScannerAnim: false
-    });
   }
 
   _onPointsPress() {      
@@ -91,10 +91,17 @@ export default class CameraScreen extends React.Component {
         displayScannerAnim: false
       })
     }, 1750);
-    NavigationService.navigate('InfoTabComponent', {selectedAnimal: this.state.name})
+    if(undefined!=this.props.navigation.state.params){
+      this.props.navigation.state.params.onGoBack();
+    }
+    NavigationService.navigate('InfoScreen', {selectedName: this.state.name, selectedAppearance: this.state.appearance ,
+      selectedDiet : this.state.diet ,selectedBehaviour : this.state.behaviour ,selectedEndangerment : this.state.endangerment,selectedImage:this.state.image })
   }
   
   _onClosePress(){
+    if(undefined!=this.props.navigation.state.params){
+      this.props.navigation.state.params.onGoBack();
+    }
     this.props.navigation.goBack()
   }
 
@@ -113,10 +120,12 @@ export default class CameraScreen extends React.Component {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Base64: base64 })
       });
-      console.warn(httpresult);
       if (httpresult.status == 200) {
         let animaldata= await httpresult.json();
-        console.log(animaldata);
+        const db= new DB();
+       if(await db.addAnimal({...animaldata,image:imageresult.uri})){
+       await db.addCredits(400);
+      }
         this.setState({
           displayPoints: true,
           displayScanner: false,
@@ -131,12 +140,23 @@ export default class CameraScreen extends React.Component {
           sizeW: animaldata.width,
           dietShort: animaldata.dietShort,
           region: animaldata.region,
+          image:{isstatic:true,uri:imageresult.uri}
         });
       } else {
-        //not found error
+        this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
       }
     } catch (e) {
-      //fetch failed... network error or server not online!
+      this.setState({
+        displayPoints: false,
+        displayScanner: true,
+        displayInfo: false,
+        displayScannerAnim: false
+      })
     }
   }
 
@@ -163,6 +183,12 @@ export default class CameraScreen extends React.Component {
             </Animated.View>
           ) : null}
 
+          {this.state.displayScannerAnim ? (
+            <View style={styles.c_scanningImage}>
+                <Image style={styles.c_scanningImage_image} source={require('../assets/scanninganimal.png')}/>
+            </View>
+          ) : null}
+
 
           {this.state.displayPoints ? (
             <View style={styles.c_touchableView}>
@@ -175,7 +201,7 @@ export default class CameraScreen extends React.Component {
           {this.state.displayInfo ? (
             <View style={styles.c_touchableView}>
               <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onInfoPress()}>
-                <InfoComponent img={this.state.img} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
+                <InfoComponent img={this.state.image} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
               </TouchableWithoutFeedback>
             </View>
           ) : null }
@@ -183,7 +209,7 @@ export default class CameraScreen extends React.Component {
           {this.state.displayScanner ? (
             <View style={styles.c_close}>
               <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
-                <SvgUri height="30" width="30"  source={require("../assets/close.svg")}/>
+                <Image style={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
               </TouchableWithoutFeedback>
             </View>
           ) : null }
@@ -193,6 +219,7 @@ export default class CameraScreen extends React.Component {
             <View style={styles.c_scanner__container}>
               <TouchableWithoutFeedback
                 style={styles.c_scanner__button_container}
+                onLongPress={() => this._onLongPress()}
                 onPressIn={() => this._onStartPress()}
                 onPressOut={() => this._onStopPress()}
               >
@@ -233,6 +260,21 @@ export default class CameraScreen extends React.Component {
 
 // #region Stylesheet
 const styles = StyleSheet.create({
+  c_scanningImage_image:{
+    margin: 24,
+    zIndex: 12,
+    width: ScreenWidth-48,
+    resizeMode: 'contain',
+  },
+  c_scanningImage:{
+    width:'100%',
+    height: '100%',
+    position:'absolute',
+    top:0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 11,
+  },
   c_touchable:{
     width: ScreenWidth,
     height: ScreenHeight,
