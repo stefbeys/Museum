@@ -30,6 +30,7 @@ export default class DB {
         await this.saveIntData(this.Animalkey, []);
         await this.saveIntData(this.StoreKey, []);
         await this.saveIntData(this.MoneyKey, 0);
+        await this.saveJsonData(this.Companionkey,{index:false,info:false,store:false});
     }
 
     async getJsonData(key) {

@@ -11,12 +11,14 @@ import {
 } from "react-native";
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import CONSTANT_STRINGS from "../assets/fi/strings";
+import DB,{Pages} from "../Utils/DatabaseService";
 
 let ScreenHeight = Dimensions.get("window").height + 40;
 let ScreenWidth = Dimensions.get("window").width;
 
 export default class Companion extends React.Component {
   //#region functions
+  _db=new DB();
   constructor(props) {
     super(props);
     this.state = {
@@ -26,13 +28,16 @@ export default class Companion extends React.Component {
     this.moveAnim = new Animated.Value(325);
   }
 
-  _onPress() {
+_onPress() {
+    this._db.saveCompanion(Pages.INDEX,true);
     this.setState({
       display: false
     });
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const isTutorial=await this._db.getCompanion(Pages.INDEX)
+    this.setState({display:!isTutorial})
     Animated.timing(this.moveAnim, {
       toValue: 0,
       duration: 1000,
