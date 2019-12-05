@@ -13,16 +13,10 @@ import SvgUri from "react-native-svg-uri";
 import NavigationService from "../Utils/NavigationService";
 import Background from "./background";
 import {
-  responsiveHeight,
-  responsiveWidth,
   responsiveFontSize
 } from "react-native-responsive-dimensions";
-<<<<<<< HEAD
-import Stickers from "./stickers";
-=======
 import Stickers from './stickers'
 import CONSTANT_STRINGS from "../assets/fi/strings";
->>>>>>> 87f3730be0d69bdfa5dc5aad0beff085ab49d69a
 import DB from "../Utils/DatabaseService";
 
 const dataList = [

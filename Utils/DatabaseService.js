@@ -1,9 +1,14 @@
 import { AsyncStorage } from 'react-native';
-import { number } from 'prop-types';
+export const Pages={
+    INDEX:"index",
+    INFO:"info",
+    STORE:"store"
+}
 export default class DB {
     Animalkey = "Animals"
     StoreKey = "Store"
     MoneyKey = "Money"
+    Companionkey="Companion"
     constructor() {
         this.initDB()
     }
@@ -16,6 +21,9 @@ export default class DB {
         }
         if (await this.getIntData(this.MoneyKey) == null) {
             await this.saveIntData(this.MoneyKey, 0);
+        }
+        if(await this.getJsonData(this.Companionkey)==null){
+            await this.saveJsonData(this.Companionkey,{index:false,info:false,store:false});
         }
     }
     async resetDB(){
@@ -89,6 +97,15 @@ export default class DB {
     async addCredits(credits){
         const currentcreds=await this.getCredits();
         await this.saveIntData(this.MoneyKey,currentcreds==null?credits.toString():(parseInt(currentcreds)+credits).toString());
+    }
+    async getCompanion(page){
+        const object= await this.getJsonData(this.Companionkey);
+        return object[page]
+    }
+    async saveCompanion(page,value){
+        const object = await this.getJsonData(this.Companionkey);
+        object[page]=value;
+        await this.saveJsonData(this.Companionkey,object);
     }
 }
 /*
