@@ -21,7 +21,7 @@ export default class IndexScreen extends React.Component {
     super(props);
     this.state = {
       animals: [],
-      img: "",
+      img: Images.ducks.unknown,
       name: "",
       info: "",
     };
