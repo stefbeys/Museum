@@ -87,7 +87,6 @@ export default class StoreScreen extends React.Component {
         await this._db.buyStickerPack(item);
         this.refreshPage()
       } catch (e) {
-        console.warn("eerorrrr")
         console.warn(e);
       }
     }

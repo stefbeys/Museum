@@ -1,6 +1,11 @@
 const images = {
-    ducks:{
-        unknown:require('../assets/Unknown.png'),
-    }
+    backgrounds:{
+        1:require('../assets/BackgroundL.png'),
+        2:require('../assets/Background2L.png')
+    },
+    svg:{
+        Home: require("../assets/Index.svg"),
+    },
+    unknown:require('../assets/Unknown.png'),
 };
 export default images;

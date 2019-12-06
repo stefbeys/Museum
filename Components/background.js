@@ -1,8 +1,8 @@
 import React from "react";
-import {StyleSheet, Image, Dimensions, Animated, View, Easing} from 'react-native';
-
-let ScreenHeight = Dimensions.get("window").height+48;
-let ScreenWidth = Dimensions.get("window").width;
+import { Image, Animated, View, Easing} from 'react-native';
+import StyleSheet from "./stylesheet";
+import CONSTS from './Constants';
+import images from './images';
 
 export default class backgrounds extends React.Component{
     constructor(props) {
@@ -47,12 +47,12 @@ export default class backgrounds extends React.Component{
                         easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
-                        toValue: ScreenWidth+60,
+                        toValue: CONSTS.ScreenWidth+60,
                         duration: 1000,
                         easing:Easing.linear
                     }),
                     Animated.timing(this.moveAnimX1, {
-                        toValue: ScreenWidth+60,
+                        toValue: CONSTS.ScreenWidth+60,
                         duration: 1000,
                         easing:Easing.linear
                     }),
@@ -113,12 +113,12 @@ export default class backgrounds extends React.Component{
                     easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
-                    toValue: ScreenWidth+60,
+                    toValue: CONSTS.ScreenWidth+60,
                     duration: 1000,
                     easing: Easing.linear
                   }),
                   Animated.timing(this.moveAnimX3, {
-                    toValue: ScreenWidth+60,
+                    toValue: CONSTS.ScreenWidth+60,
                     duration: 1000,
                     easing: Easing.linear
                   }),
@@ -237,12 +237,12 @@ export default class backgrounds extends React.Component{
                         easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
-                        toValue: ScreenHeight -60,
+                        toValue: CONSTS.ScreenHeight -60,
                         duration: 1000,
                         easing: Easing.linear
                     }),
                     Animated.timing(this.moveAnimY2, {
-                        toValue: ScreenHeight -60,
+                        toValue: CONSTS.ScreenHeight -60,
                         duration: 1000,
                         easing: Easing.linear
                     }),
@@ -265,12 +265,12 @@ export default class backgrounds extends React.Component{
                         easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
-                        toValue: ScreenHeight+ 50,
+                        toValue: CONSTS.ScreenHeight+ 50,
                         duration: 1000,
                         easing: Easing.linear
                       }),
                       Animated.timing(this.moveAnimY3, {
-                        toValue: ScreenHeight + 50,
+                        toValue: CONSTS.ScreenHeight + 50,
                         duration: 1000,
                         easing: Easing.linear
                       }),
@@ -317,16 +317,15 @@ export default class backgrounds extends React.Component{
 
       }
     
-
     render(){
         return(
             <View>
-                <Image resizeMode={'stretch'} style={styles.c_background} source={this.props.background}/>
-                <Animated.Image style={[styles.js_animate_bird_1, { transform: [{ translateX: this.moveAnimX1}, {translateY: this.moveAnimY1 }]} ]} fill={'#000000'} source={require('../assets/eagle.png')}/>
-                <Animated.Image style={[styles.js_animate_bird_2, { transform: [{ translateX: this.moveAnimX2}, {translateY: this.moveAnimY2 }]} ]} fill={'#000000'} source={require('../assets/dove.png')}/>
-                <Animated.Image style={[styles.js_animate_bird_3, { transform: [{ translateX: this.moveAnimX3}, {translateY: this.moveAnimY3 }]} ]} fill={'#000000'} source={require('../assets/hummingbird.png')}/>
-                <Animated.Image style={[styles.js_animate_bird_4, { transform: [{ translateX: this.moveAnimX4}, {translateY: this.moveAnimY4 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/>
-                <Animated.Image style={[styles.js_animate_bird_5, { transform: [{ translateX: this.moveAnimX5}, {translateY: this.moveAnimY5 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/>
+                <Image resizeMode={'stretch'} style={StyleSheet.c_background} source={this.props.background}/>
+                <Animated.Image style={[StyleSheet.js_animate_bird_1, { transform: [{ translateX: this.moveAnimX1}, {translateY: this.moveAnimY1 }]} ]} fill={'#000000'} source={require('../assets/eagle.png')}/>
+                <Animated.Image style={[StyleSheet.js_animate_bird_2, { transform: [{ translateX: this.moveAnimX2}, {translateY: this.moveAnimY2 }]} ]} fill={'#000000'} source={require('../assets/dove.png')}/>
+                <Animated.Image style={[StyleSheet.js_animate_bird_3, { transform: [{ translateX: this.moveAnimX3}, {translateY: this.moveAnimY3 }]} ]} fill={'#000000'} source={require('../assets/hummingbird.png')}/>
+                <Animated.Image style={[StyleSheet.js_animate_bird_4, { transform: [{ translateX: this.moveAnimX4}, {translateY: this.moveAnimY4 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/>
+                <Animated.Image style={[StyleSheet.js_animate_bird_5, { transform: [{ translateX: this.moveAnimX5}, {translateY: this.moveAnimY5 }]} ]} fill={'#000000'} source={require('../assets/flock-of-birds.png')}/>
             </View>
             
         )
@@ -334,49 +333,5 @@ export default class backgrounds extends React.Component{
 }
 
 backgrounds.defaultProps={
-    background: require('../assets/BackgroundL.png')
+    background: images.backgrounds[1]
 }
-
-const styles = StyleSheet.create({
-    c_background:{
-        height: ScreenHeight,
-        width: ScreenWidth,
-        position: 'absolute'
-    },
-    js_animate_bird_1:{
-        position: 'absolute',
-        left: -60,
-        top: ScreenHeight - 100,
-        height: 60,
-        width: 60,
-  
-      },
-      js_animate_bird_2:{
-        position: 'absolute',
-        height: 50,
-        width: 50,
-        left: ScreenWidth + 75,
-        top: ScreenHeight - 300,
-      },
-      js_animate_bird_3:{
-        position: 'absolute',
-        height: 50,
-        width: 50,
-        left: -50,
-        top: ScreenHeight/2
-      },
-      js_animate_bird_4:{
-        position: 'absolute',
-        height: 50,
-        width: 50,
-        left: ScreenWidth + 50,
-        top: +350
-      },
-      js_animate_bird_5:{
-        position: 'absolute',
-        height: 50,
-        width: 50,
-        left: ScreenWidth + 50,
-        top: ScreenHeight - 250
-      },
-})

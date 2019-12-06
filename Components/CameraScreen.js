@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Text, TouchableOpacity, Animated, Image}from "react-native";
+import { StyleSheet, View, Dimensions, Animated, Image}from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -11,13 +11,11 @@ import InfoComponent from "./Infocomponent";
 import NavigationService from "../Utils/NavigationService";
 import CONSTANT_STRINGS from "../assets/fi/strings";
 import DB from "../Utils/DatabaseService";
+import CONSTS from './Constants';
 
 
-const ScreenHeight = Dimensions.get("window").height + 82;
-const ScreenWidth = Dimensions.get("window").width;
-export const ENDPOINT = "http://192.168.0.176/api/";
-let _camera;
 export default class CameraScreen extends React.Component {
+  _camera;
   constructor(props) {
     super(props);
     this.ScanImage = this.ScanImage.bind(this);
@@ -60,7 +58,7 @@ export default class CameraScreen extends React.Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.scannerAnim, {
-          toValue: ScreenHeight - 2,
+          toValue: CONSTS.ScreenHeight - 2,
           duration: 3000
         }),
         Animated.timing(this.scannerAnim, {
@@ -107,7 +105,7 @@ export default class CameraScreen extends React.Component {
   }
 
   async ScanImage() {
-    let imageresult = await _camera.takePictureAsync();
+    let imageresult = await this._camera.takePictureAsync();
     imageresult = await ImageManipulator.manipulateAsync(imageresult.uri, [
       { resize: { height: 1920, width: 1080 } }
     ]);
@@ -116,7 +114,7 @@ export default class CameraScreen extends React.Component {
       encoding: Filesystem.EncodingType.Base64
     });
     try {
-      const httpresult = await fetch(ENDPOINT + "animal", {
+      const httpresult = await fetch(CONSTS.ENDPOINT + "animal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Base64: base64 })
@@ -127,7 +125,6 @@ export default class CameraScreen extends React.Component {
         const test=await db.addAnimal({...animaldata,image:imageresult.uri})
         console.warn(test);
        if(test){
-         console.warn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
        await db.addCredits(400);
       }
         this.setState({
@@ -240,7 +237,7 @@ export default class CameraScreen extends React.Component {
 
           <Camera
             ref={cameraref => {
-              _camera = cameraref;
+              this._camera = cameraref;
             }}
             style={{ flex: 1 }}
             type={this.state.type}
@@ -267,7 +264,7 @@ const styles = StyleSheet.create({
   c_scanningImage_image:{
     margin: 24,
     zIndex: 12,
-    width: ScreenWidth-48,
+    width: CONSTS.ScreenWidth-48,
     resizeMode: 'contain',
   },
   c_scanningImage:{
@@ -280,8 +277,8 @@ const styles = StyleSheet.create({
     zIndex: 11,
   },
   c_touchable:{
-    width: ScreenWidth,
-    height: ScreenHeight,
+    width: CONSTS.ScreenWidth,
+    height: CONSTS.ScreenHeight,
     zIndex: 10
   },
   c_touchableView:{
@@ -299,8 +296,8 @@ const styles = StyleSheet.create({
   },
 
   c_background: {
-    height: ScreenHeight,
-    width: ScreenWidth,
+    height: CONSTS.ScreenHeight,
+    width: CONSTS.ScreenWidth,
     position: "absolute",
   },
   contentContainer: {
