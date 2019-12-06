@@ -1,22 +1,16 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableHighlight
-} from "react-native";
+import { View, Text, Image, TouchableHighlight } from "react-native";
 import Images from "./images";
 import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./TestComponent";
 import SvgUri from "react-native-svg-uri";
-import { responsiveFontSize } from "react-native-responsive-dimensions";
 import CustomList from "./CustomList";
 import CONSTS from "./Constants";
 import DB from "../Utils/DatabaseService";
 import CONSTANT_STRINGS from "../assets/en/strings";
 import images from "./images";
+import styles from "./stylesheet";
 
 export default class IndexScreen extends React.Component {
   db = new DB();
@@ -42,9 +36,12 @@ export default class IndexScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.contentContainer}>
+      <View style={styles.u_flex}>
         <Background />
-        <TouchableHighlight onPress={this.toInfoPage} style={styles.c_info}>
+        <TouchableHighlight
+          onPress={this.toInfoPage}
+          style={styles.u_status_margin}
+        >
           <View style={styles.c_index}>
             <Image
               style={styles.c_index__picture_selected}
@@ -68,7 +65,7 @@ export default class IndexScreen extends React.Component {
           renderItem={this._renderItem}
         />
 
-        <FAB style={styles.FAB} onTap={this.openCamera} />
+        <FAB style={styles.c_fab} onTap={this.openCamera} />
       </View>
     );
   }
@@ -79,7 +76,6 @@ export default class IndexScreen extends React.Component {
     await NavigationService.getParam("refreshCredits")();
   }
   async getAnimals() {
-    //TODO: check if animals are in DB?
     let httpresult = await fetch(CONSTS.ENDPOINT + "ai/categories");
     if (httpresult.status == 200) {
       let results = await httpresult.json();
@@ -117,8 +113,11 @@ export default class IndexScreen extends React.Component {
   }
   _renderItem(item, Index) {
     return (
-      <TouchableHighlight style={styles.c_index__container} key={Index}>
-        <View style={styles.c_index__list}>
+      <TouchableHighlight
+        style={{ ...styles.c_index__container, ...styles.u_flex }}
+        key={Index}
+      >
+        <View style={styles.c_index}>
           <Image style={styles.c_index__picture} source={item.img} />
           <View style={{ flex: 1, flexDirection: "row" }}>
             <Text style={styles.c_index_data__name}>
@@ -168,79 +167,8 @@ IndexScreen.navigationOptions = {
     <SvgUri
       height="30"
       width="30"
-      style={styles.c_nav__item}
       fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
       source={images.svg.Home}
     />
   )
 };
-// #region Stylesheet
-const styles = StyleSheet.create({
-  c_index__container: {
-    height: 100,
-    flex: 1
-  },
-  contentContainer: {
-    flex: 1
-  },
-  FAB: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#0f0"
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#000"
-  },
-  c_info: {
-    marginTop: 48
-  },
-
-  c_background: {
-    height: CONSTS.ScreenHeight,
-    width: CONSTS.ScreenWidth,
-    position: "absolute"
-  },
-
-  c_index: {
-    margin: 24,
-    marginTop: 8,
-    marginBottom: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row"
-  },
-  c_index__list: {
-    margin: 24,
-    marginTop: 8,
-    marginBottom: 8,
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center"
-  },
-
-  c_index__picture: {
-    height: 88,
-    width: 88,
-    marginRight: 24,
-    borderRadius: 500
-  },
-
-  c_index__picture_selected: {
-    height: 124,
-    width: 124,
-    marginRight: 24,
-    borderRadius: 500
-  },
-
-  c_index_data: {},
-  c_index_data__name: {
-    fontSize: responsiveFontSize(3),
-    color: "white"
-  },
-  c_index_data__data: {
-    color: "white"
-  }
-});
-// #endregion

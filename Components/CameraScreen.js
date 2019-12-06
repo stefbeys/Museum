@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, Animated, Image}from "react-native";
+import { StyleSheet, View, Animated, Image } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -11,23 +11,11 @@ import InfoComponent from "./Infocomponent";
 import NavigationService from "../Utils/NavigationService";
 import CONSTANT_STRINGS from "../assets/fi/strings";
 import DB from "../Utils/DatabaseService";
-import CONSTS from './Constants';
-
+import CONSTS from "./Constants";
+import styles from "./stylesheet";
 
 export default class CameraScreen extends React.Component {
   _camera;
-  constructor(props) {
-    super(props);
-    this.ScanImage = this.ScanImage.bind(this);
-    this.scannerAnim = new Animated.Value(0);
-    this.stopScannerAnim = new Animated.Value(0);
-    this._onStartPress = this._onStartPress.bind(this);
-    this._onPointsPress = this._onPointsPress.bind(this);
-    this._onClosePress = this._onClosePress.bind(this);
-    this._onInfoPress = this._onInfoPress.bind(this);
-    this._onLongPress = this._onLongPress.bind(this);
-  }
-
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
@@ -44,10 +32,133 @@ export default class CameraScreen extends React.Component {
     sizeW: "",
     dietShort: "",
     region: "",
-    image:"",
+    image: ""
   };
 
-  _onLongPress(){
+  //#region  component functions
+  constructor(props) {
+    super(props);
+    this.ScanImage = this.ScanImage.bind(this);
+    this.scannerAnim = new Animated.Value(0);
+    this.stopScannerAnim = new Animated.Value(0);
+    this._onStartPress = this._onStartPress.bind(this);
+    this._onPointsPress = this._onPointsPress.bind(this);
+    this._onClosePress = this._onClosePress.bind(this);
+    this._onInfoPress = this._onInfoPress.bind(this);
+    this._onLongPress = this._onLongPress.bind(this);
+  }
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({
+      hasCameraPermission: status === "granted"
+    });
+  }
+  render() {
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return CONSTANT_STRINGS.NO_ACCESS_CAMERA;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          {this.state.displayScannerAnim ? (
+            <Animated.View style={{ top: this.scannerAnim }}>
+              <View style={styles.c_scanner}></View>
+            </Animated.View>
+          ) : null}
+
+          {this.state.displayScannerAnim ? (
+            <View style={styles.c_scanningImage}>
+              <Image
+                style={styles.c_scanningImage_image}
+                source={require("../assets/scanninganimal.png")}
+              />
+            </View>
+          ) : null}
+
+          {this.state.displayPoints ? (
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback
+                style={styles.c_touchable}
+                onPress={() => this._onPointsPress()}
+              >
+                <Points />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
+
+          {this.state.displayInfo ? (
+            <View style={styles.c_touchableView}>
+              <TouchableWithoutFeedback
+                style={styles.c_touchable}
+                onPress={() => this._onInfoPress()}
+              >
+                <InfoComponent
+                  img={this.state.image}
+                  name={this.state.name}
+                  diet={this.state.dietShort}
+                  region={this.state.region}
+                  sizeL={this.state.sizeL}
+                  sizeW={this.state.sizeW}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
+
+          {this.state.displayScanner ? (
+            <View style={styles.c_close}>
+              <TouchableWithoutFeedback onPress={() => this._onClosePress()}>
+                <Image
+                  style={{ height: 30, width: 30 }}
+                  source={require("../assets/close.png")}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
+
+          {this.state.displayScanner ? (
+            <View style={styles.c_scanner__container}>
+              <TouchableWithoutFeedback
+                style={styles.c_scanner__button_container}
+                onLongPress={() => this._onLongPress()}
+                onPressIn={() => this._onStartPress()}
+                onPressOut={() => this._onStopPress()}
+              >
+                <SvgUri
+                  height="80"
+                  width="80"
+                  style={styles.c_scanner__button}
+                  source={require("../assets/scan.svg")}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          ) : null}
+
+          <Camera
+            ref={cameraref => {
+              this._camera = cameraref;
+            }}
+            style={{ flex: 1 }}
+            type={this.state.type}
+            ratio="16:9"
+            useCamera2Api={true}
+            autoFocus="on"
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "transparant"
+              }}
+            ></View>
+          </Camera>
+        </View>
+      );
+    }
+  }
+  //#endregion
+  //#region events
+  _onLongPress() {
     this.ScanImage();
   }
 
@@ -69,41 +180,47 @@ export default class CameraScreen extends React.Component {
     ).start();
   }
 
-  _onStopPress() {
+  _onStopPress() {}
+
+  _onPointsPress() {
+    this.setState({
+      displayPoints: false,
+      displayScanner: false,
+      displayInfo: true,
+      displayScannerAnim: false
+    });
   }
 
-  _onPointsPress() {      
-      this.setState({
-        displayPoints: false,
-        displayScanner: false,
-        displayInfo: true,
-        displayScannerAnim: false
-      });
-  }
-
-  _onInfoPress(){
+  _onInfoPress() {
     setTimeout(() => {
       this.setState({
         displayPoints: false,
         displayScanner: true,
         displayInfo: false,
         displayScannerAnim: false
-      })
+      });
     }, 1750);
-    if(undefined!=this.props.navigation.state.params){
+    if (undefined != this.props.navigation.state.params) {
       this.props.navigation.state.params.onGoBack();
     }
-    NavigationService.navigate('InfoScreen', {selectedName: this.state.name, selectedAppearance: this.state.appearance ,
-      selectedDiet : this.state.diet ,selectedBehaviour : this.state.behaviour ,selectedEndangerment : this.state.endangerment,selectedImage:this.state.image })
-  }
-  
-  _onClosePress(){
-    if(undefined!=this.props.navigation.state.params){
-      this.props.navigation.state.params.onGoBack();
-    }
-    this.props.navigation.goBack()
+    NavigationService.navigate("InfoScreen", {
+      selectedName: this.state.name,
+      selectedAppearance: this.state.appearance,
+      selectedDiet: this.state.diet,
+      selectedBehaviour: this.state.behaviour,
+      selectedEndangerment: this.state.endangerment,
+      selectedImage: this.state.image
+    });
   }
 
+  _onClosePress() {
+    if (undefined != this.props.navigation.state.params) {
+      this.props.navigation.state.params.onGoBack();
+    }
+    this.props.navigation.goBack();
+  }
+  //#endregion
+  //#region functions
   async ScanImage() {
     let imageresult = await this._camera.takePictureAsync();
     imageresult = await ImageManipulator.manipulateAsync(imageresult.uri, [
@@ -120,13 +237,16 @@ export default class CameraScreen extends React.Component {
         body: JSON.stringify({ Base64: base64 })
       });
       if (httpresult.status == 200) {
-        let animaldata= await httpresult.json();
-        const db= new DB();
-        const test=await db.addAnimal({...animaldata,image:imageresult.uri})
+        let animaldata = await httpresult.json();
+        const db = new DB();
+        const test = await db.addAnimal({
+          ...animaldata,
+          image: imageresult.uri
+        });
         console.warn(test);
-       if(test){
-       await db.addCredits(400);
-      }
+        if (test) {
+          await db.addCredits(400);
+        }
         this.setState({
           displayPoints: true,
           displayScanner: false,
@@ -141,15 +261,15 @@ export default class CameraScreen extends React.Component {
           sizeW: animaldata.width,
           dietShort: animaldata.dietShort,
           region: animaldata.region,
-          image:{isstatic:true,uri:imageresult.uri}
+          image: { isstatic: true, uri: imageresult.uri }
         });
       } else {
         this.setState({
-        displayPoints: false,
-        displayScanner: true,
-        displayInfo: false,
-        displayScannerAnim: false
-      })
+          displayPoints: false,
+          displayScanner: true,
+          displayInfo: false,
+          displayScannerAnim: false
+        });
       }
     } catch (e) {
       this.setState({
@@ -157,185 +277,8 @@ export default class CameraScreen extends React.Component {
         displayScanner: true,
         displayInfo: false,
         displayScannerAnim: false
-      })
+      });
     }
   }
-
-  async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({
-      hasCameraPermission: status === "granted"
-    });
-  }
-  render() {
-    const { hasCameraPermission } = this.state;
-    if (hasCameraPermission === null) {
-      return <View />;
-    } else if (hasCameraPermission === false) {
-      return CONSTANT_STRINGS.NO_ACCESS_CAMERA;
-    } else {
-      return (
-        <View style={{ flex: 1 }}>
-
-
-          {this.state.displayScannerAnim ? (
-            <Animated.View style={{ top: this.scannerAnim}}>
-              <View style={styles.c_scanner}></View>
-            </Animated.View>
-          ) : null}
-
-          {this.state.displayScannerAnim ? (
-            <View style={styles.c_scanningImage}>
-                <Image style={styles.c_scanningImage_image} source={require('../assets/scanninganimal.png')}/>
-            </View>
-          ) : null}
-
-
-          {this.state.displayPoints ? (
-            <View style={styles.c_touchableView}>
-              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onPointsPress()}>
-                <Points/>
-              </TouchableWithoutFeedback>
-            </View>
-          ) : null }
-
-          {this.state.displayInfo ? (
-            <View style={styles.c_touchableView}>
-              <TouchableWithoutFeedback style={styles.c_touchable} onPress={() => this._onInfoPress()}>
-                <InfoComponent img={this.state.image} name={this.state.name} diet={this.state.dietShort} region={this.state.region} sizeL={this.state.sizeL} sizeW={this.state.sizeW} />
-              </TouchableWithoutFeedback>
-            </View>
-          ) : null }
-
-          {this.state.displayScanner ? (
-            <View style={styles.c_close}>
-              <TouchableWithoutFeedback  onPress={() => this._onClosePress()}>
-                <Image style={{height: 30, width: 30}}  source={require("../assets/close.png")}/>
-              </TouchableWithoutFeedback>
-            </View>
-          ) : null }
-
-          {this.state.displayScanner ? (
-           
-            <View style={styles.c_scanner__container}>
-              <TouchableWithoutFeedback
-                style={styles.c_scanner__button_container}
-                onLongPress={() => this._onLongPress()}
-                onPressIn={() => this._onStartPress()}
-                onPressOut={() => this._onStopPress()}
-              >
-                <SvgUri
-                  height="80"
-                  width="80"
-                  style={styles.c_scanner__button}
-                  source={require("../assets/scan.svg")}
-                />
-              </TouchableWithoutFeedback>
-            </View>) : null
-          }
-
-
-          <Camera
-            ref={cameraref => {
-              this._camera = cameraref;
-            }}
-            style={{ flex: 1 }}
-            type={this.state.type}
-            ratio="16:9"
-            useCamera2Api={true}
-            autoFocus="on"
-          >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "transparant"
-              }}
-            >
-            </View>
-          </Camera>
-        </View>
-      );
-    }
-  }
+  //#endregion
 }
-
-// #region Stylesheet
-const styles = StyleSheet.create({
-  c_scanningImage_image:{
-    margin: 24,
-    zIndex: 12,
-    width: CONSTS.ScreenWidth-48,
-    resizeMode: 'contain',
-  },
-  c_scanningImage:{
-    width:'100%',
-    height: '100%',
-    position:'absolute',
-    top:0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 11,
-  },
-  c_touchable:{
-    width: CONSTS.ScreenWidth,
-    height: CONSTS.ScreenHeight,
-    zIndex: 10
-  },
-  c_touchableView:{
-    zIndex: 6,
-    position: "absolute",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  c_close:{
-    zIndex: 7,
-    position: 'absolute',
-    top: 64,
-    left: 32
-  },
-
-  c_background: {
-    height: CONSTS.ScreenHeight,
-    width: CONSTS.ScreenWidth,
-    position: "absolute",
-  },
-  contentContainer: {
-    backgroundColor: "#000"
-  },
-  c_scanner: {
-    width: "100%",
-    height: 3,
-    backgroundColor: "white",
-    position: "absolute",
-    zIndex: 7,
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 10,
-      height: 50
-    },
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    elevation: 13
-  },
-  c_scanner__button: {
-    zIndex: 6,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  c_scanner__container: {
-    bottom: "10%",
-    zIndex: 6,
-    position: "absolute",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-
-  c_scanner__button_container: {
-    width: 100,
-    height: 100,
-    zIndex: 7
-  }
-});
-// #endregion

@@ -7,5 +7,6 @@ const images = {
         Home: require("../assets/Index.svg"),
     },
     unknown:require('../assets/Unknown.png'),
+    points:require('../assets/points.png'),
 };
 export default images;
