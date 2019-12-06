@@ -219,7 +219,7 @@ const Stylesheet = StyleSheet.create({
   },
   c_companionPoints_container: {
     margin: 24,
-    height: CONSTS.ScreenWidth / 1.4,
+    height: CONSTS.ScreenWidth / 1.3,
     width: CONSTS.ScreenWidth / 1.4,
     top: 0
   },
