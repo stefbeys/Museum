@@ -1,6 +1,4 @@
 import {Dimensions} from 'react-native';
-
-
 const CONST={
     ScreenHeight : Dimensions.get("window").height+48,
     ScreenWidth : Dimensions.get("window").width,
@@ -23,7 +21,7 @@ const CONST={
           name: "Hugging Ducks, Sleeping Duck, LOL Duck",
           claimed: false,
           pack: 2,
-          price: 5
+          price: 400
         },
         {
           img: "pack3",
