@@ -1,6 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, Image} from 'react-native';
-import { responsiveFontSize} from "react-native-responsive-dimensions";
+import {View, Text, Image} from 'react-native';
 import CameraCompanion from './cameraCompanion'
 import CONSTANT_STRINGS from "../assets/fi/strings";
 import images from "./images";

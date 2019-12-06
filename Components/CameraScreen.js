@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Animated, Image } from "react-native";
+import { View, Animated, Image } from "react-native";
 import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
@@ -13,6 +13,7 @@ import CONSTANT_STRINGS from "../assets/fi/strings";
 import DB from "../Utils/DatabaseService";
 import CONSTS from "./Constants";
 import styles from "./stylesheet";
+import images from "./images";
 
 export default class CameraScreen extends React.Component {
   _camera;
@@ -41,7 +42,6 @@ export default class CameraScreen extends React.Component {
     this.ScanImage = this.ScanImage.bind(this);
     this.scannerAnim = new Animated.Value(0);
     this.stopScannerAnim = new Animated.Value(0);
-    this._onStartPress = this._onStartPress.bind(this);
     this._onPointsPress = this._onPointsPress.bind(this);
     this._onClosePress = this._onClosePress.bind(this);
     this._onInfoPress = this._onInfoPress.bind(this);
@@ -72,7 +72,7 @@ export default class CameraScreen extends React.Component {
             <View style={styles.c_scanningImage}>
               <Image
                 style={styles.c_scanningImage_image}
-                source={require("../assets/scanninganimal.png")}
+                source={images.scanAnimal}
               />
             </View>
           ) : null}
@@ -111,7 +111,7 @@ export default class CameraScreen extends React.Component {
               <TouchableWithoutFeedback onPress={() => this._onClosePress()}>
                 <Image
                   style={{ height: 30, width: 30 }}
-                  source={require("../assets/close.png")}
+                  source={images.cross}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -122,14 +122,12 @@ export default class CameraScreen extends React.Component {
               <TouchableWithoutFeedback
                 style={styles.c_scanner__button_container}
                 onLongPress={() => this._onLongPress()}
-                onPressIn={() => this._onStartPress()}
-                onPressOut={() => this._onStopPress()}
               >
                 <SvgUri
                   height="80"
                   width="80"
                   style={styles.c_scanner__button}
-                  source={require("../assets/scan.svg")}
+                  source={images.scan}
                 />
               </TouchableWithoutFeedback>
             </View>
@@ -160,9 +158,6 @@ export default class CameraScreen extends React.Component {
   //#region events
   _onLongPress() {
     this.ScanImage();
-  }
-
-  _onStartPress() {
     this.setState({
       displayScannerAnim: true
     });
@@ -179,9 +174,6 @@ export default class CameraScreen extends React.Component {
       ])
     ).start();
   }
-
-  _onStopPress() {}
-
   _onPointsPress() {
     this.setState({
       displayPoints: false,
@@ -226,7 +218,6 @@ export default class CameraScreen extends React.Component {
     imageresult = await ImageManipulator.manipulateAsync(imageresult.uri, [
       { resize: { height: 1920, width: 1080 } }
     ]);
-    console.warn(imageresult);
     const base64 = await Filesystem.readAsStringAsync(imageresult.uri, {
       encoding: Filesystem.EncodingType.Base64
     });
@@ -243,7 +234,6 @@ export default class CameraScreen extends React.Component {
           ...animaldata,
           image: imageresult.uri
         });
-        console.warn(test);
         if (test) {
           await db.addCredits(400);
         }

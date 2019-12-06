@@ -29,7 +29,7 @@ export default class StoreScreen extends React.Component {
     this.getCredits = this.getCredits.bind(this);
     this._onPress = this._onPress.bind(this);
     this.refreshPage = this.refreshPage.bind(this);
-    NavigationService.addParams({ refreshCredits: this.getCredits });
+    NavigationService.addParams({ refreshCredits: this.refreshPage });
   }
   async componentDidMount() {
     await this.refreshPage();
