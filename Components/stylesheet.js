@@ -57,7 +57,7 @@ const Stylesheet = StyleSheet.create({
     flexDirection: "row"
   },
   c_points_container: {
-    margin:24,
+    margin: 24,
     marginTop: 48
   },
   c_index__picture: {
@@ -80,33 +80,30 @@ const Stylesheet = StyleSheet.create({
   c_fab: {
     flex: 1,
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
-  c_tabs:{
+  c_tabs: {
     backgroundColor: "#405F7E",
     borderTopWidth: 0,
     height: 60
   },
-  c_flatlist:{
-    marginBottom:"20%"
+  c_flatlist: {
+    marginBottom: "20%"
   },
   c_points_amount: {
     fontSize: responsiveFontSize(6),
     color: "white"
   },
-
   c_points_pts: {
     color: "white",
     fontSize: responsiveFontSize(2.5)
   },
-
   c_store__picture: {
     height: 150,
     resizeMode: "contain",
     width: "100%",
     marginRight: 24
   },
-
   c_store_data__name: {
     fontSize: responsiveFontSize(2.5),
     color: "white",
@@ -116,9 +113,8 @@ const Stylesheet = StyleSheet.create({
     fontSize: responsiveFontSize(2),
     flex: 1,
     color: "white",
-    width: "100%",
+    width: "100%"
   },
-
   c_index__button__claimed: {
     marginTop: 8,
     width: "100%",
@@ -128,7 +124,6 @@ const Stylesheet = StyleSheet.create({
     backgroundColor: "#ffffff77",
     borderRadius: 5
   },
-
   c_index__button_text__claimed: {
     color: "#405F7E"
   },
@@ -168,7 +163,6 @@ const Stylesheet = StyleSheet.create({
     top: 64,
     left: 32
   },
-
   c_scanner: {
     width: "100%",
     height: 3,
@@ -197,59 +191,248 @@ const Stylesheet = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-
   c_scanner__button_container: {
     width: 100,
     height: 100,
     zIndex: 7
   },
-  //#endregion
-  
-
-  c_container:{
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems:'center',
-    width: '100%',
-    height: '100%',
-    top: CONSTS.ScreenHeight/2.5,
-    zIndex: 8,
-    
-},
-c_point_image:{
-    marginLeft:45, 
-    height: 250, 
+  c_container: {
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    top: CONSTS.ScreenHeight / 2.5,
+    zIndex: 8
+  },
+  c_point_image: {
+    marginLeft: 45,
+    height: 250,
     width: 250
-},
-c_companionPoints_overall_container:{
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems:'center',
+  },
+  c_companionPoints_overall_container: {
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 15,
     marginTop: 12
-},
-
-c_companionPoints_container:{
-    margin:24,        
-    height: CONSTS.ScreenWidth/1.3,
-    width: CONSTS.ScreenWidth/1.4,
-    top: 0,
-},
-c_companionPoints_1:{
+  },
+  c_companionPoints_container: {
+    margin: 24,
+    height: CONSTS.ScreenWidth / 1.4,
+    width: CONSTS.ScreenWidth / 1.4,
+    top: 0
+  },
+  c_companionPoints_1: {
     fontSize: responsiveFontSize(3.5),
+    marginBottom: 24
+  },
+  c_companionPoints_2_1: {
+    fontSize: responsiveFontSize(5)
+  },
+  c_companionPoints_2_2: {
+    fontSize: responsiveFontSize(1.5)
+  },
+  c_shortInfo__touchable: {
+    width: CONSTS.ScreenWidth,
+    height: CONSTS.ScreenHeight,
+    zIndex: 10,
+    backgroundColor: "white"
+  },
+  c_shortInfo__img: {
+    margin: 24,
+    height: CONSTS.ScreenWidth / 2,
+    width: CONSTS.ScreenWidth / 2,
+    top: 0,
+    backgroundColor: "white",
+    borderRadius: 15
+  },
+  c_shortInfo: {
+    height: CONSTS.ScreenWidth / 1.4,
+    width: CONSTS.ScreenWidth / 1.4,
+    top: 0,
+    marginTop: 0,
+    top: -150
+  },
+  c_shortInfo__title: {
+    fontSize: responsiveFontSize(3),
+    marginLeft: 24,
+    marginRight: 24
+  },
+  c_shortInfo__name: {
+    fontSize: responsiveFontSize(3.5),
+    marginLeft: 24,
+    marginBottom: 12,
+    marginRight: 24
+  },
+  c_shortInfo__data: {
+    fontSize: responsiveFontSize(1.7),
+    marginBottom: 8,
+    marginLeft: 24,
+    marginRight: 24
+  },
+  c_shortInfo__data_1: {
+    fontSize: responsiveFontSize(1.7),
+    marginLeft: 24,
+    marginRight: 24
+  },
+  c_shortInfo__data_last: {
+    fontSize: responsiveFontSize(1.7),
+    marginLeft: 24,
     marginBottom: 24,
-    marginTop: 24
-},
-c_companionPoints_2_1:{
-    fontSize: responsiveFontSize(5),
-},
-c_companionPoints_2_2:{
-    fontSize: responsiveFontSize(1.5),
-},
+    marginRight: 24
+  },
+  c_companion_touch: {
+    position: "absolute",
+    height: CONSTS.ScreenHeight,
+    width: CONSTS.ScreenWidth,
+    zIndex: 5
+  },
+  c_companion_upper_cover: {
+    width: CONSTS.ScreenWidth,
+    height: 35,
+    position: "absolute",
+    backgroundColor: "#000000B3"
+  },
 
+  c_companion_container: {
+    width: CONSTS.ScreenWidth,
+    height: CONSTS.ScreenHeight,
+    position: "absolute",
+    zIndex: 4
+  },
 
+  c_companion__cover: {
+    width: CONSTS.ScreenWidth,
+    height: CONSTS.ScreenHeight - 200,
+    position: "absolute",
+    backgroundColor: "#000000B3",
+    bottom: 0
+  },
 
+  c_companionContainer: {
+    backgroundColor: "white",
+    borderTopRightRadius: 15,
+    borderTopLeftRadius: 15,
+    position: "absolute",
+    width: "100%",
+    height: 235,
+    bottom: -50,
+    flex: 1,
+    flexDirection: "row",
+    display: "none"
+  },
+
+  c_companion: {
+    margin: 12,
+    marginTop: 24,
+    height: 140,
+    width: 140,
+    resizeMode: "contain"
+  },
+
+  c_companion__text_container: {
+    marginTop: 24,
+    marginLeft: 12,
+    width: "50%"
+  },
+
+  c_companion__title: {
+    fontSize: responsiveFontSize(3.5)
+  },
+
+  c_companion__text: {
+    fontSize: responsiveFontSize(2),
+    marginBottom: 12
+  },
+  contentContainer: {
+    flex: 1
+  },
+
+  c_infoScreen_image: {
+    width: "100%",
+    height: CONSTS.ScreenWidth
+  },
+  c_infoScreen__name: {
+    color: "white",
+    marginBottom: 12,
+    fontSize: responsiveFontSize(4)
+  },
+  c_infoScreen__title: {
+    color: "white",
+    marginTop: 12,
+    fontSize: responsiveFontSize(2.7)
+  },
+  c_infoScreen__appearance: {
+    color: "white",
+    fontSize: responsiveFontSize(1.8)
+  },
+  c_infoScreen__diet: {
+    color: "white",
+    fontSize: responsiveFontSize(1.8)
+  },
+  c_infoScreen__behaviour: {
+    color: "white",
+    fontSize: responsiveFontSize(1.8)
+  },
+  c_infoScreen__endangerment: {
+    color: "white",
+    fontSize: responsiveFontSize(1.8)
+  },
+  c_infoScreen__container: {
+    margin: 24,
+    marginTop: 124
+  },
+
+  c_infoScreen__name_container: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  c_close: {
+    zIndex: 2,
+    position: "absolute",
+    top: 64,
+    left: 32
+  },
+  c_fab_container: {
+    zIndex: 100,
+    width: 50,
+    height: 50,
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    position: "absolute",
+    right: 25,
+    bottom: 25
+  },
+  c_fab: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 10,
+    borderRadius: 50,
+    borderWidth: 0,
+    width: 56,
+    height: 56,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#87AAD2"
+  },
+  c_fab__icon: {
+    resizeMode: "contain",
+    width: 30,
+    marginRight: 2
+  },
+  //#endregion
   //#region utilities
+  u_margin_bottom: {
+    marginBottom: 12
+  },
   u_status_margin: {
     marginTop: 48
   },

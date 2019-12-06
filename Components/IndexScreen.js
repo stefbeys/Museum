@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableHighlight } from "react-native";
 import Images from "./images";
 import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
-import FAB from "./TestComponent";
+import FAB from "./FABComponent";
 import SvgUri from "react-native-svg-uri";
 import CustomList from "./CustomList";
 import CONSTS from "./Constants";
