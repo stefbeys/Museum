@@ -41,7 +41,7 @@ const Stylesheet = StyleSheet.create({
   //#endregion
   //#region components
   c_background: {
-    height: CONSTS.ScreenHeight,
+    height: CONSTS.ScreenHeight + 48,
     width: CONSTS.ScreenWidth,
     position: "absolute"
   },
@@ -152,7 +152,7 @@ const Stylesheet = StyleSheet.create({
   },
   c_touchable: {
     width: CONSTS.ScreenWidth,
-    height: CONSTS.ScreenHeight,
+    height: CONSTS.ScreenHeight + 48,
     zIndex: 10
   },
   c_touchableView: {
@@ -217,7 +217,9 @@ const Stylesheet = StyleSheet.create({
     
 },
 c_point_image:{
-    marginLeft:45, height: 250, width: 250
+    marginLeft:45, 
+    height: 250, 
+    width: 250
 },
 c_companionPoints_overall_container:{
     backgroundColor: 'white',
@@ -229,13 +231,14 @@ c_companionPoints_overall_container:{
 
 c_companionPoints_container:{
     margin:24,        
-    height: CONSTS.ScreenWidth/1.4,
+    height: CONSTS.ScreenWidth/1.3,
     width: CONSTS.ScreenWidth/1.4,
     top: 0,
 },
 c_companionPoints_1:{
     fontSize: responsiveFontSize(3.5),
-    marginBottom: 24
+    marginBottom: 24,
+    marginTop: 24
 },
 c_companionPoints_2_1:{
     fontSize: responsiveFontSize(5),

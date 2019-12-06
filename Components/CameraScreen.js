@@ -63,7 +63,7 @@ export default class CameraScreen extends React.Component {
       return (
         <View style={{ flex: 1 }}>
           {this.state.displayScannerAnim ? (
-            <Animated.View style={{ top: this.scannerAnim }}>
+            <Animated.View style={{top: this.scannerAnim }}>
               <View style={styles.c_scanner}></View>
             </Animated.View>
           ) : null}
@@ -169,7 +169,7 @@ export default class CameraScreen extends React.Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.scannerAnim, {
-          toValue: CONSTS.ScreenHeight - 2,
+          toValue: CONSTS.ScreenHeight + 32,
           duration: 3000
         }),
         Animated.timing(this.scannerAnim, {
