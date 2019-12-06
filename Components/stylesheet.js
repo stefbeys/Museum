@@ -225,7 +225,8 @@ const Stylesheet = StyleSheet.create({
   },
   c_companionPoints_1: {
     fontSize: responsiveFontSize(3.5),
-    marginBottom: 24
+    marginBottom: 24,
+    marginTop: 24
   },
   c_companionPoints_2_1: {
     fontSize: responsiveFontSize(5)
