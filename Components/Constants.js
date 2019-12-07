@@ -14,21 +14,21 @@ const CONST={
           name: "Proud Duck, Proud Duck V2, Kvaak Duck",
           pack: 1,
           claimed: false,
-          price: 400
+          price: 2500
         },
         {
           img: "pack2",
           name: "Hugging Ducks, Sleeping Duck, LOL Duck",
           claimed: false,
           pack: 2,
-          price: 400
+          price: 6700
         },
         {
           img: "pack3",
           name: "Moikka Duck, Moikkelis Duck, Laughing Duck",
           claimed: false,
           pack: 3,
-          price: 800
+          price: 4000
         }
       ],
 }

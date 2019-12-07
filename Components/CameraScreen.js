@@ -21,6 +21,7 @@ export default class CameraScreen extends React.Component {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     displayScannerAnim: false,
+    displayImage: false,
     displayPoints: false,
     displayInfo: false,
     displayScanner: true,
@@ -62,8 +63,11 @@ export default class CameraScreen extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
+          {this.state.displayImage ? (
+            <Image source={this.state.image} style={styles.c_camera__image} />
+          ) : null}
           {this.state.displayScannerAnim ? (
-            <Animated.View style={{top: this.scannerAnim }}>
+            <Animated.View style={{ top: this.scannerAnim }}>
               <View style={styles.c_scanner}></View>
             </Animated.View>
           ) : null}
@@ -218,6 +222,10 @@ export default class CameraScreen extends React.Component {
     imageresult = await ImageManipulator.manipulateAsync(imageresult.uri, [
       { resize: { height: 1920, width: 1080 } }
     ]);
+    this.setState({
+      image: { isstatic: true, uri: imageresult.uri },
+      displayImage: true
+    });
     const base64 = await Filesystem.readAsStringAsync(imageresult.uri, {
       encoding: Filesystem.EncodingType.Base64
     });
@@ -241,6 +249,7 @@ export default class CameraScreen extends React.Component {
           displayPoints: true,
           displayScanner: false,
           displayInfo: false,
+          displayImage: false,
           displayScannerAnim: false,
           name: animaldata.name,
           appearance: animaldata.appearance,
@@ -250,20 +259,21 @@ export default class CameraScreen extends React.Component {
           sizeL: animaldata["length"],
           sizeW: animaldata.width,
           dietShort: animaldata.dietShort,
-          region: animaldata.region,
-          image: { isstatic: true, uri: imageresult.uri }
+          region: animaldata.region
         });
       } else {
         this.setState({
           displayPoints: false,
           displayScanner: true,
           displayInfo: false,
+          displayImage: false,
           displayScannerAnim: false
         });
       }
     } catch (e) {
       this.setState({
         displayPoints: false,
+        displayImage: false,
         displayScanner: true,
         displayInfo: false,
         displayScannerAnim: false
