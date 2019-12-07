@@ -210,6 +210,14 @@ const Stylesheet = StyleSheet.create({
     height: 250,
     width: 250
   },
+  c_camera__image:{
+    position:"absolute",
+    flex:1,
+    top:0,
+    width:"100%",
+    height:"100%",
+    zIndex:10
+  },
   c_companionPoints_overall_container: {
     backgroundColor: "white",
     justifyContent: "center",

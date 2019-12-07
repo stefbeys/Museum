@@ -9,7 +9,6 @@ import images from "./images";
 import CONSTS from "./Constants";
 import styles from "./stylesheet";
 
-const soundObject = new Audio.Sound();
 const HEADER_EXPANDED_HEIGHT = CONSTS.ScreenWidth;
 const HEADER_COLLAPSED_HEIGHT = 108;
 
@@ -44,6 +43,7 @@ export class ShakeEventExpo {
 }
 
 export default class InfoScreen extends React.Component {
+  soundObject;
   //#region component functions
   constructor(props) {
     super(props);
@@ -51,25 +51,29 @@ export default class InfoScreen extends React.Component {
     this._onClosePress = this._onClosePress.bind(this);
   }
   async componentWillUnmount() {
-    soundObject.setOnPlaybackStatusUpdate(null);
-    await soundObject.stopAsync();
-    await soundObject.unloadAsync();
-    ShakeEventExpo.removeListener();
+    if (this.soundObject != null) {
+      this.soundObject.setOnPlaybackStatusUpdate(null);
+      await this.soundObject.stopAsync();
+      await this.soundObject.unloadAsync();
+      ShakeEventExpo.removeListener();
+    }
   }
   async componentDidMount() {
-    await soundObject.loadAsync(require("../assets/Ristisorsa.mp3"));
     this.state = {
       isplaying: false
     };
-    soundObject.setOnPlaybackStatusUpdate(status => {
-      this.setState({ isplaying: status.isPlaying });
-    });
-  }
+    const file = images.soundfiles[NavigationService.getParam("selectedName")];
+    if (file != undefined && file != null) {
+      this.soundObject = new Audio.Sound();
 
-  componentWillMount() {
-    ShakeEventExpo.addListener(() => {
-      this.playSound();
-    });
+      ShakeEventExpo.addListener(() => {
+        this.playSound();
+      });
+      await this.soundObject.loadAsync(file);
+      this.soundObject.setOnPlaybackStatusUpdate(status => {
+        this.setState({ isplaying: status.isPlaying });
+      });
+    }
   }
   render() {
     const headerHeight = this.scrollY.interpolate({
@@ -136,13 +140,9 @@ export default class InfoScreen extends React.Component {
   //#endregion
   //#region methods
   async playSound() {
-    try {
-      if (!this.state.isplaying) {
-        await soundObject.setPositionAsync(0);
-        await soundObject.playAsync();
-      }
-    } catch (e) {
-      console.warn(e);
+    if (!this.state.isplaying) {
+      await this.soundObject.setPositionAsync(0);
+      await this.soundObject.playAsync();
     }
   }
   //#endregion
