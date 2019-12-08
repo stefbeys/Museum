@@ -1,4 +1,7 @@
 const CONSTANT_STRINGS = {
+	//IndexScreen
+	Click_INFO: 'Napauta saadaksesi lisäinfoa',
+    UNKNOWN: "Et ole löytänyt tätä lajia vielä",
     //camerascreen
     NO_ACCESS_CAMERA: 'Ei pääsyä kameraan',
     //companionIndex
@@ -11,6 +14,7 @@ const CONSTANT_STRINGS = {
     Not_ENOUGH_PT:'Ei tarpeeksi pisteitä',
     CLAIM: 'Osta',
     CLAIMED: 'Ostettu'
+	//InfoScreen
 }
 
 export default CONSTANT_STRINGS
