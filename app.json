@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "MuseumApp",
-    "slug": "MuseumApp",
+    "name": "Luontotalo Arkki",
+    "slug": "LuontotaloArkki",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
