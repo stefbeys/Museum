@@ -6136,6 +6136,11 @@ react-native-web@^0.11.7:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
+react-native-whatsapp-stickers@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-whatsapp-stickers/-/react-native-whatsapp-stickers-2.0.2.tgz#ce56e50a8df06791079b69db167d1c918ebc3def"
+  integrity sha512-V1XX34AFyYT6aWJuFdIPtjcP3/SaD0tBNNGipsBs1QpGPrAS6GD345pJeZOZYBOA+UTDdXBGKWAvcYP3RdEq7A==
+
 react-native@0.59.10:
   version "0.59.10"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.59.10.tgz#352f381e382f93a0403be499c9e384bf51c2591c"

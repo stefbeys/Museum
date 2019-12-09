@@ -3,6 +3,7 @@ package com.luontotaloarkki;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.jobeso.RNWhatsAppStickers.RNWhatsAppStickersPackage;
 import com.entria.views.RNViewOverflowPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
@@ -46,6 +47,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNWhatsAppStickersPackage(),
             new RNViewOverflowPackage(),
             new VectorIconsPackage(),
             new SvgPackage(),

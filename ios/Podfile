@@ -42,4 +42,6 @@ target 'luontotaloarkki' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-whatsapp-stickers', :path => '../node_modules/react-native-whatsapp-stickers'
+
 end

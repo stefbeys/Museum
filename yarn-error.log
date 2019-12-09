@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Stef\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js remove react-native-svg-uri
+  C:\Program Files\nodejs\node.exe C:\Users\Stef\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-whatsapp-stickers
 
 PATH: 
   C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Users\Stef\AppData\Local\Android\Sdk\platform-tools;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Users\Stef\AppData\Local\Yarn\bin;C:\Program Files\Java\jdk-13.0.1\bin;C:\Program Files\nodejs\;C:\Users\Stef\.windows-build-tools\python27\;C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\Stef\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\Stef\AppData\Roaming\npm\node_modules\.bin;C:\Users\Stef\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\Stef\AppData\Local\Programs\Python\Python36\;C:\Users\Stef\AppData\Local\Microsoft\WindowsApps;D:\vsCode\Microsoft VS Code\bin;C:\Users\Stef\.dotnet\tools;D:\Program Files\heroku\bin;C:\Users\Stef\AppData\Roaming\npm
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'D:\Mobile Project\Code\node_modules\react-native-svg-uri\screenshoots'
+  Error: EPERM: operation not permitted, unlink 'D:\Mobile Project\Code\node_modules\@babel\plugin-transform-runtime\node_modules\.bin'
 
 npm manifest: 
   {
@@ -6144,13 +6144,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
     integrity sha512-pWvZFlyIHiuxLugLioq97vXiaGSovFXEyxt76wQtbq0gxv4dGXMPqYow46UmpwOgeJpBhqL1E0EKxnfJRrFz5w==
   
-  react-native-svg-uri@^1.2.3:
-    version "1.2.3"
-    resolved "https://registry.yarnpkg.com/react-native-svg-uri/-/react-native-svg-uri-1.2.3.tgz#2f67f30564068a0fee68a751845332a5185a1aab"
-    integrity sha1-L2fzBWQGig/uaKdRhFMypRhaGqs=
-    dependencies:
-      xmldom "^0.1.22"
-  
   react-native-svg@9.9.5:
     version "9.9.5"
     resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.5.tgz#5f9fa196ac78ac10c0ce85152e429dba98353904"
@@ -7800,7 +7793,7 @@ Lockfile:
     dependencies:
       sax "~1.1.1"
   
-  xmldom@0.1.x, xmldom@^0.1.22:
+  xmldom@0.1.x:
     version "0.1.27"
     resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
     integrity sha1-1QH5ezvbQDr4757MIFcxh6rawOk=

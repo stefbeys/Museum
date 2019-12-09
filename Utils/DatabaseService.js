@@ -54,7 +54,7 @@ export default class DB {
     if (result != null) {
       return parseInt(result);
     } else {
-      return null;
+      return 0;
     }
   }
   async saveIntData(key, value) {
@@ -129,14 +129,21 @@ export default class DB {
   }
   async getCompanion(page) {
     const object = await this.getJsonData(this.Companionkey);
-    if(object==null){
+    if(object==null||object[page]==null){
       await this.saveCompanion(page,false);
       return false;
     }
     return object[page];
   }
   async saveCompanion(page, value) {
-    const object = await this.getJsonData(this.Companionkey);
+    let object = await this.getJsonData(this.Companionkey);
+    if(object==null){
+      object={
+        index: false,
+        info: false,
+        store: false
+      }
+    }
     object[page] = value;
     await this.saveJsonData(this.Companionkey, object);
   }
