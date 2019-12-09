@@ -1,0 +1,58 @@
+{
+  "sticker_packs": [
+    {
+      "identifier": "pack1",
+      "name": "Proud Duck, Proud Duck V2, Kvaak Duck",
+      "publisher": "Metropolia",
+      "tray_image_file": "tray_icon.png",
+      "publisher_email": "stef.beys@student.howest.be",
+      "stickers": [
+        {
+          "image_file": "1.webp"
+        },
+        {
+          "image_file": "2.webp"
+        },
+        {
+          "image_file": "3.webp"
+        }
+      ]
+    },
+    {
+      "identifier": "pack2",
+      "name": "Hugging Ducks, Sleeping Duck, LOL Duck",
+      "publisher": "Metropolia",
+      "tray_image_file": "tray_icon.png",
+      "publisher_email": "stef.beys@student.howest.be",
+      "stickers": [
+        {
+          "image_file": "1.webp"
+        },
+        {
+          "image_file": "2.webp"
+        },
+        {
+          "image_file": "3.webp"
+        }
+      ]
+    },
+    {
+      "identifier": "pack3",
+      "name": "Moikka Duck, Moikkelis Duck, Laughing Duck",
+      "publisher": "Metropolia",
+      "tray_image_file": "tray_icon.png",
+      "publisher_email": "stef.beys@student.howest.be",
+      "stickers": [
+        {
+          "image_file": "1.webp"
+        },
+        {
+          "image_file": "2.webp"
+        },
+        {
+          "image_file": "3.webp"
+        }
+      ]
+    }
+  ]
+}

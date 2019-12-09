@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import NavigationService from "../Utils/NavigationService";
 import Background from "./background";
 import Stickers from "./stickers";
@@ -16,7 +15,8 @@ import DB from "../Utils/DatabaseService";
 import CONSTS from "./Constants";
 import styles from './stylesheet';
 import images from "./images";
-
+import RNWhatsAppStickers  from 'react-native-whatsapp-stickers';
+import { Platform } from "@unimodules/core";
 export default class StoreScreen extends React.Component {
   _db = new DB();
   //#region Component functions
@@ -114,13 +114,14 @@ export default class StoreScreen extends React.Component {
   //#region events
   async _onPress(item) {
     if (!item.claimed && item.price <= this.state.credits) {
-      try {
-        const buypack = item.pack;
         //buy price here
-        await this._db.buyStickerPack(item);
-        this.refreshPage();
-      } catch (e) {
-        console.warn(e);
+        if(await RNWhatsAppStickers.isWhatsAppAvailable()){
+        if(Platform.OS==="android"){
+          RNWhatsAppStickers.send(item.img, item.name).then(async ()=>{
+            await this._db.buyStickerPack(item);
+            this.refreshPage();
+          }).catch(e=>console.warn(e));
+        }   
       }
     }
   }
@@ -129,11 +130,9 @@ export default class StoreScreen extends React.Component {
 //#region taboptions
 StoreScreen.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
-    <SvgUri
-      height="30"
-      width="30"
-      fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
-      source={require("../assets/Store.svg")}
+    <Image
+    style={{height:30,width:30}}
+      source={require("../assets/Store.png")}
     />
   )
 };

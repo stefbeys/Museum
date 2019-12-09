@@ -29,6 +29,9 @@
       "permissions": [
         "CAMERA"
       ]
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Luontotalo Arkki",
+  "name": "luontotaloarkki"
 }
