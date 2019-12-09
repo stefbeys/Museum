@@ -1,6 +1,6 @@
 import {Dimensions} from 'react-native';
 const CONST={
-    ScreenHeight : Dimensions.get("window").height+48,
+    ScreenHeight : Dimensions.get("window").height,
     ScreenWidth : Dimensions.get("window").width,
     ENDPOINT: "http://192.168.0.176/api/",
     SCREENS:{
