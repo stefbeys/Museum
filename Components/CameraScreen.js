@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Animated, Image } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -127,10 +126,8 @@ export default class CameraScreen extends React.Component {
                 style={styles.c_scanner__button_container}
                 onLongPress={() => this._onLongPress()}
               >
-                <SvgUri
-                  height="80"
-                  width="80"
-                  style={styles.c_scanner__button}
+                <Image
+                  style={[styles.c_scanner__button,{height:80,width:80}]}
                   source={images.scan}
                 />
               </TouchableWithoutFeedback>

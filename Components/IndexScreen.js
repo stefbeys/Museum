@@ -4,7 +4,6 @@ import Images from "./images";
 import Background from "./background";
 import NavigationService from "../Utils/NavigationService";
 import FAB from "./FABComponent";
-import SvgUri from "react-native-svg-uri";
 import CustomList from "./CustomList";
 import CONSTS from "./Constants";
 import DB from "../Utils/DatabaseService";
@@ -164,10 +163,8 @@ export default class IndexScreen extends React.Component {
 }
 IndexScreen.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
-    <SvgUri
-      height="30"
-      width="30"
-      fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
+    <Image
+      style={{height:30,width: 30}}
       source={images.svg.Home}
     />
   )

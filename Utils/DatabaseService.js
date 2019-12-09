@@ -129,6 +129,10 @@ export default class DB {
   }
   async getCompanion(page) {
     const object = await this.getJsonData(this.Companionkey);
+    if(object==null){
+      await this.saveCompanion(page,false);
+      return false;
+    }
     return object[page];
   }
   async saveCompanion(page, value) {

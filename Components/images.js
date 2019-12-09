@@ -10,13 +10,13 @@ const images = {
     2: require("../assets/Background2L.png")
   },
   svg: {
-    Home: require("../assets/Index.svg")
+    Home: require("../assets/Index.png")
   },
   unknown: require("../assets/Unknown.png"),
   points: require("../assets/points.png"),
   scanAnimal: require("../assets/scanninganimal.png"),
   cross: require("../assets/close.png"),
-  scan: require("../assets/scan.svg"),
+  scan: require("../assets/scan.png"),
   companion:require("../assets/will.png"),
   fab:require("./../assets/cam.png"),
 };

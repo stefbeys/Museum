@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
-import SvgUri from "react-native-svg-uri";
 import NavigationService from "../Utils/NavigationService";
 import Background from "./background";
 import Stickers from "./stickers";
@@ -129,11 +128,9 @@ export default class StoreScreen extends React.Component {
 //#region taboptions
 StoreScreen.navigationOptions = {
   tabBarIcon: ({ tintColor }) => (
-    <SvgUri
-      height="30"
-      width="30"
-      fill={"#FFFFFF" ? tintColor : "#A8A8A8"}
-      source={require("../assets/Store.svg")}
+    <Image
+    style={{height:30,width:30}}
+      source={require("../assets/Store.png")}
     />
   )
 };
