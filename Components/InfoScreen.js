@@ -8,6 +8,7 @@ import { Audio } from "expo-av";
 import images from "./images";
 import CONSTS from "./Constants";
 import styles from "./stylesheet";
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 const HEADER_EXPANDED_HEIGHT = CONSTS.ScreenWidth;
 const HEADER_COLLAPSED_HEIGHT = 108;
@@ -117,19 +118,19 @@ export default class InfoScreen extends React.Component {
               {NavigationService.getParam("selectedName")}
             </Text>
           </View>
-          <Text style={styles.c_infoScreen__title}>Appearance</Text>
+          <Text style={styles.c_infoScreen__title}>{CONSTANT_STRINGS.APPEARANCE}</Text>
           <Text style={styles.c_infoScreen__appearance}>
             {NavigationService.getParam("selectedAppearance")}
           </Text>
-          <Text style={styles.c_infoScreen__title}>Diet</Text>
+          <Text style={styles.c_infoScreen__title}>{CONSTANT_STRINGS.DIET}</Text>
           <Text style={styles.c_infoScreen__diet}>
             {NavigationService.getParam("selectedDiet")}
           </Text>
-          <Text style={styles.c_infoScreen__title}>Behaviour</Text>
+          <Text style={styles.c_infoScreen__title}>{CONSTANT_STRINGS.BEHAVIOUR}</Text>
           <Text style={styles.c_infoScreen__behaviour}>
             {NavigationService.getParam("selectedBehaviour")}
           </Text>
-          <Text style={styles.c_infoScreen__title}>Endangerment</Text>
+          <Text style={styles.c_infoScreen__title}>{CONSTANT_STRINGS.ENDANGER}</Text>
           <Text style={styles.c_infoScreen__endangerment}>
             {NavigationService.getParam("selectedEndangerment")}
           </Text>

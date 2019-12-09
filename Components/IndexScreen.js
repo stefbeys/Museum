@@ -7,7 +7,7 @@ import FAB from "./FABComponent";
 import CustomList from "./CustomList";
 import CONSTS from "./Constants";
 import DB from "../Utils/DatabaseService";
-import CONSTANT_STRINGS from "../assets/en/strings";
+import CONSTANT_STRINGS from "../assets/fi/strings";
 import images from "./images";
 import styles from "./stylesheet";
 

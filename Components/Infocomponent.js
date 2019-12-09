@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Animated, Easing } from "react-native";
 import Fade from "react-native-fade";
 import styles from "./stylesheet";
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 export default class InfoComponent extends React.Component {
   constructor(props) {
@@ -60,21 +61,21 @@ export default class InfoComponent extends React.Component {
             <View style={styles.c_shortInfo}>
               <View style={{ backgroundColor: "white", borderRadius: 15 }}>
                 <Text style={styles.c_shortInfo__name}>{this.props.name}</Text>
-                <Text style={styles.c_shortInfo__title}>Size</Text>
+                <Text style={styles.c_shortInfo__title}>{CONSTANT_STRINGS.SIZE}</Text>
                 <Text style={styles.c_shortInfo__data_1}>
-                  Length: {this.props.sizeL}
+                {CONSTANT_STRINGS.LENGTH}: {this.props.sizeL}
                 </Text>
                 <Text style={styles.c_shortInfo__data}>
-                  Wingspan: {this.props.sizeW}
+                {CONSTANT_STRINGS.WING}: {this.props.sizeW}
                 </Text>
-                <Text style={styles.c_shortInfo__title}>Diet</Text>
+                <Text style={styles.c_shortInfo__title}>{CONSTANT_STRINGS.DIET}</Text>
                 <Text style={styles.c_shortInfo__data}>{this.props.diet}</Text>
-                <Text style={styles.c_shortInfo__title}>Region</Text>
+                <Text style={styles.c_shortInfo__title}>{CONSTANT_STRINGS.REGION}</Text>
                 <Text style={styles.c_shortInfo__data_last}>
                   {this.props.region}
                 </Text>
                 <Text style={[styles.c_shortInfo__data, styles.u_margin_bottom]}>
-                  Tap to continue.
+                {CONSTANT_STRINGS.COMPANION_CONTINUE}
                 </Text>
               </View>
             </View>

@@ -10,6 +10,7 @@ import {
 import images from "./images";
 import styles from "./stylesheet";
 import CONSTS from './Constants';
+import CONSTANT_STRINGS from "../assets/fi/strings";
 
 export default class cameraCompanion extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class cameraCompanion extends React.Component {
                   {this.props.scanText}
                 </Text>
                 <Text style={styles.c_companion__text}>
-                  Tap anywhere to continue.
+                  {CONSTANT_STRINGS.COMPANION_CONTINUE}
                 </Text>
               </View>
             </Animated.View>

@@ -232,6 +232,7 @@ const Stylesheet = StyleSheet.create({
     top: 0
   },
   c_companionPoints_1: {
+    margin: 8,
     fontSize: responsiveFontSize(3.5),
     marginBottom: 24,
     marginTop: 24
